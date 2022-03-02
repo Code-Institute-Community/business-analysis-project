@@ -1,0 +1,62 @@
+[
+    {
+        "organisation_name": "GOOGLE",
+        "latitude": 53.27590025,
+        "longitude": -6.217248351,
+        "nace_1": "J",
+        "nace_1_label": "Information & Communication",
+        "nace_2": "J.62",
+        "nace_2_label": "Information Technology",
+        "nace_3": "J.62.09",
+        "nace_3_label": "OTHER INFORMATION TECHNOLOGY AND COMPUTER RELATED ACTIVITIES",
+        "web_address": "www.google.com"
+    },
+    {
+        "organisation_name": "MICROSOFT IRELAND OPERATIONS LIMITED",
+        "latitude": 53.26763914,
+        "longitude": -6.19930624,
+        "nace_1": "J",
+        "nace_1_label": "Information & Communication",
+        "nace_2": "J.62",
+        "nace_2_label": "Information Technology",
+        "nace_3": "J.62.01",
+        "nace_3_label": "COMPUTER PROGRAMMING ACTIVITIES",
+        "web_address": "www.microsoft.com"
+    },
+    {
+        "organisation_name": "SALESFORCE",
+        "latitude": 53.2755037,
+        "longitude": -6.219049847,
+        "nace_1": "J",
+        "nace_1_label": "Information & Communication",
+        "nace_2": "J.62",
+        "nace_2_label": "Information Technology",
+        "nace_3": "J.62.01",
+        "nace_3_label": "COMPUTER PROGRAMMING ACTIVITIES",
+        "web_address": "www.salesforce.com"
+    },
+    {
+        "organisation_name": "ACCENTURE",
+        "latitude": 53.27590025,
+        "longitude": -6.217248351,
+        "nace_1": "J",
+        "nace_1_label": "Information & Communication",
+        "nace_2": "J.62",
+        "nace_2_label": "Information Technology",
+        "nace_3": "J.62.09",
+        "nace_3_label": "OTHER INFORMATION TECHNOLOGY AND COMPUTER RELATED ACTIVITIES",
+        "web_address": "www.accenture.com"
+    },
+    {
+        "organisation_name": "SAGE TECHNOLOGIES LIMITED",
+        "latitude": 53.27116462,
+        "longitude": -6.203940176,
+        "nace_1": "J",
+        "nace_1_label": "Information & Communication",
+        "nace_2": "J.62",
+        "nace_2_label": "Information Technology",
+        "nace_3": "J.62.01",
+        "nace_3_label": "COMPUTER PROGRAMMING ACTIVITIES",
+        "web_address": "www.sagetechnologies.com"
+    }
+]
