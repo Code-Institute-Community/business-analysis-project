@@ -1,4 +1,5 @@
 import os
+import re
 from flask import (Flask, render_template, redirect, session, request, url_for)
 from flask_pymongo import PyMongo
 if os.path.exists("env.py"):
@@ -11,35 +12,20 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+# Flask-User settings
+USER_ENABLE_EMAIL = True      # Enable email authentication
+USER_ENABLE_USERNAME = True    # Enable username authentication
+USER_REQUIRE_RETYPE_PASSWORD = False    # Simplify register form
+
+# Routes
+from user import routes
 
 @app.route("/")
-def hello():
-    return "In the words of Théoden....<br>'So... it beings...'"
-
-
-""" A route to return the register page """
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    if request.method == "POST":
-        # check if username exists in the database
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
-        
-        if existing_user:
-            return redirect(url_for("register"))
-        
-        register = {
-            "username": request.form.get("username").lower(),
-            "email": request.form.get("email"),
-            "password": request.form.get("password"),
-        }
-        mongo.db.users.insert_one(register)
-        
-        # place new user in "session" cookie
-        session["user"] = request.form.get("username").lower()
-        return redirect(url_for("profile", username=session["user"]))
-
-    return render_template("register.html")
+@app.route("/get_index")
+def get_index():
+    # # businesses = list.(mongo.db.businesses.find().sort(
+    #     "_id", -1))
+    return render_template("index.html")
 
 
 if __name__ == "__main__":

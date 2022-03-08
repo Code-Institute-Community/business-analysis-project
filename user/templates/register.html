@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="text-center heading">Register</h2>
+
+<div class="row">
+	<form name="register_form">
+
+		<label for="username">Username:</label>
+		<input type="text" name="username" class="field" placeholder="Username" required>
+
+		<label for="email">Email</label>
+		<imput type="email" name="email" class="field" placeholder="Email" required>
+
+		<label for="password">Password</label>
+		<input type="password" name="password" class="field" placeholder="Password" required>
+
+		<input type="submit" value="Register" class="btn">
+
+	</form>
+</div>
+
+{% endblock %}
