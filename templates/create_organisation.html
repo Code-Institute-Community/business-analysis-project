@@ -7,9 +7,20 @@
         <label for="organisation_name" class="form-label">Organisation's name</label>
         <input type="text" class="form-control" id="organisation_name" name="organisation_name">
     </div>
+    <div class="row">
+        <div class="col mb-3">
+            <label for="longitude" class="form-label">Longitude</label>
+            <input type="text" class="form-control" id="longitude" name="longitude">
+        </div>
+        <div class="col mb-3">
+            <label for="latitude" class="form-label">Latitude</label>
+            <input type="text" class="form-control" id="latitude" name="latitude">
+        </div>
+    </div>
     <div class="mb-3">
         <label for="nace_1" class="form-label">NACE code 1</label>
         <select class="form-control" id="nace_1" name="nace_1">
+            <option value="" selected disabled>Select NACE code 1</option>
             {% for code, label in nace_1.items() %}
             <option value="{{ code }}">{{ code }} - {{ label }}</option>
             {% endfor %}
@@ -18,6 +29,7 @@
     <div class="mb-3">
         <label for="nace_2" class="form-label">NACE code 2</label>
         <select class="form-control" id="nace_2" name="nace_2">
+            <option value="" selected disabled>Select NACE code 2</option>
             {% for code, label in nace_2.items() %}
             <option value="{{ code }}">{{ code }} - {{ label }}</option>
             {% endfor %}
@@ -26,6 +38,7 @@
     <div class="mb-3">
         <label for="nace_3" class="form-label">NACE code 3</label>
         <select class="form-control" id="nace_3" name="nace_3">
+            <option value="" selected disabled>Select NACE code 3</option>
             {% for code, label in nace_3.items() %}
             <option value="{{ code }}">{{ code }} - {{ label }}</option>
             {% endfor %}
