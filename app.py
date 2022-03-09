@@ -112,6 +112,12 @@ def organisation_edit(organisation_id):
                            nace_3=nace_3)
 
 
+@app.route('/organisations/<organisation_id>/delete', methods=['GET', 'POST'])
+def organisation_delete(organisation_id):
+    mongo.db.organisations.delete_one({'_id': ObjectId(organisation_id)})
+    return redirect(url_for('get_organisations'))
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
