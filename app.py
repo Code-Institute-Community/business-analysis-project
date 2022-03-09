@@ -51,11 +51,11 @@ def get_organisations():
 def organisation_create():
     if request.method == 'POST':
         nace_1_code = request.form.get('nace_1')
-        nace_1_label = nace_codes[nace_1_code]['label']
+        nace_1_label = nace_1[nace_1_code]
         nace_2_code = request.form.get('nace_2')
-        nace_2_label = nace_codes[nace_2_code]['label']
+        nace_2_label = nace_2[nace_2_code]
         nace_3_code = request.form.get('nace_3')
-        nace_3_label = nace_codes[nace_3_code]['label']
+        nace_3_label = nace_3[nace_3_code]
 
         new_org = {
             'organisation_name': request.form.get('organisation_name'),
@@ -76,6 +76,40 @@ def organisation_create():
                                nace_1=nace_1,
                                nace_2=nace_2,
                                nace_3=nace_3)
+
+
+@app.route('/organisations/<organisation_id>/edit', methods=['GET', 'POST'])
+def organisation_edit(organisation_id):
+    if request.method == 'POST':
+        nace_1_code = request.form.get('nace_1')
+        nace_1_label = nace_1[nace_1_code]
+        nace_2_code = request.form.get('nace_2')
+        nace_2_label = nace_2[nace_2_code]
+        nace_3_code = request.form.get('nace_3')
+        nace_3_label = nace_3[nace_3_code]
+        edit_org = {
+            'organisation_name': request.form.get('organisation_name'),
+            "latitude": request.form.get('latitude'),
+            "longitude": request.form.get('longitude'),
+            "nace_1": nace_1_code,
+            "nace_1_label": nace_1_label,
+            "nace_2": nace_2_code,
+            "nace_2_label": nace_2_label,
+            "nace_3": nace_3_code,
+            "nace_3_label": nace_3_label,
+            'web_address': request.form.get('web_address'),
+        }
+        mongo.db.organisations.update_one({'_id': ObjectId(organisation_id)},
+                                          {'$set': edit_org})
+        return redirect(url_for('get_organisations'))
+
+    organisation = mongo.db.organisations.find_one(
+        {'_id': ObjectId(organisation_id)})
+    return render_template('edit_organisation.html',
+                           organisation=organisation,
+                           nace_1=nace_1,
+                           nace_2=nace_2,
+                           nace_3=nace_3)
 
 
 if __name__ == "__main__":

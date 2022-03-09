@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Edit Organization</h3>
+<form class="col s12" method="POST" action="{{ url_for('organisation_edit', organisation_id=organisation._id) }}">
+    <div class="mb-3">
+        <label for="organisation_name" class="form-label">Organisation's name</label>
+        <input type="text" class="form-control" id="organisation_name" name="organisation_name"
+            value="{{ organisation.organisation_name }}">
+    </div>
+    <div class="row">
+        <div class="col mb-3">
+            <label for="longitude" class="form-label">Longitude</label>
+            <input type="text" class="form-control" id="longitude" name="longitude"
+                value="{{ organisation.longitude }}">
+        </div>
+        <div class="col mb-3">
+            <label for="latitude" class="form-label">Latitude</label>
+            <input type="text" class="form-control" id="latitude" name="latitude" value="{{ organisation.latitude }}">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="nace_1" class="form-label">NACE code 1</label>
+        <select class="form-control" id="nace_1" name="nace_1">
+            <option value="{{ organisation.nace_1 }}" selected>{{ organisation.nace_1 }} - {{
+                nace_1[organisation.nace_1] }}</option>
+            {% for code, label in nace_1.items() %}
+            <option value="{{ code }}">{{ code }} - {{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="nace_2" class="form-label">NACE code 2</label>
+        <select class="form-control" id="nace_2" name="nace_2">
+            <option value="{{ organisation.nace_2 }}" selected>{{ organisation.nace_2 }} - {{
+                nace_2[organisation.nace_2] }}</option>
+            {% for code, label in nace_2.items() %}
+            <option value="{{ code }}">{{ code }} - {{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="nace_3" class="form-label">NACE code 3</label>
+        <select class="form-control" id="nace_3" name="nace_3">
+            <option value="{{ organisation.nace_3 }}" selected>{{ organisation.nace_3 }} - {{
+                nace_3[organisation.nace_3] }}</option>
+            {% for code, label in nace_3.items() %}
+            <option value="{{ code }}">{{ code }} - {{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="web_address" class="form-label">Web address</label>
+        <input type="text" class="form-control" id="web_address" name="web_address"
+            value="{{ organisation.web_address }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Edit organization</button>
+</form>
+{% endblock %}
