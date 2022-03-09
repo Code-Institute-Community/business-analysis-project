@@ -1,11 +1,15 @@
 autopep8==1.6.0
 click==8.0.4
 Flask==2.0.3
+Flask-Login==0.5.0
 Flask-PyMongo==2.3.0
+Flask-SQLAlchemy==2.5.1
+greenlet==1.1.2
 itsdangerous==2.1.0
 Jinja2==3.0.3
 MarkupSafe==2.1.0
 pycodestyle==2.8.0
 pymongo==4.0.2
+SQLAlchemy==1.4.32
 toml==0.10.2
 Werkzeug==2.0.3

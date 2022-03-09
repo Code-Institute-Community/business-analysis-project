@@ -1,38 +1,59 @@
 import os
 import re
-from flask import (Flask, render_template)
-from flask_pymongo import PyMongo
-# Routes
-from user import routes
-
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+# Import Flask-Login
+from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 # Import Env
 if os.path.exists("env.py"):
     import env
+
 app = Flask(__name__)
 
-# Import Env Variables
-app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
-app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
-app.secret_key = os.environ.get("SECRET_KEY")
+# replace with mongodb uri
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:////Users/betafish/Dev2/OPEN SOURCE/business-analysis-project/login-test.db'
+# add secret key to env.py
+app.config["SECRET_KEY"] = 'you_will_never_guess_this'
 
-# Import Mongo
-mongo = PyMongo(app)
+db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-# Customize User settings
-USER_ENABLE_EMAIL = True      # Enable email authentication
-USER_ENABLE_USERNAME = True    # Enable username authentication
-USER_REQUIRE_RETYPE_PASSWORD = False    # Simplify register form
-USER_ENABLE_REGISTER = True    # Enable register
+class User(UserMixin, db.Model):
+    """
+    Create a User table and test in CLI with sqlite3
+    """
 
-@app.route("/")
-@app.route("/get_index")
-def get_index():
-    # # businesses = list.(mongo.db.businesses.find().sort(
-    #     "_id", -1))
-    return render_template("index.html")
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(30), unique=True)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+@app.route('/')
+def index():
+    user = User.query.filter_by(username='Alissa').first()
+    login_user(user)
+    return 'You are now logged in!'
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return 'You are now logged out!'
+
+
+@app.route('/home')
+@login_required
+def home():
+    return 'The current user is ' + current_user.username
 
 
 if __name__ == "__main__":
-    app.run(host=os.environ.get("IP"),
-            port=int(os.environ.get("PORT")),
-            debug=True)  
+    app.run(debug=True)
