@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Organisations list</h1>
+
+{% if organisations %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">NACE code</th>
+            <th scope="col">NACE label</th>
+            <th scope="col">Web address</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for organisation in organisations %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ organisation.organisation_name }}</td>
+            <td>{{ organisation.nace_3 }}</td>
+            <td>{{ organisation.nace_3_label }}</td>
+            <td><a href={{ organisation.web_address }}>{{ organisation.web_address }}</a></td>
+            <td>
+                <a href="{{ url_for('organisation_edit', organisation_id=organisation._id) }}" class="btn light-blue tooltipped" data-position="top" data-tooltip="Edit">
+                    <i class="material-icons">edit</i>
+                </a>
+                <a href="{{ url_for('organisation_delete', organisation_id=organisation._id) }}" class="btn red tooltipped" data-position="top" data-tooltip="Delete">
+                    <i class="material-icons">delete</i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No organisations found.</p>
+{% endif %}
+<a href="{{ url_for('organisation_create') }}" class="btn">Create new organisation</a>
+{% endblock %}
