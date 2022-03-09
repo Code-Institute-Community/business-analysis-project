@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-  <form class="col s12" method="POST" action="{{ url_for('game_add') }}">
+  <form class="col s12" method="POST" action="{{ url_for('add_business') }}">
     <div class="row">
       <div class="input-field col s12">
         <input autocomplete="off" placeholder="Please enter your business name"
          id="organisation_name" name="organisation_name" type="text" class="validate" required>
-        <label for="organisation_name">Game Name</label>
+        <label for="organisation_name">Business Name</label>
       </div>
     </div>
     <!-- <div class="row">
