@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--Materialize CDN-->
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	{% block title %}
+	<title>Business Analysis Project</title>
+	{% endblock %}
+</head>
+{% block styles %}
+{% endblock %}
+
+<body>
+	<!--Start Header-->
+	<header>
+		<!--Main Navigation Goes Here-->
+		<!--./end-main-navigation-->
+	</header>
+	<!--./end-header-->
+	<!--Start Main Content-->
+	<main class="container">
+		<!--Main Content Goes Here-->
+		{% block content %}
+		{% endblock %}
+	</main>
+	<!--./end-main-content-->
+	<!--Start Footer-->
+	<footer></footer>
+	<!--./end-footer-->
+	
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="../static/js/scripts.js"></script>
+</body>
+
+</html>

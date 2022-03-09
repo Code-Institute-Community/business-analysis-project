@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Create Organization</h3>
+<form class="col s12" method="POST" action="{{ url_for('organisation_create') }}">
+    <div class="mb-3">
+        <label for="organisation_name" class="form-label">Organisation's name</label>
+        <input type="text" class="form-control" id="organisation_name" name="organisation_name">
+    </div>
+    <div class="mb-3">
+        <label for="nace_1" class="form-label">NACE code 1</label>
+        <select class="form-control" id="nace_1" name="nace_1">
+            {% for code, label in nace_1.items() %}
+            <option value="{{ code }}">{{ code }} - {{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="nace_2" class="form-label">NACE code 2</label>
+        <select class="form-control" id="nace_2" name="nace_2">
+            {% for code, label in nace_2.items() %}
+            <option value="{{ code }}">{{ code }} - {{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="nace_3" class="form-label">NACE code 3</label>
+        <select class="form-control" id="nace_3" name="nace_3">
+            {% for code, label in nace_3.items() %}
+            <option value="{{ code }}">{{ code }} - {{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="web_address" class="form-label">Web address</label>
+        <input type="text" class="form-control" id="web_address" name="web_address">
+    </div>
+    <button type="submit" class="btn btn-primary">Create new organization</button>
+</form>
+{% endblock %}
