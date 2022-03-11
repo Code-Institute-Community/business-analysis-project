@@ -1,26 +1,25 @@
 import os
 import re
-from flask import Flask, render_template
-from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
+from flask import Flask
+if os.path.exists("env.py"):
+    import env
+
+import pymongo
 
 app = Flask(__name__)
-Bootstrap(app)
+# Bootstrap(app)
 
-# # Import Env Variables
-# app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
-# app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
-# app.secret_key = os.environ.get("SECRET_KEY")
+# Import DB
+client = pymongo.MongoClient('localhost', 27017)
+db = client.test
 
-# # Import Mongo
-# mongo = PyMongo(app)
+# Import Routes
+from user import routes
+
 
 @app.route("/")
-@app.route("/get_index")
-def get_index():
-    # # businesses = list.(mongo.db.businesses.find().sort(
-    #     "_id", -1))
-    return render_template("index.html")
+def hello():
+    return "In the words of Théoden....<br>'So... it beings...'"
 
 
 if __name__ == "__main__":

@@ -18,4 +18,6 @@ class User:
         # Encrypt the password
         user['password'] = pbkdf2_sha256.encrypt(user['password'])
         
+        db.users.insert_one(user)
+        
         return jsonify(user), 200
