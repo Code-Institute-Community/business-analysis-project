@@ -1,7 +1,7 @@
 
 from flask import Flask
+# from user.models import User
 from app import app
-from user.models import User
 
 
 """ A route to return the register page """

@@ -1,28 +1,19 @@
 import os
 import re
-from flask import (Flask, render_template)
-from flask_pymongo import PyMongo
-# Routes
-from user import routes
+from flask import Flask, render_template
+from flask_bootstrap import Bootstrap
+from flask_wtf import FlaskForm
 
-# Import Env
-if os.path.exists("env.py"):
-    import env
 app = Flask(__name__)
+Bootstrap(app)
 
-# Import Env Variables
-app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
-app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
-app.secret_key = os.environ.get("SECRET_KEY")
+# # Import Env Variables
+# app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+# app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+# app.secret_key = os.environ.get("SECRET_KEY")
 
-# Import Mongo
-mongo = PyMongo(app)
-
-# Customize User settings
-USER_ENABLE_EMAIL = True      # Enable email authentication
-USER_ENABLE_USERNAME = True    # Enable username authentication
-USER_REQUIRE_RETYPE_PASSWORD = False    # Simplify register form
-USER_ENABLE_REGISTER = True    # Enable register
+# # Import Mongo
+# mongo = PyMongo(app)
 
 @app.route("/")
 @app.route("/get_index")
