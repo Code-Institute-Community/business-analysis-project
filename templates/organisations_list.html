@@ -24,10 +24,12 @@
             <td><a href={{ organisation.web_address }}>{{ organisation.web_address }}</a></td>
             <td>
                 <a href="{{ url_for('organisation_edit', organisation_id=organisation._id) }}" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                    <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-pencil-square" aria-hidden="true"></i>
+                    <span class="visually-hidden">Edit organisation</span>
                 </a>
                 <a href="{{ url_for('organisation_delete', organisation_id=organisation._id) }}" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
-                    <i class="bi bi-trash"></i>
+                    <i class="bi bi-trash" aria-hidden="true"></i>
+                    <span class="visually-hidden">Delete organisation</span>
                 </a>
             </td>
         </tr>
