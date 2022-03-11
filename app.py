@@ -6,7 +6,6 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
-from nace_codes import nace_codes, get_nace_2
 if os.path.exists('env.py'):
     import env
 
