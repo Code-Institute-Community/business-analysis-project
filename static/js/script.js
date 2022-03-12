@@ -1,21 +1,8 @@
-$("form[name=register_form").submit(function(e) {
-
-	var $form = $(this);
-	var $error = $form.find('.error');
-	var data = $form.serialize();
-
-	$.ajax({
-		url: "/user/register",
-		type: "POST",
-		data: data,
-		dataType: "json",
-		success: function(resp) {
-			console.log(resp);
-		},
-		error: function(resp) {
-			console.log(resp);
-		}
-	});
-
-	e.preventDefault();
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://alissa:Apple10@cluster0.fmzii.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("test").collection("user");
+  // perform actions on the collection object
+  client.close();
 });

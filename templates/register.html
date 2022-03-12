@@ -6,15 +6,15 @@
 <div class="card-wrapper">
 	<div class="card">
 		<h1 class="text-center">Register</h1>
-		<form name="register_form">
-			<label for="name">Name</label>
-			<input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+		<form name="register" method="POST" action="{{ url_for('register') }}">
+			<label for="username">username</label>
+			<input id="username" name="username" type="text" class="validate" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
 
 			<label for="email">Email</label>
 			<input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
 
 			<label for="password">Password</label>
-			<input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+			<input id="password" name="password" type="password" class="validate" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
 		
 			<input type="submit" value="Register" class="btn btn-primary btn-block">
 		</form>
