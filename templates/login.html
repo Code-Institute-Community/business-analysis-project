@@ -1,12 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-	login
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<h1 class="my-2 text-center">Login</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-10 offset-2">
+			<div class="card-wrapper mt-5">
+				<div class="card">
+					<form name="login" method="POST" action="{{ url_for('login') }}">
+
+						<label for="username">username</label>
+						<input id="username" name="username" type="text" class="form-control" minlength="5"
+							maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
+
+
+
+						<label for="password">Password</label>
+						<input id="password" name="password" type="password" class="form-control" minlength="5"
+							maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
+
+						<button type="submit" class="col s12 btn-large light-blue darken-4 text-shadow">
+							Log In <i class="fas fa-sign-in-alt"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<a href="{{ url_for('register') }}">register</a>
+	</div>
+</div>
+
+{% endblock %}
