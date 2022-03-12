@@ -1,28 +1,54 @@
-import os, ssl
-if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
-getattr(ssl, '_create_unverified_context', None)):ssl._create_default_https_context = ssl._create_unverified_context
-
+import os
 import re
-from flask import Flask, redirect, render_template, url_for
+from flask import (
+                   Flask, flash, redirect, render_template, 
+                   url_for, session, request, jsonify)
 from flask_pymongo import PyMongo
-
+from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
+import certifi
 if os.path.exists("env.py"):
     import env
 
 app = Flask(__name__)
-app.config["MONGO_DBNAME"] = "Test"
-app.config["MONGO_URI"] = "mongodb://alissa:Apple10@cluster0.fmzii.mongodb.net/Test?ssl=true&retryWrites=true&w=majority"
-app.secret_key = "secret_key"
 
-mongo = PyMongo(app)
+app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.secret_key = os.environ.get("SECRET_KEY")
 
-# Import Routes
-from user import routes
+mongo = PyMongo(app, tlsCAFile=certifi.where())
+collection_name = mongo.db.collection_name
+users = mongo.db.users
+
 
 @app.route("/")
-@app.route("/user/templates/register")
-def hello():
-    return render_template('register.html')
+@app.route("/index")
+def index():
+    # users = mongo.db.users.find()
+    return render_template('index.html')
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        # check if username already exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            flash("Username already exists")
+            return redirect(url_for("register"))
+
+        register = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.users.insert_one(register)
+
+        # put the new user into 'session' cookie
+        session["user"] = request.form.get("username").lower()
+        flash("Registration Successful!")
+    return render_template("register.html")
 
 
 if __name__ == "__main__":
