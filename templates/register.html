@@ -14,7 +14,7 @@
 		<form name="register" method="POST" action="{{ url_for('register') }}">
 			
 			<label for="username">username</label>
-			<input id="username" name="username" type="text" class="form-control" required>
+			<input id="username" name="username" type="text" class="form-control" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
 
 			<label for="email">Email</label>
 			<input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
