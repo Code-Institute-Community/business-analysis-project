@@ -1,9 +1,40 @@
 {% extends "base.html" %}
 
 {% block heading %}
-    <h1>All Companies</h1>
+<h1>All Companies</h1>
 {% endblock %}
 
 {% block content %}
+
+    {% if data_set|length > 0 %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Company</th>
+                        <th scope="col">Website</th>
+                        <th scope="col">Labels</th>
+                        <th scope="col">Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for company in data_set %}
+                        <tr>
+                            <td>{{ company.organisation_name }}</td>
+                            <td>{{ company.web_address }}</td>
+                            <td>{{ company.nace_3_label }}</td>
+                            <td>{{ company.latitude }}, {{ company.longitude }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+            </div>
+        </div>
+    </div>
+        <div cl
+    {% endif %}
 
 {% endblock %}
