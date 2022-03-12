@@ -1,15 +1,17 @@
 import os
-from flask import Flask
-if os.path.exists("env.py"):
-    import env
+from app import create_app
+# from flask import Flask
+# if os.path.exists("env.py"):
+#     import env
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
+app = create_app()
 
 
-@app.route("/")
-def hello():
-    return "In the words of Théoden....<br>'So... it beings...'"
+# @app.route("/")
+# def hello():
+#     return "In the words of Théoden....<br>'So... it beings...'"
 
 
 if __name__ == "__main__":
