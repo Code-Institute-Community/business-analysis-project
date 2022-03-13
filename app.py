@@ -36,9 +36,7 @@ users = mongo.db.users
 @app.route("/")
 @app.route("/index")
 def index():
-    # users = mongo.db.users.find()
     return render_template('index.html')
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
