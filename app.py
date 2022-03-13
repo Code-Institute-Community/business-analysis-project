@@ -68,6 +68,7 @@ def register():
         flash("Registration Successful!")
     return render_template("register.html", form=form)
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = Login()
@@ -98,9 +99,8 @@ def login():
 
 @app.route("/logout")
 def logout():
-    # Remove user from session cookie and redirect user to login function
     flash("You have been logged out")
-    # session.pop("user")
+    session.pop("user")
     return redirect(url_for("login"))
 
 
