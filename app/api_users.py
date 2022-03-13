@@ -30,7 +30,6 @@ def all_companies():
     categories = []
     for label in labels_list:
         categories.append({"category": label})
-    print(categories)
 
     # Search by category functionality
     # get the category from thr url
