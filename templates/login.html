@@ -1,40 +1,40 @@
 {% extends "base.html" %}
-{% block content %}
+{% import "bootstrap/wtf.html" as wtf %}
 
+{% block content %}
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-12">
 			<h1 class="my-2 text-center">Login</h1>
 		</div>
 	</div>
+</div>
+<div class="container">
 	<div class="row">
-		<div class="col-10 offset-2">
+		<div class="col-12">
 			<div class="card-wrapper mt-5">
 				<div class="card">
-					<form name="login" method="POST" action="{{ url_for('login') }}">
-
-						<label for="username">username</label>
-						<input id="username" name="username" type="text" class="form-control" minlength="5"
-							maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
-
-
-
-						<label for="password">Password</label>
-						<input id="password" name="password" type="password" class="form-control" minlength="5"
-							maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
-
-						<button type="submit" class="col s12 btn-large light-blue darken-4 text-shadow">
-							Log In <i class="fas fa-sign-in-alt"></i>
-						</button>
+					<form name="login" method="POST" class="login-form" action="{{ url_for('login') }}">
+						{{ form.hidden_tag() }}
+						{{ wtf. form_field(form.username) }}
+						{{ wtf. form_field(form.password) }}
+						{{ wtf.form_field(form.remember) }}
+						<div class="card-footer bg-transparent">
+							<div class="row" id="buttonRow">
+								<button type="submit" class="btn btn-info my-3" id="loginButton">
+									Log In <i class="fas fa-sign-in-alt"></i>
+								</button>
+							</div>
+						</div>
+						<div class="row d-flex text-center">
+							<div class="col-12">
+								<p>Don't have an account?</p>
+							<a class="link-text" href="{{ url_for('register') }}">Register</a>
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<div class="row">
-		<a href="{{ url_for('register') }}">register</a>
-	</div>
 </div>
-
 {% endblock %}

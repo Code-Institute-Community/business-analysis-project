@@ -1,0 +1,37 @@
+a.link-text {
+	text-decoration: none;
+	color: rgb(41, 158, 158);
+
+}
+
+a.link-text:hover {
+	color: rgb(16, 99, 99);
+}
+
+
+/* Authentication Forms */
+.card-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+	max-width: 60vw;
+}
+
+form.login-form, form.register-form {
+	margin: 30px 60px;
+}
+
+#loginButton, #registerButton {
+	margin-top: 20px;
+	margin-top: 20px;
+	width: fit-content;
+}
+
+#buttonRow {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
