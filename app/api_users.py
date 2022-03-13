@@ -32,5 +32,20 @@ def all_companies():
         categories.append({"category": label})
     print(categories)
 
+    # Search by category functionality
+    # get the category from thr url
+    category_selected = request.args.get('category')
+    if category_selected:
+        selected_data = []
+        # check if a company as label = category selected,
+        # and add the company data to the data_set returned to the template.
+        for data in data_set:
+            company_cat = [data["nace_1_label"].lower() + " " \
+            + data["nace_2_label"].lower() + " " \
+            + data["nace_3_label"].lower()]
+            company_cat = company_cat[0].split()
+            if category_selected in company_cat:
+                selected_data.append(data)
+        data_set = selected_data
     return render_template("all_companies.html",
                            data_set=data_set, categories=categories)

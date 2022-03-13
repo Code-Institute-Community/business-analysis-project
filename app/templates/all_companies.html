@@ -28,7 +28,11 @@
                                         {{ cat.category }}
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">all {{ cat.category }}</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ url_for('api_users.all_companies') }}?category={{ cat.category }}">
+                                                all {{ cat.category }}
+                                            </a>
+                                        </li>
                                         <li><hr class="dropdown-divider"></li>
                                         {% if cat.sub_categories %}
                                             {% for sub_category in cat.sub_categories %}

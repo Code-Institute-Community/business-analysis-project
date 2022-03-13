@@ -7,7 +7,9 @@ def aggregate_labels(data_set):
     '''Get all information from each labels in the collection'''
     labels_list = []
     for data in data_set:
-        labels_list.append(data["nace_1_label"].lower() + " " + data["nace_2_label"].lower() + " " + data["nace_3_label"].lower())
+        labels_list.append(data["nace_1_label"].lower() + " " \
+            + data["nace_2_label"].lower() + " " \
+            + data["nace_3_label"].lower())
     return labels_list
 
 def clean_labels_list(labels_list):
