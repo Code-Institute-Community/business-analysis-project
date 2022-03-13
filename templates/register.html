@@ -3,42 +3,40 @@
 
 {% block content %}
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-12">
-			<h1 class="my-2 text-center">Register</h1>
-		</div>
-	</div>
-</div>
-
-<div class="container">
-	<div class="row">
-		<div class="col-12">
-			<div class="card-wrapper mt-5">
-				<div class="card">
-					<form name="register" class="register-form" method="POST" action="{{ url_for('register') }}">
-						{{ form.hidden_tag() }}
-						{{ wtf. form_field(form.username) }}
-						{{ wtf. form_field(form.password) }}
-						{{ wtf.form_field(form.email) }}
-						<div class="card-footer bg-transparent">
-							<div class="row" id="buttonRow">
-								<button type="submit" class="btn btn-info btn-large shadow-lg my-3" id="registerButton">
-									Register <i class="fas fa-user-plus"></i>
-								</button>
+<main class="form-register">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="card-wrapper mt-5">
+					<div class="card register-card">
+						<div class="row">
+							<div class="col-12">
+								<h1 class="my-3 pt-3 mt-lg-5 text-center">Register</h1>
 							</div>
+						</div>
+						<form name="register" class="register-form" method="POST" action="{{ url_for('register') }}">
+							{{ form.hidden_tag() }}
+							{{ wtf. form_field(form.username) }}
+							{{ wtf. form_field(form.password) }}
+							{{ wtf.form_field(form.email) }}
+							<div class="card-footer bg-transparent">
+								<div class="row" id="buttonRow">
+									<button type="submit" class="btn btn-info btn-large shadow-lg my-3"
+										id="registerButton">
+										Register <i class="fas fa-user-plus"></i>
+									</button>
+								</div>
 							</div>
 							<div class="row d-flex text-center">
 								<div class="col-12">
 									<p>Already have an account?</p>
-								<a class="link-text" href="{{ url_for('login') }}">Login</a>
-							</div>
-					</form>
+									<a class="link-text" href="{{ url_for('login') }}">Login</a>
+								</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-</div>
 
+</main>
 {% endblock %}

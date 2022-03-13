@@ -2,18 +2,17 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-12">
-			<h1 class="my-2 text-center">Login</h1>
-		</div>
-	</div>
-</div>
+<main class="form-login">
 <div class="container">
 	<div class="row">
 		<div class="col-12">
 			<div class="card-wrapper mt-5">
-				<div class="card">
+				<div class="card login-card">
+					<div class="row">
+						<div class="col-12">
+							<h1 class="my-3 pt-3 mt-lg-5 text-center">Login</h1>
+						</div>
+					</div>
 					<form name="login" method="POST" class="login-form" action="{{ url_for('login') }}">
 						{{ form.hidden_tag() }}
 						{{ wtf. form_field(form.username) }}
@@ -37,4 +36,5 @@
 		</div>
 	</div>
 </div>
+</main>
 {% endblock %}
