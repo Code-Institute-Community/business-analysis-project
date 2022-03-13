@@ -1,3 +1,4 @@
+from crypt import methods
 from curses.ascii import EM
 import os
 import json
@@ -90,12 +91,14 @@ def login():
     return render_template("login.html", form=form)
 
 
-@app.route("/logout")
+# A view to render logout template and remove user from session cookie  
+@app.route("/logout", methods=["GET", "POST"])
 def logout():
-    user = session.get("user")
-    flash("You have been logged out")
-    session.pop("user")
-    return redirect(url_for("login"))
+    if request.method == "POST":
+        user = session.get("user")
+        session.pop("user", None)
+        return redirect(url_for("index"))
+    return render_template("logout.html")
 
 
 # Routes related to crud of organisations

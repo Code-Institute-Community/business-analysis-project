@@ -9,17 +9,16 @@
 		</div>
 	</div>
 	<div class="row mt-5">
-		<div class="col-8 offset-2">
-			<h4 class="display-4">Are you sure you want to logout?</h4>
+		<div class="col-8 offset-2 text-center">
+			<P>Are you sure you want to logout?</P>
 		</div>
 	</div>
 	<div class="row d-flex text-center">
 		<div class="col-12">
-			<button class="btn btn-info my-3" id="logoutButton">
-				<a href="{{ url_for('logout') }}">Logout
-				<i class="fas fa-sign-out-alt"></i>
-			</a>
-				</button>
+			<form method="POST" class="logout-form" action="{{ url_for('logout') }}">
+				<input type="submit" class="btn btn-primary" value="Logout">
+				
+			</form>
 		</div>
 	</div>
 </div>
