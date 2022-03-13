@@ -3,10 +3,10 @@
 
 <div class="row d-flex align-items-center flex-column">
     <h3 class="text-center">Create Organization</h3>
-    <form class="w-75" method="POST" action="{{ url_for('organisation_create') }}">
+    <form class="w-75" method="POST" action="{{ url_for('create_organisation') }}">
         <div class="mb-3">
             <label for="organisation_name" class="form-label">Organisation's name</label>
-            <input type="text" class="form-control" id="organisation_name" name="organisation_name">
+            <input type="text" class="form-control" id="organisation_name" name="organisation_name" required>
         </div>
         <div class="row">
             <div class="col mb-3">
@@ -20,30 +20,27 @@
         </div>
         <div class="mb-3">
             <label for="nace_1" class="form-label">NACE code 1</label>
-            <select class="form-control" id="nace_1" name="nace_1">
-                <option value="" selected disabled>Select NACE code 1</option>
-                {% for code, label in nace_1.items() %}
-                <option value="{{ code }}">{{ code }} - {{ label }}</option>
-                {% endfor %}
-            </select>
+            <input autocomplete="off" id="nace_1" name="nace_1" type="text" required>
+        </div>
+        <div class="mb-3">
+            <label for="nace_1_label" class="form-label">NACE code 1 label</label>
+            <input autocomplete="off" id="nace_1_label" name="nace_1_label" type="text" required>
         </div>
         <div class="mb-3">
             <label for="nace_2" class="form-label">NACE code 2</label>
-            <select class="form-control" id="nace_2" name="nace_2">
-                <option value="" selected disabled>Select NACE code 2</option>
-                {% for code, label in nace_2.items() %}
-                <option value="{{ code }}">{{ code }} - {{ label }}</option>
-                {% endfor %}
-            </select>
+            <input autocomplete="off" id="nace_2" name="nace_2" type="text" required>
+        </div>
+        <div class="mb-3">
+            <label for="nace_2_label" class="form-label">NACE code 2 label</label>
+            <input autocomplete="off" id="nace_2_label" name="nace_2_label" type="text" required>
         </div>
         <div class="mb-3">
             <label for="nace_3" class="form-label">NACE code 3</label>
-            <select class="form-control" id="nace_3" name="nace_3">
-                <option value="" selected disabled>Select NACE code 3</option>
-                {% for code, label in nace_3.items() %}
-                <option value="{{ code }}">{{ code }} - {{ label }}</option>
-                {% endfor %}
-            </select>
+            <input autocomplete="off" id="nace_3" name="nace_3" type="text" required>
+        </div>
+        <div class="mb-3">
+            <label for="nace_3_label" class="form-label">NACE code 3 label</label>
+            <input autocomplete="off" id="nace_3_label" name="nace_3_label" type="text" required>
         </div>
         <div class="mb-3">
             <label for="web_address" class="form-label">Web address</label>
