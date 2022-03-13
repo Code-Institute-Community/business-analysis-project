@@ -12,7 +12,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import Email, InputRequired, Length
 # Import authentication forms
-from forms import Login, Register
+from forms import LoginForm, RegisterForm
 
 # Import Flask-Bootstrap
 from flask_bootstrap import Bootstrap
@@ -40,7 +40,7 @@ def index():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    form = Register()
+    form = RegisterForm()
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
@@ -64,7 +64,7 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    form = Login()
+    form = LoginForm()
     if request.method == "POST":
         # Check if username already exists in db
         existing_user = mongo.db.users.find_one(

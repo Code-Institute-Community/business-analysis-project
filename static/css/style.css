@@ -40,7 +40,7 @@ main.form-register, main.form-login {
 }
 
 form.login-form, form.register-form {
-	margin: 30px 60px;
+	margin: 30px 80px;
 	display: block;
 }
 
