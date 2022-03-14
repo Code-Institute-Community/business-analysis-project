@@ -1,10 +1,13 @@
 from crypt import methods
 from curses.ascii import EM
+import email
 import os
 import json
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, jsonify)
+import json
+from flask_login import current_user
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,7 +16,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import Email, InputRequired, Length
 # Import authentication forms
-from forms import LoginForm, RegisterForm
+from forms import LoginForm, RegisterForm, ResetPasswordForm
 
 # Import Flask-Bootstrap
 from flask_bootstrap import Bootstrap
@@ -39,6 +42,7 @@ users = mongo.db.users
 def index():
     return render_template('index.html')
 
+# A route to render the register page and add users to database
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
@@ -60,9 +64,10 @@ def register():
         # put the new user into 'session' cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful!")
+        return redirect(url_for("index"))
     return render_template("register.html", form=form)
 
-
+# A route to render the login page and authenticate users
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
@@ -90,8 +95,7 @@ def login():
 
     return render_template("login.html", form=form)
 
-
-# A view to render logout template and remove user from session cookie  
+#A route to render logout template and remove user from session cookie  
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
     if request.method == "POST":
@@ -100,6 +104,18 @@ def logout():
         return redirect(url_for("index"))
     return render_template("logout.html")
 
+# A route to render the password reset page and reset users password
+@app.route("/reset_password", methods=["GET", "POST"])
+def reset_password():
+    form = ResetPasswordForm()
+    if request.method == "POST":
+        mongo.db.users.update_one(
+            {"username": form.username.data.lower()},
+            {"$set": {"password": generate_password_hash(form.password.data)}}
+        )
+        flash("Password Updated")
+        return redirect(url_for("login"))
+    return render_template("reset_password.html", form=form)
 
 # Routes related to crud of organisations
 @app.route('/organisations', methods=['GET', 'POST'])
