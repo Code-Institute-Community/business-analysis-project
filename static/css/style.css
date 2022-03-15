@@ -12,23 +12,24 @@ a.link-text:hover {
 /* Authentication Forms */
 
 #registerForm {
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
 }
 
-main.form-register, main.form-login {
+main.form-register,
+main.form-login {
 	display: block;
 }
 
 .card-wrapper {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 	min-width: 100%;
-    max-width: 800px;
+	max-width: 800px;
 	height: auto;
-    padding: 40px 40px;
-    margin: auto;
+	padding: 40px 40px;
+	margin: auto;
 }
 
 .card {
@@ -39,12 +40,14 @@ main.form-register, main.form-login {
 	border: .5px solid rgb(194, 194, 194);
 }
 
-form.login-form, form.register-form {
+form.login-form,
+form.register-form {
 	margin: 30px 80px;
 	display: block;
 }
 
-#loginButton, #registerButton {
+#loginButton,
+#registerButton {
 	margin-top: 20px;
 	margin-top: 20px;
 	width: fit-content;
@@ -55,4 +58,3 @@ form.login-form, form.register-form {
 	display: flex;
 	justify-content: center;
 }
-

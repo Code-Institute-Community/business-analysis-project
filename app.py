@@ -7,19 +7,17 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for, jsonify)
 import json
-from flask_login import current_user
+
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+
 # Import wtforms
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import Email, InputRequired, Length
 # Import authentication forms
 from forms import LoginForm, RegisterForm, ResetPasswordForm
-
-# Import Flask-Bootstrap
-from flask_bootstrap import Bootstrap
 # Import certifi to validate ssl certificates
 import certifi
 
@@ -27,7 +25,7 @@ if os.path.exists('env.py'):
     import env
 
 app = Flask(__name__)
-Bootstrap(app)
+
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
