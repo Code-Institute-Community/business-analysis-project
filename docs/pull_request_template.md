@@ -2,7 +2,7 @@
 
 ---
 
-👉 _**Please remove the below and replace with your own values, leaving the headers where they are.**_ 👈
+👉 _**Please remove this banner, and the below content under each header and replace with your own values, leaving the headers where they are.**_ 👈
 
 ---
 
