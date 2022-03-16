@@ -20,9 +20,6 @@ mongo = PyMongo(charts)
 
 # collection
 data_set_coll = mongo.db.SampleData
-# Graph rendering implemented with the tutorial from GeeksforGeeks
-# (https://www.geeksforgeeks.org/graph-plotting-in-python-set-1/)
-
 
 @charts.route('/charts', methods=['GET'])
 def nace_charts():
