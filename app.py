@@ -1,15 +1,20 @@
+import os, ssl
 from crypt import methods
 from curses.ascii import EM
-import email
-import os
-import json
+if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
+getattr(ssl, '_create_unverified_context', None)):ssl._create_default_https_context = ssl._create_unverified_context
+
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
+
 import json
+from werkzeug.security import generate_password_hash, check_password_hash
+from passlib.hash import pbkdf2_sha256
+
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from werkzeug.security import generate_password_hash, check_password_hash
+
 # Import wtforms
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
@@ -17,15 +22,17 @@ from wtforms.validators import Email, InputRequired, Length
 # Import authentication forms
 from forms import LoginForm, RegisterForm, ResetPasswordForm
 # Import Flask-Bootstrap
-from flask_bootstrap import Bootstrap5
+from flask_bootstrap import Bootstrap
 # Import certifi to validate ssl certificates
 import certifi
+
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 
 if os.path.exists('env.py'):
     import env
 
 app = Flask(__name__)
-bootstrap = Bootstrap5(app)
+Bootstrap(app)
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
@@ -35,10 +42,50 @@ mongo = PyMongo(app, tlsCAFile=certifi.where())
 collection_name = mongo.db.collection_name
 users = mongo.db.users
 
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+
 @app.route("/")
 @app.route("/index")
 def index():
     return render_template('index.html')
+
+
+class User(UserMixin, ):
+    
+    def __init__(self, username):
+        self.username = username
+
+    @staticmethod
+    def is_authenticated():
+        return True
+
+    @staticmethod
+    def is_active():
+        return True
+
+    @staticmethod
+    def is_anonymous():
+        return False
+
+    def get_id(self):
+        return self.username
+
+    @staticmethod
+    def check_password(password_hash, password):
+        return check_password_hash(password_hash, password)
+
+    @staticmethod
+    def check_password(password_hash, password):
+        return check_password_hash(password_hash, password)
+
+    @login_manager.user_loader
+    def load_user(username):
+        u = mongo.db.Users.find_one({"Name": username})
+        if not u:
+            return None
+        return User(username=u['Name'])
 
 # A route to render the register page and add users to database
 @app.route("/register", methods=["GET", "POST"])
@@ -46,10 +93,10 @@ def register():
     form = RegisterForm()
     if request.method == "POST":
         # check if username already exists in db
-        existing_user = mongo.db.users.find_one(
+        current_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
-        if existing_user:
+        if current_user:
             flash("Username already exists")
             return redirect(url_for("register"))
 
@@ -65,19 +112,20 @@ def register():
         return redirect(url_for("index"))
     return render_template("register.html", form=form)
 
+
 # A route to render the login page and authenticate users
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if request.method == "POST":
         # Check if username already exists in db
-        existing_user = mongo.db.users.find_one(
+        current_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
         
-        if existing_user:
+        if current_user:
             # make sure the password is correct
             if check_password_hash(
-                existing_user["password"], request.form.get("password")):
+                current_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
                     flash("Welcome, {}".format(request.form.get("username")))
                     return redirect(url_for("index"))
