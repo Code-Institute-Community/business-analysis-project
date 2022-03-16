@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 my-3">
+                <h1 class="mx-auto text-center">
+                    Nace Activity Charts
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <canvas id="nace-chart" class="charts"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('nace-chart').getContext('2d');
+        const naceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ x_axis | safe }},
+                datasets: [{
+                    label: 'Nb of companies',
+                    data: {{ values | safe }},
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+{% endblock %} 

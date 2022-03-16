@@ -20,26 +20,19 @@ mongo = PyMongo(charts)
 
 # collection
 data_set_coll = mongo.db.SampleData
-# Graph rendering implemented with the tutorial from GeeksforGeeks
-# (https://www.geeksforgeeks.org/graph-plotting-in-python-set-1/)
 
 
-@charts.route('/charts', methods=['GET'])
-def nace_charts():
+@charts.route('/chart_label_one', methods=['GET'])
+def chart_lable_one():
+    # data
     data_set = list(data_set_coll.find())
 
-    # divide query search
+    #query search
     query_activity = "nace_1"
-    query_cat = "nace_2"
-    query_sub_cat = "nace_3"
 
     activity_list = []
-    cat_list = []
-    sub_cat_list = []
     for data in data_set:
         activity_list.append(data[query_activity])
-        cat_list.append(data[query_cat])
-        sub_cat_list.append(data[query_sub_cat])
 
     # x-coordinates corresponding to the activities listed with nace code.
     # here are the code's name corresponding to 'A' and 'J'
@@ -70,7 +63,80 @@ def nace_charts():
     for activities in list_of_act_list:
         values.append(len(activities))
 
-    return render_template("charts.html", x_axis=x_axis, values=values)
+    return render_template("chart-label-one.html", x_axis=x_axis, values=values)
+
+
+@charts.route('/chart_label_two', methods=['GET'])
+def chart_lable_two():
+    # data
+    data_set = list(data_set_coll.find())
+
+    # here, considering working with broder data, would be a if statement
+    # checking for the activity passed through the url upon clicking on a link
+    # activity_selected = request.args.get('activity').lower()
+    # if activity_selected == 'j':
+
+    activity_selected = 'j'
+
+    # query search
+    query_activity = "nace_1"
+    query_cat = "nace_2"
+    query_sub_cat = "nace_3"
+
+    cat_list = []
+    sub_cat_list = []
+    for data in data_set:
+        if data[query_activity].lower() == activity_selected:
+            cat_list.append(data[query_cat])
+            sub_cat_list.append(data[query_sub_cat])
+
+    # x-coordinates corresponding to the categories of an activity listed with nace code.
+    # here are the code's name corresponding to 'J.<nb>',
+    # in corresponding order <nb>: 58, 59, 60, 61, 62, 63
+    x_axis = ['Publishing activities',
+              'Motion picture, video and television programme production, \
+              sound recording and music publishing activities',
+              'Programming and broadcasting activities',
+              '	Telecommunications',
+              'Computer programming, consultancy and related activities',
+              'Information service activities']
+
+    # heights of bars
+    # create list of category list,
+    fifty_height = []
+    fifty_nine = []
+    sixty = []
+    sixty_one = []
+    sixty_two = []
+    sixty_three = []
+
+
+    list_of_cat_list = [fifty_height, fifty_nine, sixty,
+                        sixty_one, sixty_two, sixty_three]
+
+    # add the activity to the corresponding list
+    for cat in cat_list:
+        if cat == "J.58":
+            fifty_height.append(cat)
+        elif cat == "J.59":
+            fifty_nine.append(cat)
+        elif cat == "J.60":
+            sixty.append(cat)
+        elif cat == "J.61":
+            sixty_one.append(cat)
+        elif cat == "J.62":
+            sixty_two.append(cat)
+        elif cat == "J.63":
+            sixty_three.append(cat)
+
+    # number of items per list
+    values = []
+
+    # get the number of companies per  activity
+    for categories in list_of_cat_list:
+        values.append(len(categories))
+
+    return render_template("chart-label-two.html", x_axis=x_axis, values=values)
 
 
 if __name__ == "__main__":
