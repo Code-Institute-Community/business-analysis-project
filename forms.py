@@ -19,6 +19,6 @@ class LoginForm(FlaskForm):
 ''' A form to reset a user's password. '''
 class ResetPasswordForm(FlaskForm):
     username = StringField('Enter Your Name', validators=[InputRequired()])
-    password = PasswordField('New Password', validators=[InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired()])
     confirm_password = PasswordField('Confirm New Password', validators=[InputRequired()])
 # End of forms.py

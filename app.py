@@ -6,7 +6,7 @@ getattr(ssl, '_create_unverified_context', None)):ssl._create_default_https_cont
 
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, jsonify)
 
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -44,15 +44,25 @@ users = mongo.db.users
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+db = mongo.db
 
-
-@app.route("/")
-@app.route("/index")
-def index():
-    return render_template('index.html')
-
-
-class User(UserMixin, ):
+class User(UserMixin):
+    
+    def register(self):
+        print(request.form)
+        
+        # Create the user object
+        user = {
+			"_id": uuid.uuid4().hex,
+			"username": request.form.get("username"),
+   			"email": request.form.get("email"),
+      		"password": request.form.get("password")
+		}
+        
+        # Encrypt the password
+        user['password'] = pbkdf2_sha256.encrypt(user['password'])
+        
+        return jsonify(user), 200
     
     def __init__(self, username):
         self.username = username
@@ -85,7 +95,12 @@ class User(UserMixin, ):
         u = mongo.db.Users.find_one({"Name": username})
         if not u:
             return None
-        return User(username=u['Name'])
+        return User(username=u['username'])
+
+@app.route("/")
+@app.route("/index")
+def index():
+    return render_template('index.html')
 
 # A route to render the register page and add users to database
 @app.route("/register", methods=["GET", "POST"])
@@ -112,28 +127,30 @@ def register():
         return redirect(url_for("index"))
     return render_template("register.html", form=form)
 
-
 # A route to render the login page and authenticate users
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm()
     if request.method == "POST":
         # Check if username already exists in db
-        current_user = mongo.db.users.find_one(
+        user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
-        
-        if current_user:
+  
+        if user and User.check_password(user['password'], form.password.data):
             # make sure the password is correct
             if check_password_hash(
-                current_user["password"], request.form.get("password")):
-                    session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}".format(request.form.get("username")))
-                    return redirect(url_for("index"))
+                user["password"], request.form.get("password")):
+                user_obj = User(username=user['username'])
+                login_user(user_obj)
+                session["user"] = request.form.get("username").lower()
+                flash("Welcome, {}".format(request.form.get("username")))
+                return redirect(url_for("index"))
             else:
                 # If password is invalid
                 flash("Invalid Username and/or Password")
                 return redirect(url_for("login"))               
-        
         else:
             # If username doesn't exist
             flash("Invalid Username and/or Password")
