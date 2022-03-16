@@ -5,19 +5,19 @@ import os
 import json
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for, jsonify)
+    redirect, request, session, url_for)
 import json
-
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-
 # Import wtforms
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import Email, InputRequired, Length
 # Import authentication forms
 from forms import LoginForm, RegisterForm, ResetPasswordForm
+# Import Flask-Bootstrap
+from flask_bootstrap import Bootstrap5
 # Import certifi to validate ssl certificates
 import certifi
 
@@ -25,7 +25,7 @@ if os.path.exists('env.py'):
     import env
 
 app = Flask(__name__)
-
+bootstrap = Bootstrap5(app)
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
@@ -125,7 +125,6 @@ def get_organisations():
     return render_template('organisations_list.html',
                            organisations=organisations)
 
-
 # TODO: define user role permission for admin and user. When user submits
 # the form, will admin have to check the submission and approve before
 # it is added to the database?
@@ -162,7 +161,6 @@ def create_organisation():
         return redirect(url_for("get_organisations"))
 
     return render_template("create_organisation.html")
-
 
 @app.route('/organisations/<organisation_id>/edit', methods=['GET', 'POST'])
 def edit_organisation(organisation_id):
@@ -201,7 +199,6 @@ def edit_organisation(organisation_id):
     return render_template('edit_organisation.html',
                            organisation=organisation)
 
-
 @app.route('/organisations/<organisation_id>/delete', methods=['GET', 'POST'])
 def delete_organisation(organisation_id):
     '''
@@ -210,8 +207,9 @@ def delete_organisation(organisation_id):
     mongo.db.organisations.delete_one({'_id': ObjectId(organisation_id)})
     return redirect(url_for('get_organisations'))
 
-
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)
+
+# end of file
