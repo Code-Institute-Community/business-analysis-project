@@ -15,7 +15,7 @@ var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}
   tileSize: 512,
   zoomOffset: -1,
   accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
-}).addTo(map);
+}).addTo(map); 
 
 
 /**
@@ -24,9 +24,12 @@ var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}
  * When clicked Company name and webaddress are displayed in a pop-up. 
  * 
  *  */ 
-var markers = [];
+var markers = L.markerClusterGroup(); 
 for (let i = 0; i < companies.length; i++) {
-  markers[i] = L.marker([companies[i].latitude, companies[i].longitude]).addTo(map)
+	var marker = L.marker([companies[i].latitude, companies[i].longitude])
     .bindPopup(companies[i].organisation_name + '<br>' + companies[i].web_address)
     .openPopup();
+	markers.addLayer(marker);
 }
+
+map.addLayer(markers);
