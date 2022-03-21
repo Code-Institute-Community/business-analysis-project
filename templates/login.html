@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block content %}
 <main class="form-login">
@@ -15,10 +15,10 @@
 						</div>
 						<form name="login" method="POST" class="login-form" action="{{ url_for('login') }}">
 							{{ form.hidden_tag() }}
-							{{ wtf. form_field(form.username) }}
-							{{ wtf. form_field(form.password) }}
+							{{ render_field(form.username) }}
+							{{ render_field(form.password) }}
 							<br>
-							{{ wtf.form_field(form.remember) }}
+							{{ render_field(form.remember) }}
 							<div class="card-footer border-0 bg-transparent">
 								<div class="row" id="buttonRow">
 									<button type="submit" class="btn btn-info my-3" id="loginButton">

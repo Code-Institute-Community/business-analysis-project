@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block content %}
-
 <main class="form-register">
 	<div class="container">
 		<div class="row">
@@ -16,9 +15,9 @@
 						</div>
 						<form name="register" class="register-form" method="POST" action="{{ url_for('register') }}">
 							{{ form.hidden_tag() }}
-							{{ wtf. form_field(form.username) }}
-							{{ wtf. form_field(form.password) }}
-							{{ wtf.form_field(form.email) }}
+							{{ render_field(form.username) }}
+							{{ render_field(form.password) }}
+							{{ render_field(form.email) }}
 							<div class="card-footer border-0 bg-transparent">
 								<div class="row" id="buttonRow">
 									<button type="submit" class="btn btn-info btn-large shadow-lg my-3"

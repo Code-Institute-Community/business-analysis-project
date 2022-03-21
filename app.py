@@ -97,7 +97,6 @@ def index():
 # A route to render the register page and add users to database
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    form = RegisterForm()
     if request.method == "POST":
         # check if username already exists in db
         current_user = mongo.db.users.find_one(
@@ -117,7 +116,7 @@ def register():
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful!")
         return redirect(url_for("index"))
-    return render_template("register.html", form=form)
+    return render_template("register.html", form = RegisterForm(request.form))
 
 # A route to render the login page and authenticate users
 @app.route("/login", methods=["GET", "POST"])
