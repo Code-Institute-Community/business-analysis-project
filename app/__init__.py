@@ -25,12 +25,10 @@ def create_app(default_config=Config):
     from app.index import home
     from app.api_users import api_users
     from app.cluster_model import cluster_model
-    from app.main import main
     from app.organisations import organisations
     app.register_blueprint(home)
     app.register_blueprint(api_users)
     app.register_blueprint(cluster_model)
-    app.register_blueprint(main)
     app.register_blueprint(organisations)
 
     return app
