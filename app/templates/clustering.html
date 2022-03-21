@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block heading %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 my-3">
+            <h1 class="mx-auto text-center">
+                Key Words
+            </h1>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p>
+                    {{ keywords_list }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
