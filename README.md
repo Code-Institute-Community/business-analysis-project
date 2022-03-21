@@ -34,3 +34,8 @@ Contribution will be rewarded with special participation badges and prizes.
 - Small Contributor (1 Approved Pull Request): Participation Badge
 - Medium Contributor (3 Approved Pull Request): Small Contributor + Swag Pack
 - Large Contributor (5 Approved Pull Requests): Medium Contributor +  Secret Prize
+
+# Credit
+
+- Code to create keywords from a text is from Xu Liang.
+  - [Understand TextRank for Keyword Extraction by Python](https://towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0)
