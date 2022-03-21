@@ -10,7 +10,6 @@ from flask import (
 home = Blueprint("home", __name__)
 
 @home.route("/")
-@home.route("/index")
 def index():
     # Display home page
     return render_template("index.html")

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block extra_title %} Edit Organisation{% endblock %}
+{% block extra_keywords %}, organisation, organisations, edit, update{% endblock %}
+
+{% block metas %}
+    <link rel="canonical" href="/organisations/{{ organisation._id }}/edit">
+    <meta name="description" content="Edit the information that the  Dún Laoghaire-Rathdown County Council holds about this business.">
+    <meta property="og:description" content="Edit the information that the  Dún Laoghaire-Rathdown County Council holds about this business." />
+    <meta name="image" property="og:image" content="LINK TO IMAGE" />
+    <meta property="og:image:alt" content="A form to edit the information held by Dún Laoghaire-Rathdown County Council about this business" />
+    <meta property="og:url" content="/organisations" />
+    <meta name="twitter:description" content="Edit the information that the  Dún Laoghaire-Rathdown County Council holds about this business.">
+    <meta name="twitter:image" content="LINK TO IMAGE">
+    <meta name="twitter:image:alt" content="A form to edit the information held by Dún Laoghaire-Rathdown County Council about this business">
+{% endblock %}
+
+{% block content %}
+<div class="row d-flex align-items-center flex-column">
+    <h3 class="text-center">Edit Organization</h3>
+    <form class="w-75" method="POST" action="{{ url_for('organisations.edit_organisation', organisation_id=organisation._id) }}">
+        <div class="mb-3">
+            <label for="organisation_name" class="form-label">Organisation's name</label>
+            <input type="text" class="form-control" id="organisation_name" name="organisation_name"
+                value="{{ organisation.organisation_name }}" required>
+        </div>
+        <div class="row">
+            <div class="col mb-3">
+                <label for="longitude" class="form-label">Longitude</label>
+                <input type="text" class="form-control" id="longitude" name="longitude"
+                    value="{{ organisation.longitude }}">
+            </div>
+            <div class="col mb-3">
+                <label for="latitude" class="form-label">Latitude</label>
+                <input type="text" class="form-control" id="latitude" name="latitude"
+                    value="{{ organisation.latitude }}">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="nace_1" class="form-label">NACE code 1</label>
+            <input autocomplete="off" id="nace_1" name="nace_1" type="text" value="{{ organisation.nace_1}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nace_1_label" class="form-label">NACE code 1 label</label>
+            <input autocomplete="off" id="nace_1_label" name="nace_1_label" type="text" value="{{ organisation.nace_1_label }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nace_2" class="form-label">NACE code 2</label>
+            <input autocomplete="off" id="nace_2" name="nace_2" type="text" value="{{ organisation.nace_2 }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nace_2_label" class="form-label">NACE code 2 label</label>
+            <input autocomplete="off" id="nace_2_label" name="nace_2_label" type="text" value="{{ organisation.nace_2_label }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nace_3" class="form-label">NACE code 3</label>
+            <input autocomplete="off" id="nace_3" name="nace_3" type="text" value="{{ organisation.nace_3 }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nace_3_label" class="form-label">NACE code 3 label</label>
+            <input autocomplete="off" id="nace_3_label" name="nace_3_label" type="text" value="{{ organisation.nace_3_label }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="web_address" class="form-label">Web address</label>
+            <input type="text" class="form-control" id="web_address" name="web_address"
+                value="{{ organisation.web_address }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Edit organization</button>
+        <a href="{{ url_for('organisations.get_organisations') }}" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

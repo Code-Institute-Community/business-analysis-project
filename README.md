@@ -2,6 +2,17 @@
 
 A Collaborative Open-Source Project where we are looking for a way to put regional Irish IT businesses into clusters based on their services/products. The information about their services/products should be found on their website, but are not in a format it can be used for applications.
 
+# Prerequisists
+
+- Python 3.8+
+- MongoDB (either an ATLAS instance or locally installed)
+
+# How to run the project
+
+1) Create a new `env.py` file with the content from the `env.py.sample` file. Update the `MONGO_URI` and `MONGO_DBNAME` if necessary.
+1) Install the requirements (optionally create a new virtual environment )
+1) Start the app running `pyhton3 run.py` from the terminal
+
 # Challenge
 
 - The primary challenge is to query an existing company name dataset, find their website, extract the relevant data which can be queried by search. 

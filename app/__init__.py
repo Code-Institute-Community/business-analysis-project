@@ -12,6 +12,7 @@ def create_app(default_config=Config):
     Allows to use Blueprint for
     separation of concern.
     """
+    
     app = Flask(__name__)
     # Use the Config class to set the app.
     app.config.from_object(default_config)
@@ -22,13 +23,14 @@ def create_app(default_config=Config):
     # Import Blueprints and register them so they can be used
     # For exemple I have created the index.py app and registered it as follow
     from app.index import home
-    app.register_blueprint(home)
-
     from app.api_users import api_users
     from app.cluster_model import cluster_model
-    from app.app import main
+    from app.main import main
+    from app.organisations import organisations
+    app.register_blueprint(home)
     app.register_blueprint(api_users)
     app.register_blueprint(cluster_model)
     app.register_blueprint(main)
+    app.register_blueprint(organisations)
 
     return app

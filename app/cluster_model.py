@@ -8,10 +8,11 @@ from flask import (
 
 from app import mongo
 from app.functions.text_rank import TextRank4Keyword
-from company_web_scraper import getHTMLdocument
+from app.functions.company_web_scraper import getHTMLdocument
 
 # Blueprint
-cluster_model = Blueprint("cluster_model", __name__)
+cluster_model = Blueprint("cluster_model", __name__,
+                          template_folder='templates')
 
 
 @cluster_model.route("/clustering", methods=["GET"])

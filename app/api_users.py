@@ -9,7 +9,7 @@ from app import mongo
 from app.functions.create_cat_from_nace import *
 
 # Blueprint
-api_users = Blueprint("api_users", __name__)
+api_users = Blueprint("api_users", __name__, template_folder='templates')
 
 # collection
 data_set_coll = mongo.db.SampleData
