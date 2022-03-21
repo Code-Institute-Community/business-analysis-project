@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_formhelpers.html" import render_field %}
+{% from "auth/_formhelpers.html" import render_field %}
 
 {% block content %}
 <main class="form-login">
@@ -13,7 +13,7 @@
 								<h1 class="my-3 pt-3 mt-lg-5 text-center">Login</h1>
 							</div>
 						</div>
-						<form name="login" method="POST" class="login-form" action="{{ url_for('login') }}">
+						<form name="login" method="POST" class="login-form" action="{{ url_for('auth.login') }}">
 							{{ form.hidden_tag() }}
 							{{ render_field(form.username) }}
 							{{ render_field(form.password) }}
@@ -29,12 +29,12 @@
 							<div class="row d-flex text-center">
 								<div class="col-12">
 									<p>Don't have an account?</p>
-									<a class="link-text" href="{{ url_for('register') }}">Register</a>
+									<a class="link-text" href="{{ url_for('auth.register') }}">Register</a>
 								</div>
 								<div class="row d-flex text-center">
 									<div class="col-12">
 										<p>Forgot your password?</p>
-										<a class="link-text" href="{{ url_for('reset_password') }}">Reset Password</a>
+										<a class="link-text" href="{{ url_for('auth.reset_password') }}">Reset Password</a>
 									</div>
 						</form>
 					</div>

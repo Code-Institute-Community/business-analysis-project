@@ -2,6 +2,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for,
     Blueprint)
+from flask_login import login_required
 from bson.objectid import ObjectId
 
 from app import mongo
@@ -10,6 +11,7 @@ organisations = Blueprint("organisations", __name__, template_folder='templates'
 
 
 @organisations.route('/', methods=['GET', 'POST'])
+@login_required
 def get_organisations():
     '''
     Display a list of all organisations in table format for admin user
@@ -23,6 +25,7 @@ def get_organisations():
 # the form, will admin have to check the submission and approve before
 # it is added to the database?
 @organisations.route("/add", methods=["GET", "POST"])
+@login_required
 def create_organisation():
     '''
     Add an organisation for normal user and admin user
