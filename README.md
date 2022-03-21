@@ -13,6 +13,59 @@ A Collaborative Open-Source Project where we are looking for a way to put region
 1) Install the requirements (optionally create a new virtual environment )
 1) Start the app running `pyhton3 run.py` from the terminal
 
+# Flask Blueprint
+
+New Blueprints only need to added for completely new functionality.
+Currently we only have four blueprints, please add to these before creating a new one.
+
+1) Organisations - Everything to do with listing, updateing and deleting organisations
+1) Categories - Everything to do with analysing, clustering and categorising organisations
+1) API - Everthing to do with avaiable RESTful APIs
+1) Home - A basic home app and any static views
+
+In case a new Blueprint needs to be created, follow the below steps:
+
+1) Add new file in the `app` directory giving it a meaningful and relevant name (e.g. categories)
+2) Import `Blueprint` from flask and define your Blueprint
+
+```
+from flask import Blueprint
+
+categories = Blueprint("categories", __name__, template_folder='templates')
+```
+
+3) Register your Blueprint in the app directory's `__init__.py` file.
+
+```
+from app.categories import categories
+app.register_blueprint(categories)
+```
+
+4) Create a new sub-folder in the app diretory's `templates` folder for your new Blueprint
+
+5) If your Blueprint needs to use mongodb, import mongo from the `app` directory's `__init__.py` file to reuse the PyMongo instance.
+
+```
+from app import mongo
+```
+
+6) Here is a full example:
+
+categories.py
+```
+from flask import Blueprint, render_template
+
+from app import mongo
+
+categories = Blueprint("categories", __name__, template_folder='templates')
+
+@categories.route('/')
+def view_categories():
+    categories = mongo.db.categories.find()
+    return render_template('categories/list_categories.html',
+                            categories=categories)
+```
+
 # Challenge
 
 - The primary challenge is to query an existing company name dataset, find their website, extract the relevant data which can be queried by search. 

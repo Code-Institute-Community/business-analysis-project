@@ -9,20 +9,20 @@ from app import mongo
 organisations = Blueprint("organisations", __name__, template_folder='templates')
 
 
-@organisations.route('/organisations', methods=['GET', 'POST'])
+@organisations.route('/', methods=['GET', 'POST'])
 def get_organisations():
     '''
     Display a list of all organisations in table format for admin user
     '''
     organisations = mongo.db.organisations.find()
-    return render_template('organisations/organisations_list.html',
+    return render_template('organisations/list_organisations.html',
                            organisations=organisations)
 
 
 # TODO: define user role permission for admin and user. When user submits
 # the form, will admin have to check the submission and approve before
 # it is added to the database?
-@organisations.route("/organisations/add", methods=["GET", "POST"])
+@organisations.route("/add", methods=["GET", "POST"])
 def create_organisation():
     '''
     Add an organisation for normal user and admin user
@@ -57,7 +57,7 @@ def create_organisation():
     return render_template("organisations/create_organisation.html")
 
 
-@organisations.route('/organisations/<organisation_id>/edit', methods=['GET', 'POST'])
+@organisations.route('/<organisation_id>/edit', methods=['GET', 'POST'])
 def edit_organisation(organisation_id):
     '''
     Edit an organisation for admin user
@@ -95,7 +95,7 @@ def edit_organisation(organisation_id):
                            organisation=organisation)
 
 
-@organisations.route('/organisations/<organisation_id>/delete', methods=['GET', 'POST'])
+@organisations.route('/<organisation_id>/delete', methods=['GET', 'POST'])
 def delete_organisation(organisation_id):
     '''
     Delete an organisation for admin user

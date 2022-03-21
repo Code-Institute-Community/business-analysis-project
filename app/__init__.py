@@ -22,13 +22,13 @@ def create_app(default_config=Config):
 
     # Import Blueprints and register them so they can be used
     # For exemple I have created the index.py app and registered it as follow
-    from app.index import home
-    from app.api_users import api_users
-    from app.cluster_model import cluster_model
+    from app.home import home
+    from app.api import api
+    from app.categories import categories
     from app.organisations import organisations
     app.register_blueprint(home)
-    app.register_blueprint(api_users)
-    app.register_blueprint(cluster_model)
-    app.register_blueprint(organisations)
+    app.register_blueprint(api, url_prefix='/api')
+    app.register_blueprint(categories)
+    app.register_blueprint(organisations, url_prefix='/organisations')
 
     return app

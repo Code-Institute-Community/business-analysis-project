@@ -1,23 +1,21 @@
 """
 Views related to api_user.
 """
-from flask import (
-    Flask, flash, render_template, redirect,
-    request, session, url_for, Blueprint, current_app)
+from flask import Blueprint, render_template, request
 
 from app import mongo
 from app.functions.create_cat_from_nace import *
 
 # Blueprint
-api_users = Blueprint("api_users", __name__, template_folder='templates')
+api = Blueprint("api", __name__, template_folder='templates')
 
-# collection
-data_set_coll = mongo.db.SampleData
 
-@api_users.route("/all_companies", methods=["GET"])
-def all_companies():
+@api.route("/organisations", methods=["GET"])
+def list_organisations():
 
     # Get the data_set from db
+    # TODO: Rename this to something meaningful and use an actual collection
+    data_set_coll = mongo.db.SampleData
     data_set = list(data_set_coll.find())
 
     # Get all labels
@@ -36,15 +34,15 @@ def all_companies():
     category_selected = request.args.get('category')
     if category_selected:
         selected_data = []
-        # check if a company as label = category selected,
-        # and add the company data to the data_set returned to the template.
+        # check if a organisation as label = category selected,
+        # and add the organisation data to the data_set returned to the template.
         for data in data_set:
-            company_cat = [data["nace_1_label"].lower() + " " \
+            organisation_cat = [data["nace_1_label"].lower() + " " \
             + data["nace_2_label"].lower() + " " \
             + data["nace_3_label"].lower()]
-            company_cat = company_cat[0].split()
-            if category_selected in company_cat:
+            organisation_cat = organisation_cat[0].split()
+            if category_selected in organisation_cat:
                 selected_data.append(data)
         data_set = selected_data
-    return render_template("all_companies.html",
+    return render_template("api/list_organisations.html",
                            data_set=data_set, categories=categories)
