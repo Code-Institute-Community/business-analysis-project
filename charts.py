@@ -8,26 +8,20 @@ from flask import (
 from flask_pymongo import PyMongo
 
 
-# collection
-data_set_coll = mongo.db.SampleData
-
-
-@charts.route('/charts', methods=['GET'])
-def nace_charts():
+@charts.route('/nace_one_chart', methods=['GET'])
+def nace_one_chart():
+    # collection
+    data_set_coll = mongo.db.SampleData
+    
+    # data
     data_set = list(data_set_coll.find())
 
-    # divide query search
+    #query search
     query_activity = "nace_1"
-    query_cat = "nace_2"
-    query_sub_cat = "nace_3"
 
     activity_list = []
-    cat_list = []
-    sub_cat_list = []
     for data in data_set:
         activity_list.append(data[query_activity])
-        cat_list.append(data[query_cat])
-        sub_cat_list.append(data[query_sub_cat])
 
     # x-coordinates corresponding to the activities listed with nace code.
     # here are the code's name corresponding to 'A' and 'J'
@@ -37,19 +31,19 @@ def nace_charts():
     # heights of bars
     # create list of activities list (goes up to 'U' on official website),
     # but we will do 'A' and 'J' for the moment.
-    a = []
-    j = []
+    agriculture_forestry_and_fishing = []
+    information_and_communnication = []
 
-    list_of_act_list = [a,j]
-    print(f'list of activity list === > {list_of_act_list}')
+    list_of_act_list = [agriculture_forestry_and_fishing,
+                        information_and_communnication]
 
     # add the activity to the corresponding list
-    for act in activity_list:
-        if act.lower() == "a":
-            a.append(act)
+    for activity in activity_list:
+        if activity.lower() == "a":
+            agriculture_forestry_and_fishing.append(activity)
         # we only work with J for now so let just do J ;)
-        elif act.lower() == "j":
-            j.append(act)
+        elif activity.lower() == "j":
+            information_and_communnication.append(activity)
 
     # number of items per list
     values = []
@@ -58,4 +52,4 @@ def nace_charts():
     for activities in list_of_act_list:
         values.append(len(activities))
 
-    return render_template("charts.html", x_axis=x_axis, values=values)
+    return render_template("nace_one_chart.html", x_axis=x_axis, values=values)
