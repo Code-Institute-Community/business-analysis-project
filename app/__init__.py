@@ -42,8 +42,8 @@ def create_app(default_config=Config):
 
     # Create admin interface
     from app.admin import (OrganisationsModel, OrganisationView,
-                           Users, UserView)
-    admin = Admin(app, name='Business Analysis')
+                           Users, UserView, DashboardView)
+    admin = Admin(app, name='Business Analysis', index_view=DashboardView())
     # Add views for admin dashboard
     admin.add_view(UserView(Users))
     admin.add_view(OrganisationView(OrganisationsModel))

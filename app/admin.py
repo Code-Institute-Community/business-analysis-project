@@ -47,6 +47,19 @@ class OrganisationsModel(db.Document):
 
 
 # Customized admin views
+class DashboardView(AdminIndexView):
+
+    def is_visible(self):
+        # This view won't appear in the menu structure
+        return False
+
+    @expose('/')
+    def index(self):
+
+        return self.render(
+            'admin/index.html',
+        )
+
 
 class UserView(ModelView):
     column_filters = ['username', 'email']
