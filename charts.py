@@ -7,19 +7,10 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 
-if os.path.exists('env.py'):
-    import env
-
-
-charts = Flask(__name__)
-charts.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
-charts.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-charts.secret_key = os.environ.get('SECRET_KEY')
-
-mongo = PyMongo(charts)
 
 # collection
 data_set_coll = mongo.db.SampleData
+
 
 @charts.route('/charts', methods=['GET'])
 def nace_charts():
@@ -68,9 +59,3 @@ def nace_charts():
         values.append(len(activities))
 
     return render_template("charts.html", x_axis=x_axis, values=values)
-
-
-if __name__ == "__main__":
-    charts.run(host=os.environ.get("IP"),
-               port=int(os.environ.get("PORT")),
-               debug=True)
