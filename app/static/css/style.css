@@ -1,7 +1,6 @@
 a.link-text {
     text-decoration: none;
     color: rgb(41, 158, 158);
-
 }
 
 a.link-text:hover {
@@ -37,7 +36,7 @@ main.form-login {
     -webkit-box-shadow: 0 10px 6px -6px #777;
     -moz-box-shadow: 0 10px 6px -6px #777;
     box-shadow: 0 10px 6px -6px #777;
-    border: .5px solid rgb(194, 194, 194);
+    border: 1px solid rgb(194, 194, 194);
 }
 
 form.login-form,
