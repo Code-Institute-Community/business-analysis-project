@@ -7,23 +7,12 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 
-if os.path.exists('env.py'):
-    import env
 
-
-charts = Flask(__name__)
-charts.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
-charts.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-charts.secret_key = os.environ.get('SECRET_KEY')
-
-mongo = PyMongo(charts)
-
-# collection
-data_set_coll = mongo.db.SampleData
-
-
-@charts.route('/chart_label_one', methods=['GET'])
-def chart_lable_one():
+@charts.route('/nace_one_chart', methods=['GET'])
+def nace_one_chart():
+    # collection
+    data_set_coll = mongo.db.SampleData
+    
     # data
     data_set = list(data_set_coll.find())
 
@@ -42,19 +31,19 @@ def chart_lable_one():
     # heights of bars
     # create list of activities list (goes up to 'U' on official website),
     # but we will do 'A' and 'J' for the moment.
-    a = []
-    j = []
+    agriculture_forestry_and_fishing = []
+    information_and_communnication = []
 
-    list_of_act_list = [a,j]
-    print(f'list of activity list === > {list_of_act_list}')
+    list_of_act_list = [agriculture_forestry_and_fishing,
+                        information_and_communnication]
 
     # add the activity to the corresponding list
-    for act in activity_list:
-        if act.lower() == "a":
-            a.append(act)
+    for activity in activity_list:
+        if activity.lower() == "a":
+            agriculture_forestry_and_fishing.append(activity)
         # we only work with J for now so let just do J ;)
-        elif act.lower() == "j":
-            j.append(act)
+        elif activity.lower() == "j":
+            information_and_communnication.append(activity)
 
     # number of items per list
     values = []
@@ -63,11 +52,14 @@ def chart_lable_one():
     for activities in list_of_act_list:
         values.append(len(activities))
 
-    return render_template("chart-label-one.html", x_axis=x_axis, values=values)
+    return render_template("nace_one_chart.html", x_axis=x_axis, values=values)
 
 
-@charts.route('/chart_label_two', methods=['GET'])
-def chart_lable_two():
+@charts.route('/nace_two_chart', methods=['GET'])
+def nace_two_chart():
+    # collection
+    data_set_coll = mongo.db.SampleData
+    
     # data
     data_set = list(data_set_coll.find())
 
@@ -80,15 +72,15 @@ def chart_lable_two():
 
     # query search
     query_activity = "nace_1"
-    query_cat = "nace_2"
-    query_sub_cat = "nace_3"
+    query_category = "nace_2"
+    query_sub_category = "nace_3"
 
-    cat_list = []
-    sub_cat_list = []
+    category_list = []
+    sub_category_list = []
     for data in data_set:
         if data[query_activity].lower() == activity_selected:
-            cat_list.append(data[query_cat])
-            sub_cat_list.append(data[query_sub_cat])
+            category_list.append(data[query_category])
+            sub_category_list.append(data[query_sub_category])
 
     # x-coordinates corresponding to the categories of an activity listed with nace code.
     # here are the code's name corresponding to 'J.<nb>',
@@ -111,35 +103,29 @@ def chart_lable_two():
     sixty_three = []
 
 
-    list_of_cat_list = [fifty_height, fifty_nine, sixty,
+    list_of_category_list = [fifty_height, fifty_nine, sixty,
                         sixty_one, sixty_two, sixty_three]
 
     # add the activity to the corresponding list
-    for cat in cat_list:
-        if cat == "J.58":
-            fifty_height.append(cat)
-        elif cat == "J.59":
-            fifty_nine.append(cat)
-        elif cat == "J.60":
-            sixty.append(cat)
-        elif cat == "J.61":
-            sixty_one.append(cat)
-        elif cat == "J.62":
-            sixty_two.append(cat)
-        elif cat == "J.63":
-            sixty_three.append(cat)
+    for category in category_list:
+        if category == "J.58":
+            fifty_height.append(category)
+        elif category == "J.59":
+            fifty_nine.append(category)
+        elif category == "J.60":
+            sixty.append(category)
+        elif category == "J.61":
+            sixty_one.append(category)
+        elif category == "J.62":
+            sixty_two.append(category)
+        elif category == "J.63":
+            sixty_three.append(category)
 
     # number of items per list
     values = []
 
     # get the number of companies per  activity
-    for categories in list_of_cat_list:
+    for categories in list_of_category_list:
         values.append(len(categories))
 
-    return render_template("chart-label-two.html", x_axis=x_axis, values=values)
-
-
-if __name__ == "__main__":
-    charts.run(host=os.environ.get("IP"),
-               port=int(os.environ.get("PORT")),
-               debug=True)
+    return render_template("nace_two_chart.html", x_axis=x_axis, values=values)
