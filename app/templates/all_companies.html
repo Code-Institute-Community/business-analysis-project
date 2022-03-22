@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block heading %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 my-3">
+            <h1 class="mx-auto text-center">
+                All Companies
+                <span class="small text-muted">({{ data_set|length }})</span>
+            </h1>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+    {% if data_set|length > 0 %}
+        <div class="container-fluid">
+            <!-- search option -->
+            <div class="row">
+                <div class="col-12 my-3 ">
+                    <ul class="nav nav-pills">
+                        {% if categories %}
+                            {% for cat in categories %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                        {{ cat.category }}
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ url_for('api_users.all_companies') }}?category={{ cat.category }}">
+                                                all {{ cat.category }}
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        {% if cat.sub_categories %}
+                                            {% for sub_category in cat.sub_categories %}
+                                                <li><a class="dropdown-item" href="#">{{ sub_category }}</a></li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <!-- Table display of the companies -->
+            <div class="row">
+                <div class="col-12 table-responsive px-5">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Company</th>
+                            <th scope="col">Website</th>
+                            <th scope="col">Labels</th>
+                            <th scope="col">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for company in data_set %}
+                            <tr>
+                                <td>{{ company.organisation_name }}</td>
+                                <td>
+                                    <a href="https://{{ company.web_address }}" rel="noopener" target="_blank" 
+                                    aria-label="Link to {{ company.organisation_name }}">
+                                        {{ company.web_address }}
+                                    </a>
+                                </td>
+                                <td>{{ company.nace_3_label }}</td>
+                                <td>{{ company.latitude }}, {{ company.longitude }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p class="mx-auto text-center my-5">There are no companies listed.</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
