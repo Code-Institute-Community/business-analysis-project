@@ -1,7 +1,7 @@
 import email
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import Email, InputRequired, Length, DataRequired
+from wtforms import StringField, PasswordField, BooleanField
+from wtforms.validators import Email, InputRequired, Length
 
 
 ''' A form to register a new user. '''
@@ -21,4 +21,3 @@ class ResetPasswordForm(FlaskForm):
     username = StringField('Enter Your Name', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
     confirm_password = PasswordField('Confirm New Password', validators=[InputRequired()])
-# End of forms.py

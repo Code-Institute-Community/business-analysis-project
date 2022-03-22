@@ -2,19 +2,18 @@
 View to extract keywork from data usin TextRank
 '''
 
-from flask import (
-    Flask, render_template, redirect,
-    request, Blueprint, current_app)
+from flask import Blueprint, render_template
+from flask_login import login_required
 
-from app import mongo
 from app.functions.text_rank import TextRank4Keyword
-from company_web_scraper import getHTMLdocument
+from app.functions.company_web_scraper import getHTMLdocument
 
 # Blueprint
-cluster_model = Blueprint("cluster_model", __name__)
+categories = Blueprint("categories", __name__, template_folder='templates')
 
 
-@cluster_model.route("/clustering", methods=["GET"])
+@categories.route("/clustering", methods=["GET"])
+@login_required
 def clustering():
     '''Implementation of TextRank classe from Xu Liang'''
     # create document test from website url
@@ -26,6 +25,6 @@ def clustering():
     tr4w.analyze(text, candidate_pos = ['NOUN', 'PROPN'], window_size=4, lower=False)
     keywords_list = tr4w.get_keywords(10)
 
-    return render_template("clustering.html", keywords_list=keywords_list)
+    return render_template("categories/clustering.html", keywords_list=keywords_list)
 
 

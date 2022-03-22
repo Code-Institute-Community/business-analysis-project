@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-12 my-3">
             <h1 class="mx-auto text-center">
-                All Companies
+                All Organisations
                 <span class="small text-muted">({{ data_set|length }})</span>
             </h1>
         </div>
@@ -29,7 +29,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a class="dropdown-item" href="{{ url_for('api_users.all_companies') }}?category={{ cat.category }}">
+                                            <a class="dropdown-item" href="{{ url_for('api.list_organisations') }}?category={{ cat.category }}">
                                                 all {{ cat.category }}
                                             </a>
                                         </li>
@@ -52,24 +52,24 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Company</th>
+                            <th scope="col">Organisation</th>
                             <th scope="col">Website</th>
                             <th scope="col">Labels</th>
                             <th scope="col">Location</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for company in data_set %}
+                        {% for organisation in data_set %}
                             <tr>
-                                <td>{{ company.organisation_name }}</td>
+                                <td>{{ organisation.organisation_name }}</td>
                                 <td>
-                                    <a href="https://{{ company.web_address }}" rel="noopener" target="_blank" 
-                                    aria-label="Link to {{ company.organisation_name }}">
-                                        {{ company.web_address }}
+                                    <a href="https://{{ organisation.web_address }}" rel="noopener" target="_blank" 
+                                    aria-label="Link to {{ organisation.organisation_name }}">
+                                        {{ organisation.web_address }}
                                     </a>
                                 </td>
-                                <td>{{ company.nace_3_label }}</td>
-                                <td>{{ company.latitude }}, {{ company.longitude }}</td>
+                                <td>{{ organisation.nace_3_label }}</td>
+                                <td>{{ organisation.latitude }}, {{ organisation.longitude }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -82,7 +82,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <p class="mx-auto text-center my-5">There are no companies listed.</p>
+                    <p class="mx-auto text-center my-5">There are no organisations listed.</p>
                 </div>
             </div>
         </div>
