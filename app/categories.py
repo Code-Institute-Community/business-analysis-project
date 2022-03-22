@@ -3,6 +3,7 @@ View to extract keywork from data usin TextRank
 '''
 
 from flask import Blueprint, render_template
+from flask_login import login_required
 
 from app.functions.text_rank import TextRank4Keyword
 from app.functions.company_web_scraper import getHTMLdocument
@@ -12,6 +13,7 @@ categories = Blueprint("categories", __name__, template_folder='templates')
 
 
 @categories.route("/clustering", methods=["GET"])
+@login_required
 def clustering():
     '''Implementation of TextRank classe from Xu Liang'''
     # create document test from website url

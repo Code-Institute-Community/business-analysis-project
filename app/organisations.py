@@ -61,6 +61,7 @@ def create_organisation():
 
 
 @organisations.route('/<organisation_id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_organisation(organisation_id):
     '''
     Edit an organisation for admin user
@@ -99,6 +100,7 @@ def edit_organisation(organisation_id):
 
 
 @organisations.route('/<organisation_id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete_organisation(organisation_id):
     '''
     Delete an organisation for admin user

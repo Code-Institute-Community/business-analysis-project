@@ -2,6 +2,7 @@
 Views related to api_user.
 """
 from flask import Blueprint, render_template, request
+from flask_login import login_required
 
 from app import mongo
 from app.functions.create_cat_from_nace import *
@@ -11,6 +12,7 @@ api = Blueprint("api", __name__, template_folder='templates')
 
 
 @api.route("/organisations", methods=["GET"])
+@login_required
 def list_organisations():
 
     # Get the data_set from db
