@@ -11,6 +11,7 @@ A Collaborative Open-Source Project where we are looking for a way to put region
 
 1) Create a new `env.py` file with the content from the `env.py.sample` file. Update the `MONGO_URI` and `MONGO_DBNAME` if necessary.
 1) Install the requirements (optionally create a new virtual environment )
+1) Run `python seed.py` from the terminal. This will add some demo data to your MongoDB.
 1) Start the app running `pyhton3 run.py` from the terminal
 
 # Flask Blueprint
