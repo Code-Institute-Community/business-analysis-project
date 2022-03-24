@@ -56,7 +56,8 @@ def nace_one_chart():
     for activities in list_of_act_list:
         values.append(len(activities))
 
-    return render_template("nace_one_chart.html", x_axis=x_axis, values=values)
+    return render_template("charts/nace_one_chart.html",
+                           x_axis=x_axis, values=values)
 
 
 @charts.route('/nace_two_chart', methods=['GET'])
@@ -132,7 +133,8 @@ def nace_two_chart():
     for categories in list_of_category_list:
         values.append(len(categories))
 
-    return render_template("nace_two_chart.html", x_axis=x_axis, values=values)
+    return render_template("charts/nace_two_chart.html",
+                           x_axis=x_axis, values=values)
 
 
 @charts.route('/nace_three_chart', methods=['GET'])
@@ -195,4 +197,5 @@ def nace_three_chart():
     for sub_categories in list_of_sub_category_list:
         values.append(len(sub_categories))
 
-    return render_template("nace_three_chart.html", x_axis=x_axis, values=values)
+    return render_template("charts/nace_three_chart.html",
+                           x_axis=x_axis, values=values)

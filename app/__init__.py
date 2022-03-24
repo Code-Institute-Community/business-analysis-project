@@ -27,16 +27,17 @@ def create_app(default_config=Config):
     mongo.init_app(app)
     
 
-    # Import Blueprints and register them so they can be used
-    # For exemple I have created the index.py app and registered it as follow
+    # Import and register Blueprints to make them available
     from app.api import api
     from app.auth import auth
     from app.categories import categories
+    from app.charts import charts
     from app.home import home
     from app.organisations import organisations
     app.register_blueprint(api, url_prefix='/api')
     app.register_blueprint(auth)
     app.register_blueprint(categories)
+    app.register_blueprint(charts)
     app.register_blueprint(home)
     app.register_blueprint(organisations, url_prefix='/organisations')
 
