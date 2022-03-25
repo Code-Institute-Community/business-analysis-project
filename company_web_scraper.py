@@ -12,7 +12,7 @@ def getHTMLdocument(url):
     # response will be provided in JSON format
     return response.text
     
-url_to_scrape = "https://www.recruiters.ie/"
+url_to_scrape = "https://codeinstitute.net/ie/"
   
 # create document
 html_document = getHTMLdocument(url_to_scrape)
@@ -30,3 +30,14 @@ for link in soup.find_all('a',
     links.append(link.get('href'))
 # display the actual urls
 print(links[0])
+
+
+URL = links[0]
+page = requests.get(URL)
+
+soup = BeautifulSoup(page.content, "html.parser")
+# results = soup.find(id="ResultsContainer")
+
+for words in soup.find_all('p'):
+    find_all_words = words.get_text()
+    print(find_all_words)
