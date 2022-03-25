@@ -16,7 +16,7 @@ def get_organisations():
     '''
     Display a list of all organisations in table format for admin user
     '''
-    organisations = mongo.db.organisations.find()
+    organisations = list(mongo.db.organisations.find())
     return render_template('organisations/list_organisations.html',
                            organisations=organisations)
 
