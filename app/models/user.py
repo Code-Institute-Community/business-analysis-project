@@ -9,10 +9,7 @@ from app import mongo, login_manager
 
 
 class User(UserMixin):
-    
-    def register(self):
-        print(request.form)
-        
+    def register(self):      
         # Create the user object
         user = {
             "_id": uuid.uuid4().hex,
@@ -20,23 +17,25 @@ class User(UserMixin):
             "email": request.form.get("email"),
             "password": request.form.get("password"),
             "is_active": True,
+            "is_admin": False,
 		}
         
         # Encrypt the password
         user['password'] = pbkdf2_sha256.encrypt(user['password'])
-        
         return jsonify(user), 200
     
-    def __init__(self, username):
-        self.username = username
+    def __init__(self, user):
+        self.username = user.get('username')
+        self.email = user.get('email')
+        self._is_active = user.get('is_active')
+        self.is_admin = user.get('is_admin')
 
     @staticmethod
     def is_authenticated():
         return True
 
-    @staticmethod
-    def is_active():
-        return True
+    def is_active(self):
+        return self._is_active
 
     @staticmethod
     def is_anonymous():
@@ -55,8 +54,9 @@ class User(UserMixin):
 
     @login_manager.user_loader
     def load_user(username):
-        u = mongo.db.users.find_one({"username": username})
+        user = mongo.db.users.find_one({"username": username})
         
-        if not u:
+        if not user:
             return None
-        return User(username=u['username'])
+
+        return User(user)
