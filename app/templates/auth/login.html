@@ -1,42 +1,39 @@
 {% extends "base.html" %}
-{% from "auth/_formhelpers.html" import render_field %}
+<!-- {% from "auth/_formhelpers.html" import render_field %} -->
+{% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
 
 {% block content %}
 <main class="form-login container-fluid" id="login-form">
     <div class="row">
         <div class="col-12">
-            <div class="card-wrapper mt-5">
-                <div class="card login-card">
-                    <div class="row">
-                        <div class="col-12">
-                            <h1 class="my-3 pt-3 mt-lg-5 text-center">Login</h1>
-                        </div>
+            <div class="card-wrapper mt-md-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="my-3 pt-3 mt-lg-5 text-center">Login</h1>
                     </div>
+                    <div class="card-body">
                     <form name="login" method="POST" class="login-form" action="{{ url_for('auth.login') }}">
-                        {{ form.hidden_tag() }}
+                        {{ form.csrf_token }}
                         {{ render_field(form.username) }}
                         {{ render_field(form.password) }}
+                        {{ render_form_row([form.remember]) }}
+                        <button class="w-100 btn btn-lg btn-primary">
+                        {{ render_form_row([form.submit]) }}
+                    </button>
                         <div class="card-footer bg-transparent border-0">
-                            <div class="row" id="buttonRow">
-                                <button type="submit" class="btn btn-info my-3" id="loginButton">
-                                    Log In <i class="fas fa-sign-in-alt"></i>
-                                </button>
-                            </div>
                             <div class="d-md-flex justify-content-between align-items-center">
                                 <div class="mb-3 mb-md-0">
-                                    <div class="form-check">
-                                        {{ render_field(form.remember) }}
-                                    </div>
                                     <p>Don't have an account?</p>
                                     <a class="link-text" href="{{ url_for('auth.register') }}">Register </a>
                                 </div>
-                                <div>
+                                <div class="mb-3 mb-md-0">
                                     <p>Forgot your password?</p>
                                     <a class="link-text" href="{{ url_for('auth.reset_password') }}">Reset Password</a>
                                 </div>
                             </div>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -37,15 +37,11 @@ a.link-text:hover {
 
 /* ------------ Authentication Forms ------------ */
 #registerForm {
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
 }
 
 main.container-fluid.p-3 {
-    display: block;
     background-color: var(--bg-grey);
     min-height: 100vh;
     overflow: hidden;
@@ -61,30 +57,25 @@ input, input#username, input#password {
 .card-wrapper {
     display: flex;
     justify-content: center;
-    min-width: 100%;
-    max-width: 800px;
     height: auto;
-    padding: 40px 40px;
     margin: auto;
+    max-width: 500px;
+    padding: 15px;
 }
 
 .card {
-    margin-top: 30px;
-    min-width: 400px;
     -webkit-box-shadow: 5px 5px 20px var(--p-grey);
     -moz-box-shadow: 5px 5px 20px  var(--p-grey);
     box-shadow: 5px 5px 20px var(--p-navy);
-    border: 1px solid var(--t-grey);
+    border: none;
 }
 
 form.login-form,
 form.register-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+    min-width: 100%;
+    height: auto;
     padding: 20px;
     border-radius: 5px;
 }

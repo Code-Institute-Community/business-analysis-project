@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
 from flask_pymongo import PyMongo
 from app.config import Config
@@ -26,6 +27,7 @@ def create_app(default_config=Config):
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
     mongo.init_app(app)
+    bootstrap = Bootstrap5(app)
 
     # Import and register Blueprints to make them available
     from app.api import api

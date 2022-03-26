@@ -31,6 +31,7 @@
 
     {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {{ bootstrap.load_css() }}
     {% endblock %}
 </head>
 
@@ -67,6 +68,7 @@
 	<script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
 
     {% block scripts %}
+    {{ bootstrap.load_js() }}
     {% endblock %}
 </body>
 
