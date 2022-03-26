@@ -4,6 +4,8 @@ from flask_pymongo import PyMongo
 from app.config import Config
 from flask_admin import Admin
 
+from app.admin.views import DashboardView, OrganisationView, UserView
+
 # Set an instance of PyMongo for communicating with the db.
 mongo = PyMongo()
 login_manager = None
@@ -42,11 +44,9 @@ def create_app(default_config=Config):
     app.register_blueprint(organisations, url_prefix='/organisations')
 
     # Create admin interface
-    from app.admin import (OrganisationsModel, OrganisationView,
-                           Users, UserView, DashboardView)
     admin = Admin(app, name='Business Analysis', index_view=DashboardView())
     # Add views for admin dashboard
-    admin.add_view(UserView(Users))
-    admin.add_view(OrganisationView(OrganisationsModel))
+    admin.add_view(OrganisationView(mongo.db['organisations']))
+    admin.add_view(UserView(mongo.db['users']))
 
     return app
