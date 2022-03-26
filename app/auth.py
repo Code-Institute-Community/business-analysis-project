@@ -55,7 +55,7 @@ def login():
                 user["password"], request.form.get("password")):
                 user_obj = User(username=user['username'])
                 loggedin = login_user(user_obj)
-                # session["user"] = request.form.get("username").lower()
+                request.form.get("submit")
                 flash("Welcome, {}".format(request.form.get("username")))
                 return redirect(url_for('home.view_home'))
             else:

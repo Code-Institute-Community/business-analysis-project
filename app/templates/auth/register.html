@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from "auth/_formhelpers.html" import render_field %}
+{% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
 
 {% block content %}
 <main class="form-register" id="register-form">
@@ -11,6 +12,7 @@
                         <h1 class="my-3 pt-3 mt-lg-5 text-center">Register</h1>
                         <form name="register" class="register-form" method="POST" action="{{ url_for('auth.register') }}">
                             {{ form.hidden_tag() }}
+                            {{ form.csrf_token }}
                             {{ render_field(form.username) }}
                             {{ render_field(form.password) }}
                             {{ render_field(form.email) }}
