@@ -13,5 +13,6 @@
 {% block jsvariables %}
 <script>
     const companies = JSON.parse('{{ organisations|tojson|safe }}'); 
+    const token = '{{ token }}';
 </script>
 {% endblock %}
