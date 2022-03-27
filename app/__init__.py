@@ -34,10 +34,12 @@ def create_app(default_config=Config):
     from app.categories import categories
     from app.home import home
     from app.organisations import organisations
+    from app.favourites import favourites
     app.register_blueprint(api, url_prefix='/api')
     app.register_blueprint(auth)
     app.register_blueprint(categories)
     app.register_blueprint(home)
     app.register_blueprint(organisations, url_prefix='/organisations')
+    app.register_blueprint(favourites)
 
     return app
