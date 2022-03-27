@@ -17,9 +17,10 @@ def get_organisations():
     '''
     Display a list of all organisations in table format for admin user
     '''
-    organisations = mongo.db.organisations.find()
+
     # TODO: remove user if not necessary for adding favourite company to a user
     user = User.find_one_user(session["_user_id"].lower())
+    organisations = list(mongo.db.organisations.find())
     return render_template('organisations/list_organisations.html',
                            organisations=organisations, user=user)
 

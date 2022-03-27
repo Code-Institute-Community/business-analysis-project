@@ -2,6 +2,9 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_pymongo import PyMongo
 from app.config import Config
+from flask_admin import Admin
+
+from app.admin.views import DashboardView, OrganisationView, UserView
 
 # Set an instance of PyMongo for communicating with the db.
 mongo = PyMongo()
@@ -14,7 +17,7 @@ def create_app(default_config=Config):
     Allows to use Blueprint for
     separation of concern.
     """
-    
+
     app = Flask(__name__)
     # Use the Config class to set the app.
     app.config.from_object(default_config)
@@ -25,21 +28,27 @@ def create_app(default_config=Config):
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
     mongo.init_app(app)
-    
 
-    # Import Blueprints and register them so they can be used
-    # For exemple I have created the index.py app and registered it as follow
+    # Import and register Blueprints to make them available
     from app.api import api
     from app.auth import auth
     from app.categories import categories
+    from app.charts import charts
     from app.home import home
     from app.organisations import organisations
     from app.favourites import favourites
     app.register_blueprint(api, url_prefix='/api')
     app.register_blueprint(auth)
     app.register_blueprint(categories)
+    app.register_blueprint(charts)
     app.register_blueprint(home)
     app.register_blueprint(organisations, url_prefix='/organisations')
     app.register_blueprint(favourites)
+
+    # Create admin interface
+    admin = Admin(app, name='Business Analysis', index_view=DashboardView())
+    # Add views for admin dashboard
+    admin.add_view(OrganisationView(mongo.db['organisations']))
+    admin.add_view(UserView(mongo.db['users']))
 
     return app
