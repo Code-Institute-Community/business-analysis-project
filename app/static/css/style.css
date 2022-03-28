@@ -20,12 +20,24 @@ h1 {
     font-family: 'Montserrat', sans-serif;
 }
 
+hr.divider {
+    width: 50px;
+    border-top: 3px solid var(--s-teal);
+    display: block;
+    margin: 0px auto;
+    background-color: var(--p-orange);
+    color: var(--p-orange);
+    height: auto;
+    opacity: 1;
+}
 
 /* ------------ Navigation ------------ */
 a,
 a.link-text {
     text-decoration: none;
-    color: var(--p-blue);
+    color: var(--s-teal);
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 a,
@@ -52,6 +64,7 @@ main.container-fluid.p-3 {
     min-height: 100vh;
     overflow: hidden;
     margin: 0px auto;
+    background-color: var(--bg-grey);
 }
 
 
@@ -85,7 +98,7 @@ input, input#username, input#password {
     border: none;
     width: 400px;
     height: auto;
-    background-color: var(--t-navy);
+    /* background-color: var(--bg-grey); */
     color: var(--p-grey);
 }
 
@@ -97,10 +110,15 @@ input, input#username, input#password {
     padding: 0px 0px;
 }
 
-.card-header.card-header-light {
+.card-header, .card-header.card-header-light {
     color: var(--p-navy);
+    background-color: #fff;
     border: none;
     margin: 0px auto;
+    padding: 0px 0px;
+}
+
+.card-body {
     padding: 0px 0px;
 }
 
@@ -110,7 +128,7 @@ form.register-form {
     flex-direction: column;
     min-width: 100%;
     height: auto;
-    padding: 20px;
+    padding: 10px 20px;
     border-radius: 5px;
 }
 
@@ -128,18 +146,12 @@ input#submit {
 }
 
 input#submit:hover {
-    /* background-color: #23bbbb91 */
-    background-color: #e84610d2;
+    background-color: var(--p-red)
+    /* background-color: #e84610d2; */
 }
 
 .d-flex.submit {
     justify-content: left;
-}
-
-#buttonRow {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
 }
 
 p.login-redirect {
@@ -153,13 +165,37 @@ p.login-redirect {
 label.form-label {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    color: var(--t-grey);
+    color: var(--p-grey);
 }
 
 .card-footer {
+    margin-top: 20px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
+    font-size: 1rem;
 }
 
+.register-cta {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+a.link-text {
+    color: var(--p-blue);
+}
+
+a.link-text:hover {
+    color: #23bbbb91
+}
+
+a.card-footer-text {
+    font-size: 1rem;
+    color: var(--s-teal);
+    text-decoration: none;
+}
+
+a.card-footer-text:hover {
+    color: #23bbbb91
+}
 
 /* ------------./end-authentication-forms ------------ */

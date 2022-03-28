@@ -10,9 +10,9 @@ csrf = CSRFProtect()
 class RegisterForm(FlaskForm):
     first_name = StringField()
     last_name = StringField()
-    username = StringField('Choose a Username', validators=[InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('Choose a Password', validators=[InputRequired(), Length(min=4, max=15)])
-    email = StringField('email', validators=[InputRequired(), Email(message='Invalid Email'), Length(min=6, max=50)])
+    username = StringField('Choose a Username: ', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('Choose a Password: ', validators=[InputRequired(), Length(min=4, max=15)])
+    email = StringField('E-Mail Address: ', validators=[InputRequired(), Email(message='Invalid Email'), Length(min=6, max=50)])
     submit = SubmitField('Register')
 
 

@@ -2,13 +2,24 @@
 {% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
 
 {% block content %}
-<main class="form-register" id="register-form">
-    <div class="container-fluid">
+<!--start-main-->
+<main class="form-register container-fluid mt-5" id="register-form">
+        <!--start-row-->
         <div class="row">
+            <!--start-col-->
             <div class="col-12">
-                <div class="card-wrapper mt-5">
+                <!--start-card-wrapper-->
+                <div class="card-wrapper">
+                    <!--start-card-->
                     <div class="card card-light">
-                        <h1 class="my-3 pt-3 mt-lg-5 text-center">Register</h1>
+                        <!--start-card-header-->
+                        <div class="card-header card-header-light">
+                        <h1 class="mt-5 text-center">Register</h1>
+                        <hr class="divider mt-4">
+                        </div>
+                        <!--./end-card-header-->
+                        <!--start-card-body-->
+                        <div class="card-body card-body-light">
                         <form name="register" class="register-form" method="POST" action="{{ url_for('auth.register') }}">
                             {{ form.hidden_tag() }}
                             {{ form.csrf_token }}
@@ -18,6 +29,7 @@
                             <div class="button-wrapper">
                             {{ render_field(form.submit) }}
                             </div>
+                            <!--start-card-footer-->
                             <div class="card-footer border-0 bg-transparent">
                             <div class="row d-flex text-center">
                                 <div class="col-12">
@@ -25,11 +37,20 @@
                                     <a class="link-text" href="{{ url_for('auth.login') }}">Login</a>
                                 </div>
                             </div>
+                            </div>
+                            <!--./end-card-footer-->
                         </form>
+                        </div>
+                        <!--./end-card-body-->
                     </div>
+                    <!--./end-card-->
                 </div>
+                <!--./end-card-wrapper-->
             </div>
+            <!--./end-col-->
         </div>
-    </div>
+        <!--./end-row-->
 </main>
+<!--./end-main-->
 {% endblock %}
+

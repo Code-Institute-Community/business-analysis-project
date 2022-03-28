@@ -12,6 +12,8 @@
                     <!--Start Card Header-->
                     <div class="card-header card-header-dark">
                         <h1 class="mt-5 text-center" id="loginHeader">Login</h1>
+                        <p class="register-cta">Don't have an account?
+                        <a class="link-text" href="{{ url_for('auth.register') }}">Register </a></p>
                     </div>
                     <!--./end-card-header-->
                     <!--Start Card Body-->
@@ -21,23 +23,20 @@
                         {{ render_field(form.username) }}
                         {{ render_field(form.password) }}
                         {{ render_form_row([form.remember]) }}
+                        <div class="button-wrapper">
                         {{ render_form_row([form.submit]) }}
+                        </div>
                     </form>
                     </div>
                     <!--./end-card-body-->
                     <!--start-card-footer-->
-                        <div class="card-footer bg-transparent border-0">
-                            <div class="d-md-flex justify-content-between align-items-center">
-                                <div>
-                                    <p>Don't have an account?</p>
-                                    <a class="link-text" href="{{ url_for('auth.register') }}">Register </a>
-                                </div>
-                                <div">
-                                    <p>Forgot your password?</p>
-                                    <a class="link-text" href="{{ url_for('auth.reset_password') }}">Reset Password</a>
+                        <div class="card-footer bg-transparent border-0 pb-3 pb-md-5">
+                            <div class="text-center">
+                                    <p>
+                                    <a class="card-footer-text" href="{{ url_for('auth.reset_password') }}">Forgot Password?</a>
+                                    </p>
                                 </div>
                             </div>
-                        </div>
                         <!--./end-card-footer-->
                     </div>
                 <!--./end-card-->
