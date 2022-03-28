@@ -36,13 +36,19 @@ a.link-text:hover {
 
 
 /* ------------ Authentication Forms ------------ */
+#loginHeader {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+
+
 #registerForm {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
 }
 
 main.container-fluid.p-3 {
-    background-color: var(--bg-grey);
+    /* background-color: var(--bg-grey); */
     min-height: 100vh;
     overflow: hidden;
     margin: 0px auto;
@@ -51,23 +57,51 @@ main.container-fluid.p-3 {
 
 input, input#username, input#password {
     font-family: 'Montserrat', sans-serif;
-    color: var(--p-navy);
+    color: var(--p-grey);
 }
 
 .card-wrapper {
     display: flex;
     justify-content: center;
-    height: auto;
-    margin: auto;
-    max-width: 500px;
-    padding: 15px;
+    margin: 0px auto;
+    /* padding: 15px; */
 }
 
-.card {
+.card.card-dark {
     -webkit-box-shadow: 5px 5px 20px var(--p-grey);
     -moz-box-shadow: 5px 5px 20px  var(--p-grey);
     box-shadow: 5px 5px 20px var(--p-navy);
     border: none;
+    width: 400px;
+    height: auto;
+    background-color: var(--p-navy);
+    color: var(--t-grey);
+}
+
+.card.card-light {
+    -webkit-box-shadow: 5px 5px 20px var(--p-grey);
+    -moz-box-shadow: 5px 5px 20px  var(--p-grey);
+    box-shadow: 5px 5px 20px var(--p-navy);
+    border: none;
+    width: 400px;
+    height: auto;
+    background-color: var(--t-navy);
+    color: var(--p-grey);
+}
+
+.card-header.card-header-dark {
+    background-color: var(--p-navy);
+    color: var(--t-grey);
+    border: none;
+    margin: 0px auto;
+    padding: 0px 0px;
+}
+
+.card-header.card-header-light {
+    color: var(--p-navy);
+    border: none;
+    margin: 0px auto;
+    padding: 0px 0px;
 }
 
 form.login-form,
@@ -80,30 +114,32 @@ form.register-form {
     border-radius: 5px;
 }
 
-button#loginButton,
-#registerButton {
-    font-family: 'Rubik', sans-serif;
-    text-transform: uppercase;
-    margin-top: 20px;
-    margin-top: 20px;
-    width: fit-content;
-    background-color: var(--p-blue);
-    box-shadow: 0 0 10px var(--p-navy);
+input#submit {
+    background-color: var(--p-orange);
     border: none;
-    color: var(--s-grey);
-    text-shadow: 1px 1px 1px var(--p-navy);
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 10px 0px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1px;
 }
 
-#loginButton:hover,
-#registerButton:hover {
-    background-color: var(--p-navy);
-    color: var(--t-grey);
+input#submit:hover {
+    /* background-color: #23bbbb91 */
+    background-color: #e84610d2;
+}
+
+.d-flex.submit {
+    justify-content: left;
 }
 
 #buttonRow {
     align-items: center;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 p.login-redirect {
@@ -113,4 +149,17 @@ p.login-redirect {
 .flash-message {
     transition: opacity 1s;
 }
+
+label.form-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: var(--t-grey);
+}
+
+.card-footer {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+}
+
+
 /* ------------./end-authentication-forms ------------ */
