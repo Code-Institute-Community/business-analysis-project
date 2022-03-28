@@ -77,4 +77,7 @@ function fadeOutToasts(){
   }
 }
 
-addMap();  
+if (document.getElementById("map") != null) {
+    addMap();
+}
+
