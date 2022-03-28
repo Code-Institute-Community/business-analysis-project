@@ -22,8 +22,9 @@
 
     <!-- Leaflet Stylesheets -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-	<link rel="stylesheet" href="static/css/MarkerCluster.css" />
-	<link rel="stylesheet" href="static/css/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/marker_cluster.css')}}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/marker_cluster.default.css')}}" />
+
     <!-- chart.js CDN -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     
