@@ -48,11 +48,12 @@ a.link-text:hover {
 
 
 /* ------------ Authentication Forms ------------ */
-#loginHeader {
+h1.auth-header{
     font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 2rem;
 }
-
 
 #registerForm {
     font-family: 'Montserrat', sans-serif;
@@ -130,6 +131,7 @@ form.register-form {
     height: auto;
     padding: 10px 20px;
     border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 input#submit {
@@ -169,32 +171,29 @@ label.form-label {
 }
 
 .card-footer {
-    margin-top: 20px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-}
-
-.register-cta {
     font-family: 'Montserrat', sans-serif;
     font-size: 13px;
-    margin-top: 20px;
-}
-
-a.link-text {
-    color: var(--p-blue);
-}
-
-a.link-text:hover {
-    color: #23bbbb91
 }
 
 a.card-footer-text {
-    font-size: 1rem;
     color: var(--s-teal);
     text-decoration: none;
 }
 
 a.card-footer-text:hover {
+    color: #23bbbb91
+}
+
+.register-cta {
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 20px;
+}
+
+a.link-text {
+    color: var(--s-teal);
+}
+
+a.link-text:hover {
     color: #23bbbb91
 }
 

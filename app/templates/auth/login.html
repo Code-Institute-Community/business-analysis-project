@@ -4,45 +4,66 @@
 
 {% block content %}
 <main class="form-login container-fluid mt-3 mt-md-5" id="login-form">
+    <!--start-row-->
     <div class="row">
+        <!---start-col-->
         <div class="col-12">
+            <!--start-card-wrapper-->
             <div class="card-wrapper">
                 <!--start-card-->
-                <div class="card card-dark">
+                <div class="card card-light">
                     <!--Start Card Header-->
-                    <div class="card-header card-header-dark">
-                        <h1 class="mt-5 text-center" id="loginHeader">Login</h1>
-                        <p class="register-cta">Don't have an account?
-                        <a class="link-text" href="{{ url_for('auth.register') }}">Register </a></p>
+                    <div class="card-header bg-transparent border-0">
+                        <h1 class="mt-5 text-center auth-header" id="loginHeader">Login</h1>
+                        <hr class="divider mt-5">
                     </div>
                     <!--./end-card-header-->
                     <!--Start Card Body-->
                     <div class="card-body">
-                    <form name="login" method="POST" class="login-form" action="{{ url_for('auth.login') }}">
-                        {{ form.csrf_token }}
-                        {{ render_field(form.username) }}
-                        {{ render_field(form.password) }}
-                        {{ render_form_row([form.remember]) }}
-                        <div class="button-wrapper">
-                        {{ render_form_row([form.submit]) }}
-                        </div>
-                    </form>
+                        <!--start-login-form-->
+                        <form name="login" method="POST" class="login-form" action="{{ url_for('auth.login') }}">
+                            {{ form.csrf_token }}
+                            {{ render_field(form.username) }}
+                            {{ render_field(form.password) }}
+                            {{ render_form_row([form.remember]) }}
+                            <div class="button-wrapper mt-3">
+                                {{ render_form_row([form.submit]) }}
+                            </div>
+                        </form>
+                        <!--./end-login-form-->
                     </div>
                     <!--./end-card-body-->
                     <!--start-card-footer-->
-                        <div class="card-footer bg-transparent border-0 pb-3 pb-md-5">
-                            <div class="text-center">
-                                    <p>
-                                    <a class="card-footer-text" href="{{ url_for('auth.reset_password') }}">Forgot Password?</a>
-                                    </p>
+                    <div
+                        class="card-footer border-0 mb-3 mb-md-5 mi-auto bg-transparent d-block d-md-flex justify-content-between">
+                            <div class="auth-footer-cta text-center ms-md-3 mb-3">
+                                <div class="reset-password">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div class="text-small">
+                                    <a class="card-footer-text" href="{{ url_for('auth.reset_password') }}"> Reset
+                                        password</a>
                                 </div>
                             </div>
-                        <!--./end-card-footer-->
-                    </div>
-                <!--./end-card-->
+                            <div class="register-cta-auth text-center me-md-3 mb-3">
+                                <div class="reset-password">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="text-small">
+                                    <a class="card-footer-text" href="{{ url_for('auth.reset_password') }}"> Reset
+                                        password</a>
+                                </div>
+                            </div>
+                        </div>
+                    <!--./end-card-footer-->
                 </div>
+                <!--./end-card-->
             </div>
+            <!--./end-card-wrapper-->
         </div>
-    </div> 
+        <!--./end-col-->
+    </div>
+    <!--./end-row-->
+
 </main>
 {% endblock %}
