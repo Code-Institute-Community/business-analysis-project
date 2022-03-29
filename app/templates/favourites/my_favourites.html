@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block extra_title %} Favourite organisations{% endblock %}
+{% block extra_keywords %}, organisation, organisations, favourites, my favourites{% endblock %}
+
+{% block metas %}
+    <link rel="canonical" href="/organisations">
+    <meta name="description" content="Information about businesses within the Dún Laoghaire-Rathdown County Council area in Ireland.">
+    <meta property="og:description" content="Information about businesses within the Dún Laoghaire-Rathdown County Council area in Ireland." />
+    <meta name="image" property="og:image" content="LINK TO IMAGE" />
+    <meta property="og:image:alt" content="A list of businesses with information about those businesses" />
+    <meta property="og:url" content="/organisations" />
+    <meta name="twitter:description" content="Information about businesses within the Dún Laoghaire-Rathdown County Council area in Ireland.">
+    <meta name="twitter:image" content="LINK TO IMAGE">
+    <meta name="twitter:image:alt" content="A list of businesses with information about those businesses">
+{% endblock %}
+
+{% block content %}
+<h1>My favourite organisations</h1>
+
+{% if favourites %}
+<table class="table table-hover table-responsive-md">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">NACE code</th>
+            <th scope="col">NACE label</th>
+            <th scope="col">Web address</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for organisation in favourites %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ organisation.organisation_name }}</td>
+            <td>{{ organisation.nace_3 }}</td>
+            <td>{{ organisation.nace_3_label }}</td>
+            <td><a href={{ organisation.web_address }}>{{ organisation.web_address }}</a></td>
+            <td>
+                <!-- to include remove from favourite action -->
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>There is no organisation listed as your favourites</p>
+    <p>Browse existing organisations to start adding them to your favourite listing</p>
+    <a href="{{ url_for('organisations.get_organisations') }}" class="btn btn-primary">View organisations</a>
+{% endif %}
+
+{% endblock %}

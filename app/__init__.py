@@ -45,7 +45,7 @@ def create_app(default_config=Config):
     app.register_blueprint(charts)
     app.register_blueprint(home)
     app.register_blueprint(organisations, url_prefix='/organisations')
-    app.register_blueprint(favourites)
+    app.register_blueprint(favourites, url_prefix="/favourites")
 
     # Create admin interface
     admin = Admin(app, name='Business Analysis', index_view=DashboardView())

@@ -16,6 +16,23 @@ from app.models.user import User
 favourites = Blueprint("favourites", __name__, template_folder='templates')
 
 
+@favourites.route("/", methods=["GET", "POST"])
+@login_required
+def view_favourites():
+    """
+    Function to view companies as favourite by a user
+    - require user to be logged in
+    - retrieve user in session
+    - find organisations in list of user's favourites
+    """
+    user = User.find_one_user(session["_user_id"].lower())
+    favourites = list(mongo.db.organisations.find({"_id": {
+                                                    "$in": user["favourites"]}
+                                                   }))
+    return render_template('favourites/my_favourites.html',
+                           favourites=favourites)
+
+
 @favourites.route("/add_to_favourites", methods=["GET", "POST"])
 @login_required
 def add_to_favourites():
