@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "auth/_formhelpers.html" import render_field %}
+
+{% block content %}
+<main class="form-register">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card-wrapper mt-5">
+                    <div class="card register-card">
+                        <div class="row">
+                            <div class="col-12">
+                                <h1 class="my-3 pt-3 mt-lg-5 text-center">Register</h1>
+                            </div>
+                        </div>
+                        <form name="register" class="register-form" method="POST" action="{{ url_for('auth.register') }}">
+                            {{ form.hidden_tag() }}
+                            {{ render_field(form.username) }}
+                            {{ render_field(form.password) }}
+                            {{ render_field(form.email) }}
+                            <div class="card-footer border-0 bg-transparent">
+                                <div class="row" id="buttonRow">
+                                    <button type="submit" class="btn btn-info btn-large shadow-lg my-3"
+                                        id="registerButton">
+                                        Register <i class="fas fa-user-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row d-flex text-center">
+                                <div class="col-12">
+                                    <p>Already have an account?</p>
+                                    <a class="link-text" href="{{ url_for('auth.login') }}">Login</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

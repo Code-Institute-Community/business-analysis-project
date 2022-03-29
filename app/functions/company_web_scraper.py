@@ -5,10 +5,10 @@ import re
 
 # function to extract html document from given url
 def getHTMLdocument(url):
-      
+
     # request for HTML document of given url
     response = requests.get(url)
-      
+
     # response will be provided in JSON format
     return response.text
     
@@ -16,11 +16,10 @@ url_to_scrape = "https://codeinstitute.net/ie/"
   
 # create document
 html_document = getHTMLdocument(url_to_scrape)
-  
+
 # create soap object
 soup = BeautifulSoup(html_document, 'html.parser')
-  
-  
+
 # find all the anchor tags with "href" 
 # attribute starting with "https:// and the about keyword"
 # remove | about if you want to return all links on landing page

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block heading %}
+    <h1>Home page</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div id="map" ></div>
+</div>
+{% endblock %}
+
+{% block jsvariables %}
+<script>
+    const companies = JSON.parse('{{ organisations|tojson|safe }}'); 
+</script>
+{% endblock %}

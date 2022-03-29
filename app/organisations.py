@@ -1,43 +1,31 @@
-import os
-import json
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
-from flask_pymongo import PyMongo
+    redirect, request, session, url_for,
+    Blueprint)
+from flask_login import login_required
 from bson.objectid import ObjectId
 
-if os.path.exists('env.py'):
-    import env
+from app import mongo
+
+organisations = Blueprint("organisations", __name__, template_folder='templates')
 
 
-app = Flask(__name__)
-app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
-app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-app.secret_key = os.environ.get('SECRET_KEY')
-
-mongo = PyMongo(app)
-
-
-@app.route("/")
-def hello():
-    return "In the words of Théoden....<br>'So... it beings...'"
-
-
-# Routes related to crud of organisations
-@app.route('/organisations', methods=['GET', 'POST'])
+@organisations.route('/', methods=['GET', 'POST'])
+@login_required
 def get_organisations():
     '''
     Display a list of all organisations in table format for admin user
     '''
-    organisations = mongo.db.organisations.find()
-    return render_template('organisations_list.html',
+    organisations = list(mongo.db.organisations.find())
+    return render_template('organisations/list_organisations.html',
                            organisations=organisations)
 
 
 # TODO: define user role permission for admin and user. When user submits
 # the form, will admin have to check the submission and approve before
 # it is added to the database?
-@app.route("/add_business", methods=["GET", "POST"])
+@organisations.route("/add", methods=["GET", "POST"])
+@login_required
 def create_organisation():
     '''
     Add an organisation for normal user and admin user
@@ -67,12 +55,13 @@ def create_organisation():
         }
         mongo.db.organisations.insert_one(business)
         # flash(" - Business Successfully Added - ")
-        return redirect(url_for("get_organisations"))
+        return redirect(url_for("organisations.get_organisations"))
 
-    return render_template("create_organisation.html")
+    return render_template("organisations/create_organisation.html")
 
 
-@app.route('/organisations/<organisation_id>/edit', methods=['GET', 'POST'])
+@organisations.route('/<organisation_id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_organisation(organisation_id):
     '''
     Edit an organisation for admin user
@@ -102,24 +91,19 @@ def edit_organisation(organisation_id):
         }
         mongo.db.organisations.update_one({'_id': ObjectId(organisation_id)},
                                           {'$set': edit_org})
-        return redirect(url_for('get_organisations'))
+        return redirect(url_for('organisations.get_organisations'))
 
     organisation = mongo.db.organisations.find_one(
         {'_id': ObjectId(organisation_id)})
-    return render_template('edit_organisation.html',
+    return render_template('organisations/edit_organisation.html',
                            organisation=organisation)
 
 
-@app.route('/organisations/<organisation_id>/delete', methods=['GET', 'POST'])
+@organisations.route('/<organisation_id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete_organisation(organisation_id):
     '''
     Delete an organisation for admin user
     '''
     mongo.db.organisations.delete_one({'_id': ObjectId(organisation_id)})
-    return redirect(url_for('get_organisations'))
-
-
-if __name__ == "__main__":
-    app.run(host=os.environ.get("IP"),
-            port=int(os.environ.get("PORT")),
-            debug=True)
+    return redirect(url_for('organisations.get_organisations'))
