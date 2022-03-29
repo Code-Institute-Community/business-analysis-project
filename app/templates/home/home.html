@@ -9,9 +9,3 @@
     <div id="map" ></div>
 </div>
 {% endblock %}
-
-{% block jsvariables %}
-<script>
-    const companies = JSON.parse('{{ organisations|tojson|safe }}'); 
-</script>
-{% endblock %}
