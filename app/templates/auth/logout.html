@@ -1,34 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
-<!--start-content-->
 <section class="logout-confirm container-fluid mt-5">
-    <!--start-row-->
     <div class="row">
-        <!--start-col-->
         <div class="col-12">
-            <!--start-card-wrapper-->
             <div class="card-wrapper">
-                <!--start-card-->
                 <div class="card logout-card card-light">
-                    <!--start-card-header-->
                     <div class="card-header bg-transparent border-0">
                         <h1 class="my-5 text-center auth-header">Logout</h1>
                         <hr class="divider mb-4">
                     </div>
-                    <!--./end-card-header-->
-                    <!--start-card-body-->
                     <div class="card-body card-body-light">
                         <div class="col-12 text-center">
                             <p class="logout-auth mb-3">Are you sure you want to logout?</p>
                         </div>
-                        <!--start-form-->
                         <form method="POST" class="logout-form" action="{{ url_for('auth.logout') }}">
                             <input type="submit" class="logout-btn" value="Logout">
                         </form>
-                        <!--./end-form-->
                     </div>
-                    <!--./end-card-body-->
-                    <!--start-card-footer-->
                     <div class="card-footer border-0 bg-transparent mt-3">
                         <!--start-auth-register-cta-->
                         <div class="auth-footer-cta text-center me-md-3 mb-3">
@@ -43,10 +31,7 @@
                         </div>
                         <!--end-card-->
                     </div>
-                    <!--end-card-wrapper-->
                 </div>
-                <!--end-col-->
             </div>
-            <!--end-row-->
 </section>
 {% endblock %}
