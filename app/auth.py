@@ -26,12 +26,14 @@ def register():
 
         register = {
             "username": request.form.get("username").lower(),
+            "email": request.form.get("email").lower(),
+            "is_active": True,
+            "is_admin": False,
             "password": generate_password_hash(request.form.get("password"))
         }
         mongo.db.users.insert_one(register)
-
-        # put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
+        user_obj = User(register)
+        login_user(user_obj)
         flash("Registration Successful!")
         return redirect(url_for('home.view_home'))
     return render_template("auth/register.html", form = RegisterForm(request.form))
@@ -56,6 +58,8 @@ def login():
                 user_obj = User(username=user['username'])
                 loggedin = login_user(user_obj)
                 request.form.get("submit")
+                user_obj = User(user)
+                login_user(user_obj)
                 flash("Welcome, {}".format(request.form.get("username")))
                 return redirect(url_for('home.view_home'))
             else:
