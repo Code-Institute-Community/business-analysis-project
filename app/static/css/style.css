@@ -124,7 +124,8 @@ input, input#username, input#password {
 }
 
 form.login-form,
-form.register-form {
+form.register-form,
+form.reset-password {
     display: flex;
     flex-direction: column;
     min-width: 100%;
@@ -134,6 +135,7 @@ form.register-form {
     font-family: 'Montserrat', sans-serif;
 }
 
+input#confirm,
 input#submit {
     background-color: var(--p-orange);
     border: none;

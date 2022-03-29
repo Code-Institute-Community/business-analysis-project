@@ -28,4 +28,4 @@ class ResetPasswordForm(FlaskForm):
     username = StringField('Enter Your Name', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
     confirm_password = PasswordField('Confirm New Password', validators=[InputRequired()])
-    confirm = SwitchField('Confirmation')
+    confirm = SubmitField('Reset Password')
