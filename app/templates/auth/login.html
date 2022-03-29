@@ -1,47 +1,53 @@
 {% extends "base.html" %}
-{% from "auth/_formhelpers.html" import render_field %}
+{% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
 
 {% block content %}
-<main class="form-login">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card-wrapper mt-5">
-                    <div class="card login-card">
-                        <div class="row">
-                            <div class="col-12">
-                                <h1 class="my-3 pt-3 mt-lg-5 text-center">Login</h1>
-                            </div>
-                        </div>
+<section class="form-login container-fluid mt-3 mt-md-5" id="login-form">
+    <div class="row">
+        <div class="col-12">
+            <div class="card-wrapper">
+                <div class="card card-light">
+                    <div class="card-header bg-transparent border-0">
+                        <h1 class="mt-5 text-center auth-header" id="loginHeader">Login</h1>
+                        <hr class="divider mt-5">
+                    </div>
+                    <div class="card-body">
                         <form name="login" method="POST" class="login-form" action="{{ url_for('auth.login') }}">
-                            {{ form.hidden_tag() }}
+                            {{ form.csrf_token }}
                             {{ render_field(form.username) }}
                             {{ render_field(form.password) }}
-                            <br>
-                            {{ render_field(form.remember) }}
-                            <div class="card-footer border-0 bg-transparent">
-                                <div class="row" id="buttonRow">
-                                    <button type="submit" class="btn btn-info my-3" id="loginButton">
-                                        Log In <i class="fas fa-sign-in-alt"></i>
-                                    </button>
-                                </div>
+                            {{ render_form_row([form.remember]) }}
+                            <div class="button-wrapper mt-3">
+                                {{ render_form_row([form.submit]) }}
                             </div>
-                            <div class="row d-flex text-center">
-                                <div class="col-12">
-                                    <p>Don't have an account?</p>
-                                    <a class="link-text" href="{{ url_for('auth.register') }}">Register</a>
-                                </div>
-                                <div class="row d-flex text-center">
-                                    <div class="col-12">
-                                        <p>Forgot your password?</p>
-                                        <a class="link-text" href="{{ url_for('auth.reset_password') }}">Reset Password</a>
-                                    </div>
-                                </div>
                         </form>
+                    </div>
+                    <div
+                        class="card-footer border-0 mb-3 mb-md-5 mi-auto bg-transparent d-block d-md-flex justify-content-between">
+                        <div class="auth-footer-cta text-center ms-md-3 mb-3">
+                            <a class="link-text" href="{{ url_for('auth.reset_password') }}">
+                                <div>
+                                    <i class="link-text fas fa-lock fa-1x"></i>
+                                </div>
+                                <div class="text-center">
+                                    <p class="card-footer-text">Forgot Password?</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="auth-footer-cta text-center me-md-3 mb-3">
+                            <a class="link-text" href="{{ url_for('auth.register') }}">
+                                <div>
+                                    <i class="fas fa-user-plus fa-1x"></i>
+                                </div>
+                                <div class="text-center">
+                                    <p class="card-footer-text">Register</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</section>
 {% endblock %}

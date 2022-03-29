@@ -55,9 +55,10 @@ def login():
             # make sure the password is correct
             if check_password_hash(
                 user["password"], request.form.get("password")):
-                user_obj = User(user)
-                login_user(user_obj)
-                flash("Welcome, {}".format(request.form.get("username")))
+                user_obj = mongo.db.users.find_one(
+                    {"username": request.form.get("username").lower()})
+                login_user(User(user_obj))
+                flash("Login Successful!")
                 return redirect(url_for('home.view_home'))
             else:
                 # If password is invalid
