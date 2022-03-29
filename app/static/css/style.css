@@ -24,7 +24,7 @@ hr.divider {
     width: 50px;
     border-top: 3px solid var(--s-teal);
     display: block;
-    margin: 0px auto;
+    margin: 0 auto;
     background-color: var(--p-orange);
     color: var(--p-orange);
     height: auto;
@@ -62,10 +62,9 @@ h1.auth-header {
 }
 
 main.container-fluid.p-3 {
-    /* background-color: var(--bg-grey); */
     min-height: 100vh;
     overflow: hidden;
-    margin: 0px auto;
+    margin: 0 auto;
     background-color: var(--bg-grey);
 }
 
@@ -78,7 +77,7 @@ input, input#username, input#password {
 .card-wrapper {
     display: flex;
     justify-content: center;
-    margin: 0px auto;
+    margin: 0 auto;
     /* padding: 15px; */
 }
 
@@ -108,19 +107,19 @@ input, input#username, input#password {
     background-color: var(--p-navy);
     color: var(--t-grey);
     border: none;
-    margin: 0px auto;
-    padding: 0px 0px;
+    margin: 0 auto;
+    padding: 0;
 }
 
 .card-header, .card-header.card-header-light {
     color: var(--p-navy);
     border: none;
-    margin: 0px auto;
-    padding: 0px 0px;
+    margin: 0 auto;
+    padding: 0;
 }
 
 .card-body {
-    padding: 0px 0px;
+    padding: 0;
 }
 
 form.login-form,
@@ -154,7 +153,7 @@ input#submit, .logout-btn {
     font-family: 'Montserrat', sans-serif;
     width: 100%;
     padding: 10px 20px;
-    margin: 10px 0px;
+    margin: 10px 0;
     font-size: 1.2rem;
     text-transform: uppercase;
     font-weight: 500;
@@ -165,7 +164,6 @@ input#submit:hover,
 input#confirm:hover,
 .logout-btn:hover {
     background-color: var(--p-red)
-    /* background-color: #e84610d2; */
 }
 
 .d-flex.submit {
@@ -201,7 +199,6 @@ a.link-text:hover {
 
 .auth-footer-cta {
     font-size: 1rem;
-    /* text-shadow: 1px 1px 2px #44526163; */
     text-decoration: none;
 }
 /* ------------./end-authentication-forms ------------ */
