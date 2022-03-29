@@ -48,7 +48,7 @@ a.link-text:hover {
 
 
 /* ------------ Authentication Forms ------------ */
-h1.auth-header{
+h1.auth-header {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     text-transform: uppercase;
@@ -125,7 +125,8 @@ input, input#username, input#password {
 
 form.login-form,
 form.register-form,
-form.reset-password {
+form.reset-password,
+form.logout-form {
     display: flex;
     flex-direction: column;
     min-width: 100%;
@@ -135,8 +136,19 @@ form.reset-password {
     font-family: 'Montserrat', sans-serif;
 }
 
+.logout-card {
+    min-height: 50vh;
+}
+
+.logout-auth {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: var(--p-navy);
+}
+
 input#confirm,
-input#submit {
+input#submit, .logout-btn {
+    color: var(--s-grey);
     background-color: var(--p-orange);
     border: none;
     font-family: 'Montserrat', sans-serif;
@@ -149,7 +161,9 @@ input#submit {
     letter-spacing: 1px;
 }
 
-input#submit:hover {
+input#submit:hover,
+input#confirm:hover,
+.logout-btn:hover {
     background-color: var(--p-red)
     /* background-color: #e84610d2; */
 }
