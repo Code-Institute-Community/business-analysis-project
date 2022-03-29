@@ -26,12 +26,14 @@ def register():
 
         register = {
             "username": request.form.get("username").lower(),
+            "email": request.form.get("email").lower(),
+            "is_active": True,
+            "is_admin": False,
             "password": generate_password_hash(request.form.get("password"))
         }
         mongo.db.users.insert_one(register)
-
-        # put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
+        user_obj = User(register)
+        login_user(user_obj)
         flash("Registration Successful!")
         return redirect(url_for('home.view_home'))
     return render_template("auth/register.html", form = RegisterForm(request.form))
@@ -53,10 +55,10 @@ def login():
             # make sure the password is correct
             if check_password_hash(
                 user["password"], request.form.get("password")):
-                user_obj = User(username=user['username'])
-                loggedin = login_user(user_obj)
-                request.form.get("submit")
-                flash("Welcome, {}".format(request.form.get("username")))
+                user_obj = mongo.db.users.find_one(
+                    {"username": request.form.get("username").lower()})
+                login_user(User(user_obj))
+                flash("Login Successful!")
                 return redirect(url_for('home.view_home'))
             else:
                 # If password is invalid

@@ -7,7 +7,10 @@ from bson.objectid import ObjectId
 
 from app import mongo
 
-organisations = Blueprint("organisations", __name__, template_folder='templates')
+from app.models.user import User
+
+organisations = Blueprint("organisations", __name__,
+                          template_folder='templates')
 
 
 @organisations.route('/', methods=['GET', 'POST'])
@@ -16,9 +19,13 @@ def get_organisations():
     '''
     Display a list of all organisations in table format for admin user
     '''
-    organisations = mongo.db.organisations.find()
+
+    # TODO: remove user if not necessary for adding favourite company to a user
+    user = User.find_one_user(session["_user_id"].lower())
+    organisations = list(mongo.db.organisations.find())
     return render_template('organisations/list_organisations.html',
-                           organisations=organisations)
+                           organisations=organisations,
+                           favourites=user["favourites"])
 
 
 # TODO: define user role permission for admin and user. When user submits
