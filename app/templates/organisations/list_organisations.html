@@ -48,7 +48,7 @@
                     <span class="visually-hidden">Delete organisation</span>
                 </a>
                 <!-- Favourites company-->
-                {% if organisation._id in user.favourites %}
+                {% if organisation._id in favourites %}
                 <button class="btn btn-outline-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove from favourite">
                     <i class="bi bi-heart-fill" aria-hidden="true"></i>
                     <span class="visually-hidden">Favourited company</span>

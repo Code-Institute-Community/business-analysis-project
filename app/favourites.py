@@ -20,7 +20,8 @@ favourites = Blueprint("favourites", __name__, template_folder='templates')
 @login_required
 def add_to_favourites():
     """
-    Function to add a company to a user's favourite, requiring user to be logged-in
+    Function to add a company to a user's favourite, requiring user to be
+    logged-in
     - Post request received from script.js / organisation.html
     - Retrieve the company ID from the data
     - Check if company has been added to favourites
@@ -41,5 +42,3 @@ def add_to_favourites():
         message = "success"
 
     return jsonify(message)
-
-    

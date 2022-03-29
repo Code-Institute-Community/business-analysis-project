@@ -9,7 +9,9 @@ from app import mongo
 
 from app.models.user import User
 
-organisations = Blueprint("organisations", __name__, template_folder='templates')
+organisations = Blueprint("organisations", __name__,
+                          template_folder='templates')
+
 
 @organisations.route('/', methods=['GET', 'POST'])
 @login_required
@@ -22,7 +24,8 @@ def get_organisations():
     user = User.find_one_user(session["_user_id"].lower())
     organisations = list(mongo.db.organisations.find())
     return render_template('organisations/list_organisations.html',
-                           organisations=organisations, user=user)
+                           organisations=organisations,
+                           favourites=user["favourites"])
 
 
 # TODO: define user role permission for admin and user. When user submits
