@@ -99,7 +99,7 @@ input, input#username, input#password {
     border: none;
     width: 400px;
     height: auto;
-    /* background-color: var(--bg-grey); */
+    background-color: var(--bg-grey);
     color: var(--p-grey);
 }
 
@@ -113,7 +113,6 @@ input, input#username, input#password {
 
 .card-header, .card-header.card-header-light {
     color: var(--p-navy);
-    background-color: #fff;
     border: none;
     margin: 0px auto;
     padding: 0px 0px;
@@ -172,7 +171,7 @@ label.form-label {
 
 .card-footer {
     font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 a.card-footer-text {
@@ -197,4 +196,8 @@ a.link-text:hover {
     color: #23bbbb91
 }
 
+i.fas.fa-lock, i.fas.fa-user-plus {
+    color: var(--p-navy);
+    text-shadow: 1px 1px 3px var(--p-navy);
+}
 /* ------------./end-authentication-forms ------------ */

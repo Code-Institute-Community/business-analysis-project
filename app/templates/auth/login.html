@@ -3,6 +3,7 @@
 {% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
 
 {% block content %}
+<!--start-content-->
 <main class="form-login container-fluid mt-3 mt-md-5" id="login-form">
     <!--start-row-->
     <div class="row">
@@ -36,25 +37,31 @@
                     <!--start-card-footer-->
                     <div
                         class="card-footer border-0 mb-3 mb-md-5 mi-auto bg-transparent d-block d-md-flex justify-content-between">
-                            <div class="auth-footer-cta text-center ms-md-3 mb-3">
-                                <div class="reset-password">
-                                    <i class="fas fa-lock"></i>
+                        <!--start-auth-reset-password-cta-->
+                        <div class="auth-footer-cta text-center ms-md-3 mb-3">
+                            <a class="card-footer-text" href="{{ url_for('auth.reset_password') }}">
+                                <div>
+                                    <i class="fas fa-lock fa-1x"></i>
                                 </div>
-                                <div class="text-small">
-                                    <a class="card-footer-text" href="{{ url_for('auth.reset_password') }}"> Reset
-                                        password</a>
+                                <div class="text-center">
+                                    <p class="card-footer-text">Forgot Password?</p>
                                 </div>
-                            </div>
-                            <div class="register-cta-auth text-center me-md-3 mb-3">
-                                <div class="reset-password">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div class="text-small">
-                                    <a class="card-footer-text" href="{{ url_for('auth.reset_password') }}"> Reset
-                                        password</a>
-                                </div>
-                            </div>
+                            </a>
                         </div>
+                        <!--./end-auth-reset-password-cta-->
+                        <!--start-auth-register-cta-->
+                        <div class="auth-footer-cta text-center me-md-3 mb-3">
+                            <a class="card-footer-text" href="{{ url_for('auth.register') }}">
+                                <div>
+                                    <i class="fas fa-user-plus fa-1x"></i>
+                                </div>
+                                <div class="text-center">
+                                    <p class="card-footer-text">Register</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!--./end-auth-register-cta-->
+                    </div>
                     <!--./end-card-footer-->
                 </div>
                 <!--./end-card-->
@@ -64,6 +71,6 @@
         <!--./end-col-->
     </div>
     <!--./end-row-->
-
 </main>
+<!--./end-content-->
 {% endblock %}
