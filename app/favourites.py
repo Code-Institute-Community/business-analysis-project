@@ -20,7 +20,7 @@ favourites = Blueprint("favourites", __name__, template_folder='templates')
 @login_required
 def view_favourites():
     """
-    Function to view companies as favourite by a user
+    Function to display user's favourite companies
     - require user to be logged in
     - retrieve user in session
     - find organisations in list of user's favourites
