@@ -53,6 +53,7 @@ h1.auth-header{
     font-weight: 600;
     text-transform: uppercase;
     font-size: 2rem;
+    text-shadow: 2px 2px 4px #00000047;
 }
 
 #registerForm {
@@ -174,30 +175,17 @@ label.form-label {
     font-size: 15px;
 }
 
-a.card-footer-text {
-    color: var(--s-teal);
-    text-decoration: none;
-}
-
-a.card-footer-text:hover {
-    color: #23bbbb91
-}
-
-.register-cta {
-    font-family: 'Montserrat', sans-serif;
-    margin-top: 20px;
-}
-
 a.link-text {
-    color: var(--s-teal);
+    color: var(--s-teal); 
 }
 
 a.link-text:hover {
     color: #23bbbb91
 }
 
-i.fas.fa-lock, i.fas.fa-user-plus {
-    color: var(--p-navy);
-    text-shadow: 1px 1px 3px var(--p-navy);
+.auth-footer-cta {
+    font-size: 1rem;
+    /* text-shadow: 1px 1px 2px #44526163; */
+    text-decoration: none;
 }
 /* ------------./end-authentication-forms ------------ */

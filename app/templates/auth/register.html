@@ -4,53 +4,63 @@
 {% block content %}
 <!--start-main-->
 <main class="form-register container-fluid mt-5" id="register-form">
-        <!--start-row-->
-        <div class="row">
-            <!--start-col-->
-            <div class="col-12">
-                <!--start-card-wrapper-->
-                <div class="card-wrapper">
-                    <!--start-card-->
-                    <div class="card card-light">
-                        <!--start-card-header-->
-                        <div class="card-header card-header-light">
+    <!--start-row-->
+    <div class="row">
+        <!--start-col-->
+        <div class="col-12">
+            <!--start-card-wrapper-->
+            <div class="card-wrapper">
+                <!--start-card-->
+                <div class="card card-light">
+                    <!--start-card-header-->
+                    <div class="card-header bg-transparent border-0">
                         <h1 class="mt-5 text-center auth-header">Register</h1>
                         <hr class="divider mt-4">
-                        </div>
-                        <!--./end-card-header-->
-                        <!--start-card-body-->
-                        <div class="card-body card-body-light">
-                        <form name="register" class="register-form" method="POST" action="{{ url_for('auth.register') }}">
+                    </div>
+                    <!--./end-card-header-->
+                    <!--start-card-body-->
+                    <div class="card-body card-body-light">
+                        <!--start-form-->
+                        <form name="register" class="register-form" method="POST"
+                            action="{{ url_for('auth.register') }}">
                             {{ form.hidden_tag() }}
                             {{ form.csrf_token }}
                             {{ render_field(form.username) }}
                             {{ render_field(form.password) }}
                             {{ render_field(form.email) }}
                             <div class="button-wrapper">
-                            {{ render_field(form.submit) }}
+                                {{ render_field(form.submit) }}
                             </div>
                             <!--start-card-footer-->
-                            <div class="card-footer border-0 bg-transparent">
-                            <div class="row d-flex text-center">
-                                <div class="col-12">
+                            <div class="card-footer border-0 bg-transparent mt-3">
+                                <!--start-auth-register-cta-->
+                                <div class="auth-footer-cta text-center me-md-3 mb-3">
                                     <p>Already have an account?</p>
-                                    <a class="link-text" href="{{ url_for('auth.login') }}">Login</a>
+                                    <a class="link-text" href="{{ url_for('auth.login') }}">
+                                        <div>
+                                            <i class="link-text fas fa-sign-in-alt fa-1x"></i>
+                                        </div>
+                                        <div class="text-center">
+                                            <p class="card-footer-text">Login</p>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
+                                <!--./end-auth-register-cta-->
+
                             </div>
                             <!--./end-card-footer-->
                         </form>
-                        </div>
-                        <!--./end-card-body-->
+                        <!--./end-form-->
                     </div>
-                    <!--./end-card-->
+                    <!--./end-card-body-->
                 </div>
-                <!--./end-card-wrapper-->
+                <!--./end-card-->
             </div>
-            <!--./end-col-->
+            <!--./end-card-wrapper-->
         </div>
-        <!--./end-row-->
+        <!--./end-col-->
+    </div>
+    <!--./end-row-->
 </main>
 <!--./end-main-->
 {% endblock %}
-
