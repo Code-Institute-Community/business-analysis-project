@@ -11,7 +11,7 @@ for (var i = 0; i < addFavourites.length; i++) {
 // Function to add a company to favourites and reload page to location
 function addToFavourites(e) {
   let organisationId = this.getAttribute('data-company');
-  let url = '/add_to_favourites';
+  let url = '/favourites/add_to_favourites';
   fetch(url, {
     method: 'post',
     body: `companyId=${organisationId}`,
