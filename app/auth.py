@@ -29,7 +29,8 @@ def register():
             "email": request.form.get("email").lower(),
             "is_active": True,
             "is_admin": False,
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "favourites": []
         }
         mongo.db.users.insert_one(register)
         user_obj = User(register)
