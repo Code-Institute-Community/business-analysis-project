@@ -2,17 +2,20 @@
 
 A Collaborative Open-Source Project where we are looking for a way to put regional Irish IT businesses into clusters based on their services/products. The information about their services/products should be found on their website, but are not in a format it can be used for applications.
 
-# Prerequisists
+# Prerequisites
 
 - Python 3.8+
 - MongoDB (either an ATLAS instance or locally installed)
+- An access token from mapbox [Click here to request a token](https://account.mapbox.com/access-tokens/). You will need to create an account.  
+    [Quick Start example](https://leafletjs.com/SlavaUkraini/examples/quick-start/example-basic.html) uses "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
 
 # How to run the project
 
 1) Create a new `env.py` file with the content from the `env.py.sample` file. Update the `MONGO_URI` and `MONGO_DBNAME` if necessary.
+1) Update the `ACCESS_TOKEN` value with the one you received from [mapbox](https://account.mapbox.com/access-tokens/).
 1) Install the requirements (optionally create a new virtual environment )
 1) Run `python seed.py` from the terminal. This will add some demo data to your MongoDB.
-1) Start the app running `pyhton3 run.py` from the terminal
+1) Start the app running `python3 run.py` from the terminal
 
 # Flask Blueprint
 
@@ -169,3 +172,5 @@ Contribution will be rewarded with special participation badges and prizes.
 
 - Code to create keywords from a text is from Xu Liang.
   - [Understand TextRank for Keyword Extraction by Python](https://towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0)
+- Tutorials on how to use Leaflet for the map functionality
+  - [Leaflet](https://leafletjs.com/SlavaUkraini/examples/quick-start/)
