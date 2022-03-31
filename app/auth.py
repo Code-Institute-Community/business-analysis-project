@@ -17,23 +17,15 @@ auth = Blueprint("auth", __name__, template_folder='templates')
 def register():
     if request.method == "POST":
         # check if username already exists in db
-        current_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
-
-        if current_user:
+        user = User.find_one_user(request.form.get("username"))
+        if user:
             flash("Username already exists")
             return redirect(url_for("auth.register"))
 
-        register = {
-            "username": request.form.get("username").lower(),
-            "email": request.form.get("email").lower(),
-            "is_active": True,
-            "is_admin": False,
-            "password": generate_password_hash(request.form.get("password")),
-            "favourites": []
-        }
-        mongo.db.users.insert_one(register)
-        user_obj = User(register)
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        user_obj = User.register(username, email, password)
         login_user(user_obj)
         flash("Registration Successful!")
         return redirect(url_for('home.view_home'))
@@ -49,16 +41,12 @@ def login():
     form = LoginForm()
     if request.method == "POST":
         # Check if username already exists in db
-        user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
-  
+        user = user = User.find_one_user(request.form.get("username"))
         if user and User.check_password(user['password'], form.password.data):
             # make sure the password is correct
             if check_password_hash(
                 user["password"], request.form.get("password")):
-                user_obj = mongo.db.users.find_one(
-                    {"username": request.form.get("username").lower()})
-                login_user(User(user_obj))
+                login_user(User(user))
                 flash("Login Successful!")
                 return redirect(url_for('home.view_home'))
             else:
@@ -87,10 +75,9 @@ def logout():
 def reset_password():
     form = ResetPasswordForm()
     if request.method == "POST":
-        mongo.db.users.update_one(
-            {"username": form.username.data.lower()},
-            {"$set": {"password": generate_password_hash(form.password.data)}}
-        )
+        username = form.username.data.lower()
+        new_password = form.password.data
+        User.update_password(username, new_password)
         flash("Password Updated")
         return redirect(url_for("auth.login"))
     return render_template("auth/reset_password.html", form=form)
