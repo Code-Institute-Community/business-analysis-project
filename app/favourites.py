@@ -59,3 +59,28 @@ def add_to_favourites():
         message = "success"
 
     return jsonify(message)
+
+
+@favourites.route("/remove_from_favourites", methods=["GET", "POST"])
+@login_required
+def remove_from_favourites():
+    """
+    Function to remove a company from a user's favourite
+    - requires user to be logged-in
+    - Post request received from script.js / my_favourites.html
+    - Retrieve the company ID from the data and removes it from array
+      "favourites"
+    - Return success message
+    """
+    # Retrieve company id from post request
+    resp = request.form.to_dict(flat=False)
+    company_id = resp["companyId"][0]
+    # Retrieve user in session
+    user = User.find_one_user(session["_user_id"].lower())
+    if "favourites" in user:
+        User.remove_from_favourites(user['_id'], company_id)
+        message = "success"
+        return jsonify(message)
+    else:
+        flash("This organisation was not in your favourites")
+        return redirect(url_for('favourites.view_favourites'))

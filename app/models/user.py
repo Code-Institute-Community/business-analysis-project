@@ -91,3 +91,13 @@ class User(UserMixin):
                                       {"$set": {
                                           "favourites": [ObjectId(company_id)]}
                                        })
+
+    @staticmethod
+    def remove_from_favourites(user_id, company_id):
+        """
+        Remove from a company from user's favourite array
+        """
+        mongo.db.users.update_one({"_id": ObjectId(user_id)},
+                                  {"$pull": {
+                                        "favourites": ObjectId(company_id)}
+                                   })
