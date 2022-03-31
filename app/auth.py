@@ -41,7 +41,7 @@ def login():
     form = LoginForm()
     if request.method == "POST":
         # Check if username already exists in db
-        user = user = User.find_one_user(request.form.get("username"))
+        user = User.find_one_user(request.form.get("username"))
         if user and User.check_password(user['password'], form.password.data):
             # make sure the password is correct
             if check_password_hash(
