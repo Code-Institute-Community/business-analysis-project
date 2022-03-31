@@ -49,7 +49,7 @@
                 </a>
                 <!-- Favourites organisation-->
                 {% if organisation._id in favourites %}
-                <button class="btn btn-outline-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove from favourite">
+                <button class="btn btn-outline-dark" data-action="remove-favourite" data-organisation="{{organisation._id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove from favourite">
                     <i class="bi bi-heart-fill" aria-hidden="true"></i>
                     <span class="visually-hidden">Favourited organisation</span>
                 </button>

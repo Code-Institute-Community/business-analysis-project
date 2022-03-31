@@ -1,6 +1,7 @@
 """
 Views related to the handling and presentation of favourites companies
 """
+from bson.objectid import ObjectId
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for, jsonify,
@@ -24,7 +25,7 @@ def view_favourites():
     - retrieve user in session
     - find organisations in list of user's favourites
     """
-    return render_template('favourites/my_favourites.html',
+    return render_template('favourites/list_favourites.html',
                            favourites=current_user.get_favourites())
 
 
@@ -43,14 +44,12 @@ def add_to_favourites():
     # Retrieve organisation id from post request
     resp = request.form.to_dict(flat=False)
     organisation_id = resp["organisationId"][0]
-    # Retrieve user in session
-    user = User.find_one_user(session["_user_id"].lower())
-    if "favourites" in user and organisation_id in user["favourites"]:
+    if ObjectId(organisation_id) in current_user.favourites:
         flash("Organisation already added to favourites")
         return redirect(url_for('organisations.get_organisations'))
     else:
         # Add organisation ID to user's favourite
-        User.append_favourite(user['_id'], organisation_id)
+        current_user.append_favourite(organisation_id)
         message = "success"
 
     return jsonify(message)
@@ -62,7 +61,7 @@ def remove_from_favourites():
     """
     Function to remove a organisation from a user's favourite
     - requires user to be logged-in
-    - Post request received from script.js / my_favourites.html
+    - Post request received from script.js / list_favourites.html
     - Retrieve the organisation ID from the data and removes it from array
       "favourites"
     - Return success message
@@ -70,8 +69,7 @@ def remove_from_favourites():
     # Retrieve organisation id from post request
     resp = request.form.to_dict(flat=False)
     organisation_id = resp["organisationId"][0]
-
-    if organisation_id in current_user.get_favourites():
+    if ObjectId(organisation_id) in current_user.favourites:
         current_user.remove_from_favourites(organisation_id)
         message = "success"
         return jsonify(message)

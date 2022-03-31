@@ -2,7 +2,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for,
     Blueprint)
-from flask_login import login_required
+from flask_login import current_user, login_required
 from bson.objectid import ObjectId
 
 from app import mongo
@@ -21,11 +21,10 @@ def get_organisations():
     '''
 
     # TODO: remove user if not necessary for adding favourite organisation to a user
-    user = User.find_one_user(session["_user_id"].lower())
     organisations = list(mongo.db.organisations.find())
     return render_template('organisations/list_organisations.html',
                            organisations=organisations,
-                           favourites=user["favourites"])
+                           favourites=current_user.favourites)
 
 
 # TODO: define user role permission for admin and user. When user submits
