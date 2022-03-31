@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block content %}
+<button id="filterPanel" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter"
+    aria-expanded="false" aria-controls="collapseFilter">
+    Open Filter Panel
+</button>
+<div class="collapse" id="collapseFilter">
     <div class="row" id="filterPanel">
         <div class="col-sm-3 col-md-3 col-xl-1 filterLabel" id="nace1lab">
             <label for="nace-1-list">Nace Code 1</label>
@@ -28,13 +33,13 @@
             </select>
         </div>
     </div>
-    
+
     <div id="filterButtonRow" class="col-sm">
         <button id="filter" type="submit" class="btn btn-primary">Filter</button>
         <button id="reset" type="submit" class="btn btn-outline-primary">Reset Filter</button>
     </div>
-    
-    <div class="row">
-        <div id="map"></div>
-    </div>
+</div>
+<div class="row">
+    <div id="map"></div>
+</div>
 {% endblock %}

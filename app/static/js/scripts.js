@@ -50,11 +50,11 @@ function addOrganisations(response, map) {
             organisations = JSON.parse(this.response);
             load_nace_codes();
             markers = L.markerClusterGroup();
-            addMarkers(organisations);
+            addMarkers(organisations)
         }
         else if (this.readyState == 4)
             alert(
-                `Unfortunately the list of organisations is currently unavailable. 
+                `Unfortunately the list of organisations is currently unavailable. 	
 Please try again later.`);
     };
     xhttp.open("GET", `${window.location.href}/api/get-organisations`, true);
@@ -141,6 +141,11 @@ function load_nace_codes() {
     nace3Ref.innerHTML = html;
 }
 
+function toggleFilterPanelBtnText(){
+    const buttonRef = document.getElementById("filterPanel");
+    (buttonRef.innerHTML.includes("Open") ) ? buttonRef.innerHTML = "Close Filter Panel" : buttonRef.innerHTML = "Open Filter Panel";
+}
+
 // Enabling Bootstrap's tooltip
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -159,11 +164,11 @@ function fadeOutToasts(){
 
 if (document.getElementById("map") != null) {
     addMap();
-    
 }
 
 document.querySelector('#filter').addEventListener('click', filterList);
 document.querySelector('#reset').addEventListener('click', resetFilter);
+document.querySelector('#filterPanel').addEventListener('click', toggleFilterPanelBtnText);
 
 
 

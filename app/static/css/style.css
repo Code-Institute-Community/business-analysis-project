@@ -203,8 +203,6 @@ a.link-text:hover {
 }
 /* ------------./end-authentication-forms ------------ */
 
-/*--------------Home page styling  --------------------*/ 
-
 .leaflet-container {
     height: 85vh;
     width: 100%;
@@ -215,16 +213,17 @@ a.link-text:hover {
 
 .btn-primary {
     background-color : var(--p-blue);
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
 }
 
 .btn-primary, .btn-outline-primary {
     border-color : var(--p-blue);
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
 }
 
 #filterPanel {
-    margin-top:2rem
+    margin-top:1rem;
+    margin-bottom: 1rem;
 }
 
 .filterLabel {
@@ -233,7 +232,7 @@ a.link-text:hover {
 }
 
 #filterButtonRow {
-    padding-top: 1rem;
+    padding-top: .5rem;
     padding-bottom: 1rem;
     margin-left: 2rem
 }
