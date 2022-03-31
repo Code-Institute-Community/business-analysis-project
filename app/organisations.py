@@ -20,7 +20,7 @@ def get_organisations():
     Display a list of all organisations in table format for admin user
     '''
 
-    # TODO: remove user if not necessary for adding favourite company to a user
+    # TODO: remove user if not necessary for adding favourite organisation to a user
     user = User.find_one_user(session["_user_id"].lower())
     organisations = list(mongo.db.organisations.find())
     return render_template('organisations/list_organisations.html',
