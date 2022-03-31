@@ -203,10 +203,43 @@ a.link-text:hover {
 }
 /* ------------./end-authentication-forms ------------ */
 
+/*--------------Home page styling  --------------------*/ 
+
 .leaflet-container {
     height: 85vh;
     width: 100%;
     max-width: 100%;
     max-height: 100%;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
+
+.btn-primary {
+    background-color : var(--p-blue);
+    margin-top: 1rem;
+}
+
+.btn-primary, .btn-outline-primary {
+    border-color : var(--p-blue);
+    margin-top: 1rem;
+}
+
+#filterPanel {
+    margin-top:2rem
+}
+
+.filterLabel {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+#filterButtonRow {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-left: 2rem
+}
+
+#filter {
+    margin-right: 2rem;
+}
+
+/* --------------------end home page styling ---------------------------*/
