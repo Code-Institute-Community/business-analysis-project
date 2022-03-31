@@ -39,9 +39,27 @@
             <td>{{ organisation.nace_3_label }}</td>
             <td><a href={{ organisation.web_address }}>{{ organisation.web_address }}</a></td>
             <td>
-                <!-- to include remove from favourite action -->
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#remove-{{organisation._id}}" title="Remove from favourite">
+                    <i class="bi bi-x-circle" aria-hidden="true"></i>
+                    <span class="visually-hidden">Remove from favourite</span>
+                </button>
             </td>
         </tr>
+        <!-- modal confirmation -->
+        <div class="modal fade" id="remove-{{organisation._id}}" tabindex="-1" aria-labelledby="remove-from-favourite-confirmation" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title" id="exampleModalLabel">Are you sure to remove {{organisation.organisation_name}} from your favourites?</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" data-action="remove-favourite" data-company="{{organisation._id}}" class="btn btn-primary">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endfor %}
     </tbody>
 </table>
@@ -51,4 +69,9 @@
     <a href="{{ url_for('organisations.get_organisations') }}" class="btn btn-primary">View organisations</a>
 {% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<!-- block script for favourites scripts -->
+<script src="{{ url_for('static', filename='js/favourites.js')}}"></script>
 {% endblock %}
