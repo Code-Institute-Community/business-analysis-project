@@ -19,9 +19,10 @@ for (var i = 0; i < removeFavourites.length; i++) {
 function addToFavourites(e) {
   let organisationId = this.getAttribute('data-organisation');
   let url = '/favourites/add_to_favourites';
+  let csrf_token = document.querySelector('input[name="csrf_token"]').value
   fetch(url, {
     method: 'post',
-    body: `organisationId=${organisationId}`,
+    body: `organisationId=${organisationId}&csrf_token=${csrf_token}`,
     headers: {
         "Content-Type": "application/x-www-form-urlencoded",
     },
@@ -38,9 +39,10 @@ function addToFavourites(e) {
 function removeFromFavourites(e) {
   let organisationId = this.getAttribute('data-organisation');
   let url = '/favourites/remove_from_favourites';
+  let csrf_token = document.querySelector('input[name="csrf_token"]').value
   fetch(url, {
     method: 'post',
-    body: `organisationId=${organisationId}`,
+    body: `organisationId=${organisationId}&csrf_token=${csrf_token}`,
     headers: {
         "Content-Type": "application/x-www-form-urlencoded",
     },
