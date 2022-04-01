@@ -19,6 +19,7 @@
 <div class="row d-flex align-items-center flex-column">
     <h3 class="text-center">Edit Organization</h3>
     <form class="w-75" method="POST" action="{{ url_for('organisations.edit_organisation', organisation_id=organisation._id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="mb-3">
             <label for="organisation_name" class="form-label">Organisation's name</label>
             <input type="text" class="form-control" id="organisation_name" name="organisation_name"

@@ -1,11 +1,12 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
+from flask_wtf import CSRFProtect
 from flask_pymongo import PyMongo
-from app.config import Config
 from flask_admin import Admin
 
 from app.admin.views import DashboardView, OrganisationView, UserView
+from app.config import Config
 
 # Set an instance of PyMongo for communicating with the db.
 mongo = PyMongo()
@@ -30,6 +31,7 @@ def create_app(default_config=Config):
     login_manager.init_app(app)
     mongo.init_app(app)
     bootstrap = Bootstrap5(app)
+    csrf = CSRFProtect(app)
 
     # Import and register Blueprints to make them available
     from app.api import api

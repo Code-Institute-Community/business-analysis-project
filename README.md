@@ -137,7 +137,7 @@ Please do not alter the general layout of this template, as markdown can be very
 
 # Challenge
 
-- The primary challenge is to query an existing company name dataset, find their website, extract the relevant data which can be queried by search. 
+- The primary challenge is to query an existing organisation name dataset, find their website, extract the relevant data which can be queried by search. 
 i.e show all companies that offer IT Security services and display them on a map.
 
 - The map should have the capacity to search, filter, zoom (etc.) by service offering, skillset, location and other overlapping factors.

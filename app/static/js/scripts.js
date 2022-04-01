@@ -32,9 +32,9 @@ Please try again later.`);
 }
 
 /**
- * Adds marker to map for each company in companies array.
+ * Adds marker to map for each organisation in companies array.
  * Companies array is retrieved from the database via an API in home.py. 
- * When clicked company name and webaddress are displayed in a pop-up. 
+ * When clicked organisation name and webaddress are displayed in a pop-up. 
  * @param {string} response 
  * @param {object} map 
  */

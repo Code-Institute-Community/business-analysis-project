@@ -1,10 +1,7 @@
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import Email, InputRequired, Length
-from flask_bootstrap import Bootstrap5, SwitchField
 
-bootstrap = Bootstrap5()
-csrf = CSRFProtect()
 
 ''' A form to register a new user. '''
 class RegisterForm(FlaskForm):
