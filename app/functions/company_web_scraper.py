@@ -11,8 +11,6 @@ def scraper(url_to_scrape):
         
         # response will be provided in JSON format
         return response.text
-        
-    # url_to_scrape = "https://codeinstitute.net/ie/"
     
     # create document
     html_document = getHTMLdocument(url_to_scrape)
