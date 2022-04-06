@@ -213,12 +213,10 @@ a.link-text:hover {
 
 .btn-primary {
     background-color : var(--p-blue);
-    /* margin-top: 1rem; */
 }
 
 .btn-primary, .btn-outline-primary {
     border-color : var(--p-blue);
-    /* margin-top: 1rem; */
 }
 
 #filterPanel {

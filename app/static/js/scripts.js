@@ -54,7 +54,7 @@ function addOrganisations(response, map) {
         }
         else if (this.readyState == 4)
             alert(
-                `Unfortunately the list of organisations is currently unavailable. 	
+                `Unfortunately the list of organisations is currently unavailable.
 Please try again later.`);
     };
     xhttp.open("GET", `${window.location.href}/api/get-organisations`, true);
@@ -169,7 +169,3 @@ if (document.getElementById("map") != null) {
 document.querySelector('#filter').addEventListener('click', filterList);
 document.querySelector('#reset').addEventListener('click', resetFilter);
 document.querySelector('#filterPanel').addEventListener('click', toggleFilterPanelBtnText);
-
-
-
-
