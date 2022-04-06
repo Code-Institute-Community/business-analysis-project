@@ -84,6 +84,8 @@ function filterList() {
     const nace1 = document.querySelector('#nace-1-list');
     const nace2 = document.querySelector('#nace-2-list');
     const nace3 = document.querySelector('#nace-3-list');
+    const location = document.querySelector('#location-list');
+
     var filteredList = organisations;
     if (nace1.value) {
         filteredList = organisations.filter(org => org.nace_1_label == nace1.value);
@@ -93,6 +95,9 @@ function filterList() {
     }
     if (nace3.value) {
         filteredList = filteredList.filter(org => org.nace_3_label == nace3.value);
+    }
+    if (location.value) {
+        filterLocation = organisations.filter(location => org.longitude && org.latitude == location.value);
     }
     addMarkers(filteredList);
 }
@@ -104,6 +109,7 @@ function resetFilter() {
     document.getElementById("nace-1-list").value = '' ;
     document.getElementById("nace-2-list").value = '';
     document.getElementById("nace-3-list").value = '';
+    document.getElementById("location-list").value = '';
 }
 
 /**
@@ -114,19 +120,23 @@ function load_nace_codes() {
     const nace1List = new Set();
     const nace2List = new Set();
     const nace3List = new Set();
+    const locationList = new Set();
 
     nace1List.add("");
     nace2List.add("");
     nace3List.add("");
+    locationList.add("");
 
     for (let org of organisations) {
         nace1List.add(org.nace_1_label);
         nace2List.add(org.nace_2_label);
         nace3List.add(org.nace_3_label);
+        locationList.add(org.latitude + "," + org.longitude);
     }
     const nace1Ref = document.querySelector("#nace-1-list");
     const nace2Ref = document.querySelector("#nace-2-list");
     const nace3Ref = document.querySelector("#nace-3-list");
+    const locationRef = document.querySelector("#location-list");
 
     let html = ``;
     nace1List.forEach( org => { html += `<option value="${org}">${org}</option>`; } );
@@ -139,6 +149,10 @@ function load_nace_codes() {
     html = ``;
     nace3List.forEach(org => {html += `<option value="${org}">${org}</option>`; } );
     nace3Ref.innerHTML = html;
+
+    html = ``;
+    locationList.forEach(org => {html += `<option value="${org}">${org}</option>`; } );
+    locationRef.innerHTML = html;
 }
 
 function toggleFilterPanelBtnText(){
