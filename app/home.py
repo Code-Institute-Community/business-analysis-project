@@ -28,15 +28,3 @@ def get_access_token():
 def view_home():
     # Display home page
     return render_template("home/home.html")
-
-
-@home.route('/points', methods=['GET'])
-def get_all_points():
-    points = []
-    for organisation in get_organisations():
-        points.append({
-            'lat': organisation['latitude'],
-            'lng': organisation['longitude'],
-            'info': organisation['organisation_name']
-        })
-        return jsonify(points)
