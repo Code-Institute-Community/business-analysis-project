@@ -1,48 +1,56 @@
 <nav class="navbar bg-dark navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-    <a class="navbar-brand" href="{{ url_for('home.view_home') }}">Home</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            {% if current_user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('organisations.get_organisations') }}">
-                    Organisations
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('api.list_organisations') }}">
-                    API
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('categories.clustering') }}">
-                    Clustering Model
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('favourites.view_favourites') }}">
-                    Favourites
-                </a>
-            </li>
-            {% if current_user.is_admin %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('admin.index') }}" target="_blank">Admin Panel</a>
-            </li>
-            {% endif %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
-            </li>
-            {% endif %}
-        </ul>
-    </div>
+        <a class="navbar-brand" href="{{ url_for('home.view_home') }}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('organisations.get_organisations') }}">
+                        Organisations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('api.list_organisations') }}">
+                        API
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('categories.clustering') }}">
+                        Clustering Model
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('favourites.view_favourites') }}">
+                        Favourites
+                    </a>
+                </li>
+                {% if current_user.is_admin %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.index') }}" target="_blank">Admin Panel</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <form class="d-flex justify-content-end" method="GET" action="/search/">
+                        <input class="form-control" aria-label="Search" type="text" name="q"
+                        placeholder="Search our site">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
 </nav>
