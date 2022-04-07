@@ -1,45 +1,125 @@
-{% extends "base.html" %}
-
-{% block heading %}
-    <h1>Home page</h1>
-{% endblock %}
-
-{% block content %}
-<button id="filterPanel" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter"
-    aria-expanded="false" aria-controls="collapseFilter">
-    Open Filter Panel
+{% extends "base.html" %} {% block heading %}
+<h1>Home page</h1>
+{% endblock %} {% block content %}
+<button
+  id="filterPanel"
+  class="btn btn-primary"
+  type="button"
+  data-bs-toggle="collapse"
+  data-bs-target="#collapseFilter"
+  aria-expanded="false"
+  aria-controls="collapseFilter"
+>
+  Open Filter Panel
 </button>
 <div class="collapse" id="collapseFilter">
-    <div class="row" id="filterPanel">
-        <div class="col-sm-3 col-md-3 col-xl-1 filterLabel" id="nace1lab">
-            <label for="nace-1-list">Nace Code 1</label>
-        </div>
-        <div class="col-sm-8 col-md-8 col-xl-3" id="nace1">
-            <select class="form-select " aria-label="Dropdown list for Nace 1 codes" id="nace-1-list">
-            </select>
-        </div>
-        <div class="col-sm-3 col-md-3 col-xl-1 filterLabel" id="nace2lab">
-            <label for="nace-2-list">Nace Code 2</label>
-        </div>
-        <div class="col-sm-8 col-md-8 col-xl-3" id="nace2">
-            <select class="form-select" aria-label="Dropdown list for Nace 2 codes" id="nace-2-list">
-            </select>
-        </div>
-        <div class="col-sm-3 col-md-3 col-xl-1 filterLabel" id="nace3lab">
-            <label for="nace-3-list">Nace Code 3</label>
-        </div>
-        <div class="col-sm-8 col-md-8 col-xl-3" id="nace3">
-            <select class="form-select" aria-label="Dropdown list for Nace 3 codes" id="nace-3-list">
-            </select>
-        </div>
+  <div class="row" id="filterPanel">
+    <div class="col-sm-3 col-md-3 col-xl-1 filterLabel" id="nace1lab">
+      <label for="nace-1-list">Nace Code 1</label>
     </div>
-
-    <div id="filterButtonRow" class="col-sm">
-        <button id="filter" type="submit" class="btn btn-primary">Filter</button>
-        <button id="reset" type="submit" class="btn btn-outline-primary">Reset Filter</button>
+    <div class="col-sm-8 col-md-8 col-xl-3" id="nace1">
+      <select
+        class="form-select"
+        aria-label="Dropdown list for Nace 1 codes"
+        id="nace-1-list"
+      ></select>
     </div>
+    <div class="col-sm-3 col-md-3 col-xl-1 filterLabel" id="nace2lab">
+      <label for="nace-2-list">Nace Code 2</label>
+    </div>
+    <div class="col-sm-8 col-md-8 col-xl-3" id="nace2">
+      <select
+        class="form-select"
+        aria-label="Dropdown list for Nace 2 codes"
+        id="nace-2-list"
+      ></select>
+    </div>
+    <div class="col-sm-3 col-md-3 col-xl-1 filterLabel" id="nace3lab">
+      <label for="nace-3-list">Nace Code 3</label>
+    </div>
+    <div class="col-sm-8 col-md-8 col-xl-3" id="nace3">
+      <select
+        class="form-select"
+        aria-label="Dropdown list for Nace 3 codes"
+        id="nace-3-list"
+      ></select>
+    </div>
+  </div>
+  <div class="row gy-5">
+    <div class="col">
+      <form method="POST" action="{{ url_for('home.view_home') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="row">
+          <div class="col-md-2">
+            <select
+              class="form-select"
+              name="selected_option"
+              aria-label="Select search option"
+            >
+              <option selected>Select search option</option>
+              <option value="Location">Location</option>
+              <option value="Name">Organisation Name</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              required
+              name="search_criteria"
+              placeholder="Search criteria"
+              aria-label="Search criteria"
+            />
+          </div>
+          <div class="col-md-1">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="filterButtonRow" class="col-sm">
+    <button id="filter" type="submit" class="btn btn-primary">Filter</button>
+    <button id="reset" type="submit" class="btn btn-outline-primary">
+      Reset Filter
+    </button>
+  </div>
 </div>
 <div class="row">
-    <div id="map"></div>
+  {% if search_type == 'Location' %}
+  <div class="col-md-3">
+    <p>{{ search_type }} {{ search_criteria }}</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Description</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Web Address</td>
+          <td>Data for web address</td>
+        </tr>
+        <tr>
+          <td>Nace Label 1</td>
+          <td>data for Nace Label 1</td>
+        </tr>
+        <tr>
+          <td>Nace Label 2</td>
+          <td>Data for nace Label 2</td>
+        </tr>
+        <tr>
+          <td>Nace Label 3</td>
+          <td>Data for Nace Label 3</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="map" class="col-md-9"></div>
+  {% else %}
+  <div id="map"></div>
+  {% endif %}
 </div>
 {% endblock %}
