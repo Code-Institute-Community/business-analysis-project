@@ -51,7 +51,7 @@ function addOrganisations(response, map) {
             load_nace_codes();
             load_category_codes();
             markers = L.markerClusterGroup();
-            addMarkers(organisations)
+            addMarkers(organisations);
         }
         else if (this.readyState == 4)
             alert(
@@ -106,7 +106,7 @@ function filterList() {
     if (nace3.value) {
         filteredList = filteredList.filter(org => org.nace_3_label == nace3.value);
     }
-    return filteredList
+    return filteredList;
 }
 
 /**
@@ -123,7 +123,7 @@ function filterList() {
         let filteredOrganisationList = new Set();
         for ( let category of categories) {
             let organisationsFilteredByOneCategory = organisations.filter(org => org.category == category);
-            for (organisation of organisationsFilteredByOneCategory) {
+            for ( let organisation of organisationsFilteredByOneCategory ) {
                 filteredOrganisationList.add(organisation);
             }
         }
@@ -136,7 +136,7 @@ function filterList() {
  * Clears the selected values in the nace code dropdowns in the filter panel
  */
 function resetFilter() {
-    document.getElementById("nace-1-list").value = '' ;
+    document.getElementById("nace-1-list").value = '';
     document.getElementById("nace-2-list").value = '';
     document.getElementById("nace-3-list").value = '';
     const category_list = document.querySelector('#category-list');
@@ -197,7 +197,7 @@ function load_nace_codes() {
 
 function toggleFilterPanelBtnText(){
     const buttonRef = document.getElementById("filterPanel");
-    (buttonRef.innerHTML.includes("Open") ) ? buttonRef.innerHTML = "Close Filter Panel" : buttonRef.innerHTML = "Open Filter Panel";
+    buttonRef.innerHTML = buttonRef.innerHTML.includes("Open") ? "Close Filter Panel" : "Open Filter Panel";
 }
 
 // Enabling Bootstrap's tooltip
