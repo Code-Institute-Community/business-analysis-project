@@ -81,8 +81,10 @@ function addMarkers(organisations_list) {
  *  Filters the list of organisations by Nace Code and by Category.
  */
 function filterList() {
-    filterListByNaceCodes();
-    filterListByCategory();
+    let filteredList = organisations;
+    filteredList = filterListByNaceCodes(filteredList);
+    filteredList = filterListByCategory(filteredList);
+    addMarkers(filteredList);
 }
 
 /**
@@ -90,7 +92,7 @@ function filterList() {
  *  Selects only the organisations that match from the global list of organisations
  *  Adds a marker to the map for each organisation in the filtered list
  */
- function filterListByNaceCodes() {
+ function filterListByNaceCodes(organisations) {
     const nace1 = document.querySelector('#nace-1-list');
     const nace2 = document.querySelector('#nace-2-list');
     const nace3 = document.querySelector('#nace-3-list');
@@ -104,7 +106,7 @@ function filterList() {
     if (nace3.value) {
         filteredList = filteredList.filter(org => org.nace_3_label == nace3.value);
     }
-    addMarkers(filteredList);
+    return filteredList
 }
 
 /**
@@ -112,19 +114,22 @@ function filterList() {
  *  Selects only the organisations that match at least one of these categories from the global list of organisations 
  *  Adds a marker to the map for each organisation in the filtered list
  */
- function filterListByCategory() {
+ function filterListByCategory(organisations) {
     const category_list = document.querySelector('#category-list');
     const categories = [...category_list.options]
                      .filter(category => category.selected)
                      .map(category => category.value);
-    let filteredOrganisationList = new Set();
-    for ( let category of categories) {
-        let organisationsFilteredByOneCategory = organisations.filter(org =>  org.category == category);
-        for (organisation of organisationsFilteredByOneCategory) {
-            filteredOrganisationList.add(organisation);
+    if (categories.length) {
+        let filteredOrganisationList = new Set();
+        for ( let category of categories) {
+            let organisationsFilteredByOneCategory = organisations.filter(org => org.category == category);
+            for (organisation of organisationsFilteredByOneCategory) {
+                filteredOrganisationList.add(organisation);
+            }
         }
+        organisations = [...filteredOrganisationList];
     }
-    addMarkers([...filteredOrganisationList]);
+    return organisations;
 }
 
 /**
@@ -134,6 +139,8 @@ function resetFilter() {
     document.getElementById("nace-1-list").value = '' ;
     document.getElementById("nace-2-list").value = '';
     document.getElementById("nace-3-list").value = '';
+    const category_list = document.querySelector('#category-list');
+    const categories = [...category_list.options].forEach(category => category.selected = false);
 }
 
 /**
