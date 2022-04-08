@@ -49,6 +49,7 @@ function addOrganisations(response, map) {
         if (this.readyState == 4 && this.status == 200) {
             organisations = JSON.parse(this.response);
             load_nace_codes();
+            load_category_codes();
             markers = L.markerClusterGroup();
             addMarkers(organisations)
         }
@@ -77,14 +78,23 @@ function addMarkers(organisations_list) {
 }
 
 /**
- *  Gets the value selected in the filter panel for nace code 1, 2 and 3.
- *  Selects only the organisations that match from the global list of organisations 
+ *  Filters the list of organisations by Nace Code and by Category.
  */
 function filterList() {
+    filterListByNaceCodes();
+    filterListByCategory();
+}
+
+/**
+ *  Gets the value selected in the filter panel for nace code 1, 2 and 3.
+ *  Selects only the organisations that match from the global list of organisations
+ *  Adds a marker to the map for each organisation in the filtered list
+ */
+ function filterListByNaceCodes() {
     const nace1 = document.querySelector('#nace-1-list');
     const nace2 = document.querySelector('#nace-2-list');
     const nace3 = document.querySelector('#nace-3-list');
-    var filteredList = organisations;
+    let filteredList = organisations;
     if (nace1.value) {
         filteredList = organisations.filter(org => org.nace_1_label == nace1.value);
     }
@@ -95,6 +105,26 @@ function filterList() {
         filteredList = filteredList.filter(org => org.nace_3_label == nace3.value);
     }
     addMarkers(filteredList);
+}
+
+/**
+ *  Gets the value(s) selected in the filter panel for category code.
+ *  Selects only the organisations that match at least one of these categories from the global list of organisations 
+ *  Adds a marker to the map for each organisation in the filtered list
+ */
+ function filterListByCategory() {
+    const category_list = document.querySelector('#category-list');
+    const categories = [...category_list.options]
+                     .filter(category => category.selected)
+                     .map(category => category.value);
+    let filteredOrganisationList = new Set();
+    for ( let category of categories) {
+        let organisationsFilteredByOneCategory = organisations.filter(org =>  org.category == category);
+        for (organisation of organisationsFilteredByOneCategory) {
+            filteredOrganisationList.add(organisation);
+        }
+    }
+    addMarkers([...filteredOrganisationList]);
 }
 
 /**
@@ -139,6 +169,23 @@ function load_nace_codes() {
     html = ``;
     nace3List.forEach(org => {html += `<option value="${org}">${org}</option>`; } );
     nace3Ref.innerHTML = html;
+}
+
+/**
+ * Reads through the global organisations list and builds a list of category codes .
+ * Sets this list as the options in the multi-select category list in the filter panel. 
+ */
+ function load_category_codes() {
+    const categoryList = new Set();
+    for (let org of organisations) {
+        categoryList.add(org.category);
+    }
+
+    const categoriesRef = document.querySelector("#category-list");
+
+    let html = ``;
+    categoryList.forEach( category => { html += `<option value="${category}">${category}</option>`; } );
+    categoriesRef.innerHTML = html;
 }
 
 function toggleFilterPanelBtnText(){
