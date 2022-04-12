@@ -36,13 +36,13 @@
         <button id="reset" type="submit" class="btn btn-outline-primary">Reset Filter</button>
     </div>
 </div>
-<form name="search" class="search-form" method="POST" action="{{ url_for('search.get_search') }}">
-    {{ form.csrf_token }}
-    {{ render_field(form.search) }}
-    <div class="button-wrapper">
-        {{ render_field(form.submit) }}
-    </div>
+ 
+  <div class="d-flex  justify-content-around">
+      <form name="search" class="search-form w-100" method="POST" action="{{ url_for('search.get_search') }}">
+        {{ render_field(form.search) }}
+        <button type="submit" class="btn btn-small">{{ render_field(form.submit) }}</button>
     </form>
+    </div>
 <div class="row">
     <div id="map"></div>
 </div>
