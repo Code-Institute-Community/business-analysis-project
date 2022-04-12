@@ -16,7 +16,7 @@ search = Blueprint("search", __name__, template_folder='templates')
 @login_required
 def get_search():
   form = SearchForm()
-  data = request.form.get("query")
+  data = request.form.get("$text")
   if request.method == 'POST' and form.validate_on_submit():
       return redirect((url_for('search.search_results', query=form.search.data)))
   return redirect('home/home.html', form=form)
@@ -27,8 +27,8 @@ def get_search():
 def search_results(query):
   organisations = mongo.db.organisations.find()
   query = query.lower()
-  results = []
+  search_results = []
   for organisation in organisations:
     if query in organisation['organisation_name'].lower():
-      results.append(organisation)
-  return render_template('search/search_results.html', results=results)
+      jsonify(search_results.append(organisation))
+  return render_template('search/search_results.html', search_results=search_results)

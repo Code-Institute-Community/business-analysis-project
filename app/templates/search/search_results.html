@@ -4,16 +4,30 @@
 
 {% block heading %}
     <h1>Search results</h1>
-    {% endblock %}
+{% endblock %}
 
     {% block content %}
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Search results</h3>
+    <section class="search results">
+        {% if search_results %}
+        {% for search_result in search_results %}
+            <div class="row mt-5">
+                <div class="col-sm-12">
+                    <h2>{{ search_result.organisation_name }}</h2>
+                    <p>{{ search_result.nace_1 }} | {{ search_result.nace_1_label }}</p>
+                    <a href="{{ search_result.web_address }}" target="_blank">{{ search_result.web_address }}</a>
+                    <p>{{ search_result.postcode }}</p>
+                    <p>{{ search_result.telephone }}</p>
+                    <p>{{ search_result.email }}</p>
+                    <p>{{ search_result.website }}</p>
+                </div>
+            </div>
+        {% endfor %}
+            </div>
         </div>
-        <div class="card-body">
-            {{ results }}
-        </div>
-    </div>
+        {% else %}
+        <p>No results found</p>
+        {% endif %}
+    </section>
+    
 
 {% endblock %}
