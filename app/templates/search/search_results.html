@@ -9,19 +9,17 @@
     {% block content %}
     <section class="search results">
         {% if search_results %}
-        {% for search_result in search_results %}
             <div class="row mt-5">
-                <div class="col-sm-12">
+                {% for search_result in search_results %}
+                <div class="col-xs-12 col-md-4 my-0 mx-auto p-3 text-xs-center">
                     <h2>{{ search_result.organisation_name }}</h2>
-                    <p>{{ search_result.nace_1 }} | {{ search_result.nace_1_label }}</p>
+                    <p class="text-muted text-small">{{ search_result.nace_1 }} | {{ search_result.nace_1_label }}</p>
+                    <p class="text-muted text-small">{{ search_result.nace_2 }} | {{ search_result.nace_2_label }}</p>
+                    <p class="text-muted text-small">{{ search_result.nace_3 }} | {{ search_result.nace_3_label }}</p>
                     <a href="{{ search_result.web_address }}" target="_blank">{{ search_result.web_address }}</a>
-                    <p>{{ search_result.postcode }}</p>
-                    <p>{{ search_result.telephone }}</p>
-                    <p>{{ search_result.email }}</p>
-                    <p>{{ search_result.website }}</p>
-                </div>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
             </div>
         </div>
         {% else %}
