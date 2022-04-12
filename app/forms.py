@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import Email, InputRequired, Length
+from wtforms.validators import Email, InputRequired, Length, DataRequired
 
 
 ''' A form to register a new user. '''
@@ -26,3 +26,7 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired()])
     confirm_password = PasswordField('Confirm New Password', validators=[InputRequired()])
     confirm = SubmitField('Reset Password')
+
+class SearchForm(FlaskForm):
+    search = StringField('Search', validators=[InputRequired()])
+    submit = SubmitField('Search')

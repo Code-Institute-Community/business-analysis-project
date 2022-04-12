@@ -1,8 +1,5 @@
 {% extends "base.html" %}
-
-{% block heading %}
-    <h1>Home page</h1>
-{% endblock %}
+{% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
 
 {% block content %}
 <button id="filterPanel" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter"
@@ -39,11 +36,13 @@
         <button id="reset" type="submit" class="btn btn-outline-primary">Reset Filter</button>
     </div>
 </div>
-<form class="d-flex justify-content-end" method="GET" action="/search/">
-    <input class="form-control" aria-label="Search" type="text" name="q"
-    placeholder="Search our site">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
+<form name="search" class="search-form" method="POST" action="{{ url_for('search.get_search') }}">
+    {{ form.csrf_token }}
+    {{ render_field(form.search) }}
+    <div class="button-wrapper">
+        {{ render_field(form.submit) }}
+    </div>
+    </form>
 <div class="row">
     <div id="map"></div>
 </div>
