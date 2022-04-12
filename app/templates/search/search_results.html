@@ -4,8 +4,16 @@
 
 {% block heading %}
     <h1>Search results</h1>
-{% endblock %}
+    {% endblock %}
 
-{% block content %}
+    {% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Search results</h3>
+        </div>
+        <div class="card-body">
+            {{ results }}
+        </div>
+    </div>
 
 {% endblock %}
