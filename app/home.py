@@ -4,7 +4,7 @@ home page
 """
 import os
 import json
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request
 
 from app import mongo
 
@@ -23,7 +23,11 @@ def get_access_token():
     token = os.environ.get("ACCESS_TOKEN")
     return jsonify(token)
 
-@home.route("/")
+@home.route("/", methods=["GET", "POST"])
 def view_home():
     # Display home page
+    if request.method == "POST":
+        search_type = request.form.get("selected_option")
+        search_criteria = request.form.get("search_criteria")
+        return render_template("home/home.html",search_type=search_type, search_criteria=search_criteria)
     return render_template("home/home.html")
