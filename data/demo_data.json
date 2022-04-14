@@ -9,7 +9,8 @@
         "nace_2_label": "Information Technology",
         "nace_3": "J.62.09",
         "nace_3_label": "OTHER INFORMATION TECHNOLOGY AND COMPUTER RELATED ACTIVITIES",
-        "web_address": "www.google.com"
+        "web_address": "www.google.com",
+        "category": "Security"
     },
     {
         "organisation_name": "MICROSOFT IRELAND OPERATIONS LIMITED",
@@ -21,7 +22,8 @@
         "nace_2_label": "Information Technology",
         "nace_3": "J.62.01",
         "nace_3_label": "COMPUTER PROGRAMMING ACTIVITIES",
-        "web_address": "www.microsoft.com"
+        "web_address": "www.microsoft.com",
+        "category": "Blockchain"
     },
     {
         "organisation_name": "SALESFORCE",
@@ -33,7 +35,8 @@
         "nace_2_label": "Information Technology",
         "nace_3": "J.62.01",
         "nace_3_label": "COMPUTER PROGRAMMING ACTIVITIES",
-        "web_address": "www.salesforce.com"
+        "web_address": "www.salesforce.com",
+        "category": "CRM Solutions"
     },
     {
         "organisation_name": "ACCENTURE",
@@ -45,7 +48,8 @@
         "nace_2_label": "Information Technology",
         "nace_3": "J.62.09",
         "nace_3_label": "OTHER INFORMATION TECHNOLOGY AND COMPUTER RELATED ACTIVITIES",
-        "web_address": "www.accenture.com"
+        "web_address": "www.accenture.com",
+        "category": "Security"
     },
     {
         "organisation_name": "SAGE TECHNOLOGIES LIMITED",
@@ -57,6 +61,7 @@
         "nace_2_label": "Information Technology",
         "nace_3": "J.62.01",
         "nace_3_label": "COMPUTER PROGRAMMING ACTIVITIES",
-        "web_address": "www.sagetechnologies.com"
+        "web_address": "www.sagetechnologies.com",
+        "category": "Sound and vibration testing"
     }
 ]
