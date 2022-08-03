@@ -1,5 +1,7 @@
 from wtforms import form, fields
 
+from app.favourites import get_categories
+
 
 class UserForm(form.Form):
     username = fields.StringField('Userame')
@@ -20,3 +22,10 @@ class OrganisationForm(form.Form):
     nace_3 = fields.StringField('Nace 3')
     nace_3_label = fields.StringField('Nace 3 Label')
     web_address = fields.StringField('Web Address')
+    website_text = fields.StringField('Website Text')
+    keywords = fields.StringField('Keywords')
+    category = fields.SelectField('Category', choices=get_categories())
+
+class CategoryForm(form.Form):
+    name = fields.StringField('Name')
+    keywords = fields.StringField('Keywords')

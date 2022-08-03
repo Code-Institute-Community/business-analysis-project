@@ -5,7 +5,6 @@ from flask_wtf import CSRFProtect
 from flask_pymongo import PyMongo
 from flask_admin import Admin
 
-from app.admin.views import DashboardView, OrganisationView, UserView
 from app.config import Config
 
 # Set an instance of PyMongo for communicating with the db.
@@ -23,20 +22,21 @@ def create_app(default_config=Config):
     app = Flask(__name__)
     # Use the Config class to set the app.
     app.config.from_object(default_config)
+    
     # Pass the app to the PyMongo constructor
     # to ensure communication with the corresponding app.
     global login_manager
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-    mongo.init_app(app)
+    db = mongo.init_app(app)
     bootstrap = Bootstrap5(app)
     csrf = CSRFProtect(app)
 
     # Import and register Blueprints to make them available
+    from app.categories import categories
     from app.api import api
     from app.auth import auth
-    from app.categories import categories
     from app.charts import charts
     from app.home import home
     from app.organisations import organisations
@@ -49,10 +49,12 @@ def create_app(default_config=Config):
     app.register_blueprint(organisations, url_prefix='/organisations')
     app.register_blueprint(favourites, url_prefix="/favourites")
 
+    from app.admin.views import DashboardView, OrganisationView, UserView, CategoryView
     # Create admin interface
     admin = Admin(app, name='Business Analysis', index_view=DashboardView())
     # Add views for admin dashboard
     admin.add_view(OrganisationView(mongo.db['organisations']))
+    admin.add_view(CategoryView(mongo.db['categories']))
     admin.add_view(UserView(mongo.db['users']))
 
     return app

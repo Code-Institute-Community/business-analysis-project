@@ -1,8 +1,11 @@
 from flask_admin import AdminIndexView, expose
+from flask_admin.model.form import create_editable_list_form
+from app.favourites import get_categories_as_dict
+
 from werkzeug.security import generate_password_hash
 
 from app.admin.decorators import admin_access
-from app.admin.forms import UserForm, OrganisationForm
+from app.admin.forms import UserForm, OrganisationForm, CategoryForm
 from app.admin.flask_admin.views import CustomModelView
 
 
@@ -46,18 +49,49 @@ class UserView(CustomModelView):
             if not old_password == model['password']:
                 model['password'] = generate_password_hash(form.password.data)
 
+from wtforms import form, fields
+class OrgForm(form.Form):
+    category = fields.SelectField('Category', choices=get_categories_as_dict())
 
 class OrganisationView(CustomModelView):
-    column_list = ['organisation_name', 'latitude', 'longitude', 'nace_1',
+    column_list = ['organisation_name', 'nace_1',
                       'nace_1_label', 'nace_2', 'nace_2_label', 'nace_3',
-                      'nace_3_label', 'web_address']
-    column_sortable_list = ('organisation_name', 'latitude', 'longitude',
+                      'nace_3_label', 'web_address', 'keywords', 'category',]
+    column_sortable_list = ('organisation_name',
                               'nace_1', 'nace_1_label', 'nace_2',
                               'nace_2_label', 'nace_3', 'nace_3_label',
-                              'web_address')
-
+                              'web_address', 'keywords', 'category',)
+    column_editable_list = ('category', )
     form = OrganisationForm
 
     @admin_access
     def _handle_view(self, name, **kwargs):
         super(OrganisationView, self)._handle_view(name, **kwargs)
+    
+    def scaffold_list_form(self, widget=None, validators=None):
+        """
+            Create form for the `index_view` using only the columns from
+            `self.column_editable_list`.
+
+            :param widget:
+                WTForms widget class. Defaults to `XEditableWidget`.
+            :param validators:
+                `form_args` dict with only validators
+                {'name': {'validators': [required()]}}
+        """
+        form_class = OrgForm
+
+        return create_editable_list_form(self.form_base_class, form_class,
+                                         widget)
+
+
+
+class CategoryView(CustomModelView):
+    column_list = ['name', 'keywords', ]
+    column_sortable_list = ['name', 'keywords', ]
+
+    form = CategoryForm
+
+    @admin_access
+    def _handle_view(self, name, **kwargs):
+        super(CategoryView, self)._handle_view(name, **kwargs)

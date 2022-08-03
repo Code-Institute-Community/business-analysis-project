@@ -11,7 +11,6 @@ from app.functions.company_web_scraper import getHTMLdocument
 # Blueprint
 categories = Blueprint("categories", __name__, template_folder='templates')
 
-
 @categories.route("/clustering", methods=["GET"])
 @login_required
 def clustering():
