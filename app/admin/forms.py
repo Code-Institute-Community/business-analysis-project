@@ -1,6 +1,6 @@
 from wtforms import form, fields
 
-from app.favourites import get_categories
+from app.favourites import get_categories, get_categories_as_tuple
 
 
 class UserForm(form.Form):
@@ -29,3 +29,7 @@ class OrganisationForm(form.Form):
 class CategoryForm(form.Form):
     name = fields.StringField('Name')
     keywords = fields.StringField('Keywords')
+
+
+class OrganisationEditForm(form.Form):
+    category = fields.SelectField('Category', choices=get_categories_as_tuple())
