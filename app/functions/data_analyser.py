@@ -5,8 +5,14 @@ import requests
 
 from bs4 import BeautifulSoup
 
+from app.functions.text_rank import TextRank4Keyword
+
 logging.basicConfig(level = logging.INFO)
 
+TIMEOUT = 10
+USER_AGENT_HEADER = {
+    "User-Agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+}
 
 class DataAnalyser:
     categories  = {
@@ -59,41 +65,52 @@ class DataAnalyser:
         if not url.startswith('http'):
             url = 'https://' + url
 
-        logging.info('Starting to retrieve text from %s' % url)
-        index_response = requests.get(url)
-        index = BeautifulSoup(index_response.text, 'html.parser')
-    
-        pattern = r'^(http|https)://.*(about|products|services)'
-        links = [
-            link['href'] for link
-            in index.find_all('a', attrs={'href': re.compile(pattern)})
-            if link.get('href')
-        ]
+        website_text = ''
+        try:
+            logging.info('Starting to retrieve text from %s' % url)
+            index_response = requests.get(url, headers=USER_AGENT_HEADER, timeout=TIMEOUT)
+            index = BeautifulSoup(index_response.text, 'html.parser')
+            website_text += ''.join([p.get_text() for p in index.find_all('p')])
 
-        if links:
-            website_text = ''
-            for link in links:
-                response = requests.get(link)
-                text = BeautifulSoup(response.text, "html.parser")
-                website_text += ''.join([p.get_text() for p in text.find_all('p')])
-        else:
-            website_text = ''.join([p.get_text() for p in index.find_all('p')])
-        logging.info('Finished retriving text from %s' % url)
-        return {
-            'url': url,
-            'website_text': website_text
-        }
+            pattern = r'^(http|https)://.*(about|products|services)'
+            links = [
+                link['href'] for link
+                in index.find_all('a', attrs={'href': re.compile(pattern)})
+                if link.get('href')
+            ]
+
+            if links:
+                for link in links:
+                    response = requests.get(link, headers=USER_AGENT_HEADER, timeout=TIMEOUT)
+                    text = BeautifulSoup(response.text, "html.parser")
+                    website_text += ''.join([p.get_text() for p in text.find_all('p')])
+
+            logging.info('Finished retriving text from %s' % url)
+            return {
+                'url': url,
+                'website_text': website_text
+            }
+        except:
+            logging.info('Error retrieving content from %s' % url)
+            return {
+                'url': url,
+                'website_text': None
+            }
     
-    def retrieve_all(self):
-        for org in self.mongo_db.organisations.find({}):
+    def retrieve_all(self, query={}, refresh=False):
+        for org in self.mongo_db.organisations.find(query):
             if not org.get('web_address'):
                 logging.info('No web_address for org %s found.' % org['organisation_name'])
+                continue
+
+            if org.get('website_text') and refresh is False:
+                logging.info('Website text already extracted for org %s.' % org['organisation_name'])
                 continue
 
             result = self.retrieve_one(org['web_address'])
             if not result['website_text']:
                 continue
-            # import ipdb; ipdb.set_trace()
+
             result['url'] = org['web_address']
             updated = self._save_website_text(result)
             self.num_retrieved += updated.modified_count
@@ -107,10 +124,30 @@ class DataAnalyser:
                 counted_categories.append({category: text_count[keyword.lower()]})
         return counted_categories
 
-    def analyse_all(self):
+    def analyse_all(self, query={}):
         count = 0
-        for org in self.mongo_db.organisations.find({}):
+        for org in self.mongo_db.organisations.find(query):
+            if not org.get('website_text'):
+                continue
+
             keywords = self.count_keywords(org['website_text'], self.categories)
             updated = self._save_keywords(org['web_address'], keywords)
             count += updated.modified_count
         return count
+
+    def textrank_all(self, query={}):
+
+        for i, org in enumerate(self.mongo_db.organisations.find(query)):
+            if not org.get('website_text') or org['website_text'] == '':
+                continue
+
+            print("Analysing text for %", org['web_address'])
+            tr4w = TextRank4Keyword()
+            tr4w.analyze(org['website_text'].lower(), candidate_pos = ['NOUN', 'PROPN'], window_size=4, lower=False)
+            keywords_list = tr4w.get_keywords(10)
+            print(keywords_list)
+
+            self._save_keywords(org['web_address'], keywords_list)
+
+            if i % 100 == 0:
+                print(i)

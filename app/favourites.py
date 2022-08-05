@@ -16,6 +16,15 @@ from app.models.user import User
 favourites = Blueprint("favourites", __name__, template_folder='templates')
 
 
+def get_categories():
+    return [category['name'] for category in mongo.db.categories.find({})]
+
+def get_categories_as_tuple():
+    return [
+        (category['name'], category['name']) 
+        for i, category in enumerate(mongo.db.categories.find({}))]
+
+
 @favourites.route("/", methods=["GET", "POST"])
 @login_required
 def view_favourites():
