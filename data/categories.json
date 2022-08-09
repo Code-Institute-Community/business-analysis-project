@@ -46,5 +46,13 @@
     {
         "name": "E-Commerce",
         "keywords": []
+    },
+    {
+        "name": "Telecom",
+        "keywords": []
+    },
+    {
+        "name": "Procurement & Supply Chain",
+        "keywords": []
     }
 ]
