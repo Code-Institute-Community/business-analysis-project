@@ -10,7 +10,7 @@ from pymongo import MongoClient
 def seed():
     mongo_client = MongoClient(os.environ.get('MONGO_URI'))
     mongo_db = mongo_client[os.environ.get('MONGO_DBNAME')]
-    orgs = json.load(open('data/full_data_with_text_keywords.json'))
+    orgs = json.load(open('data/full_data_with_keywords.json'))
     mongo_db.organisations.delete_many({})
     mongo_db.organisations.insert_many(orgs)
 
