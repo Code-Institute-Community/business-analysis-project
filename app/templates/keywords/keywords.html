@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block extra_title %} Keywords list{% endblock %}
+{% block extra_keywords %}, organisation, organisations, keywords, keyword, list, tags, tag{% endblock %}
+
+{% block metas %}
+    <link rel="canonical" href="/keywords">
+    <meta name="description" content="Collective list of all the keywords from listed businesses and organizations.">
+    <meta property="og:description" content="Collective list of all the keywords from listed businesses and organizations." />
+    <meta name="image" property="og:image" content="LINK TO IMAGE" />
+    <meta property="og:image:alt" content="A list of keywords and tags from registered businesses" />
+    <meta property="og:url" content="/keywords" />
+    <meta name="twitter:description" content="Collective list of all the keywords from listed businesses and organizations.">
+    <meta name="twitter:image" content="LINK TO IMAGE">
+    <meta name="twitter:image:alt" content="A list of keywords and tags from registered businesses">
+{% endblock %}
+
+{% block content %}
+<h1>All keywords</h1>
+
+
+{% endblock %}
+
+{% block scripts %}
+<!-- block script for favourites scripts -->
+<script src="{{ url_for('static', filename='js/favourites.js')}}"></script>
+{% endblock %}
