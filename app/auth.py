@@ -43,16 +43,9 @@ def login():
         # Check if username already exists in db
         user = User.find_one_user(request.form.get("username"))
         if user and User.check_password(user['password'], form.password.data):
-            # make sure the password is correct
-            if check_password_hash(
-                user["password"], request.form.get("password")):
-                login_user(User(user))
-                flash("Login Successful!")
-                return redirect(url_for('home.view_home'))
-            else:
-                # If password is invalid
-                flash("Invalid Username and/or Password")
-                return redirect(url_for("auth.login"))               
+            login_user(User(user))
+            flash("Login Successful!")
+            return redirect(url_for('home.view_home'))            
         else:
             # If username doesn't exist
             flash("Invalid Username and/or Password")
