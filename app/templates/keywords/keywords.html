@@ -17,6 +17,10 @@
 
 {% block content %}
 <h1>All keywords</h1>
+    <p>Total number of keywords: {{ key_list|length }}</p>
+    {% for key in key_list %}
+    <p class="badge rounded-pill text-dark bg-success">{{ key }}</p>
+    {% endfor %}
 
 
 {% endblock %}
