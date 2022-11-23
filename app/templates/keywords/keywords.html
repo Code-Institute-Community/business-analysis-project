@@ -4,23 +4,29 @@
 {% block extra_keywords %}, organisation, organisations, keywords, keyword, list, tags, tag{% endblock %}
 
 {% block metas %}
-    <link rel="canonical" href="/keywords">
-    <meta name="description" content="Collective list of all the keywords from listed businesses and organizations.">
-    <meta property="og:description" content="Collective list of all the keywords from listed businesses and organizations." />
-    <meta name="image" property="og:image" content="LINK TO IMAGE" />
-    <meta property="og:image:alt" content="A list of keywords and tags from registered businesses" />
-    <meta property="og:url" content="/keywords" />
-    <meta name="twitter:description" content="Collective list of all the keywords from listed businesses and organizations.">
-    <meta name="twitter:image" content="LINK TO IMAGE">
-    <meta name="twitter:image:alt" content="A list of keywords and tags from registered businesses">
+<link rel="canonical" href="/keywords">
+<meta name="description" content="Collective list of all the keywords from listed businesses and organizations.">
+<meta property="og:description"
+    content="Collective list of all the keywords from listed businesses and organizations." />
+<meta name="image" property="og:image" content="LINK TO IMAGE" />
+<meta property="og:image:alt" content="A list of keywords and tags from registered businesses" />
+<meta property="og:url" content="/keywords" />
+<meta name="twitter:description"
+    content="Collective list of all the keywords from listed businesses and organizations.">
+<meta name="twitter:image" content="LINK TO IMAGE">
+<meta name="twitter:image:alt" content="A list of keywords and tags from registered businesses">
 {% endblock %}
 
 {% block content %}
-<h1>All keywords</h1>
+<div class="container">
+
+    <h1>All keywords</h1>
     <p>Total number of keywords: {{ key_list|length }}</p>
-    {% for key in key_list %}
+    <p>Total number of <strong>Unique</strong> keywords: {{ unq_keys|length }}</p>
+    {% for key in unq_keys %}
     <p class="badge rounded-pill text-dark bg-success">{{ key }}</p>
     {% endfor %}
+</div>
 
 
 {% endblock %}
