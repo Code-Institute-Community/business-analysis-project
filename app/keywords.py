@@ -20,6 +20,11 @@ key_list = [] # clean keywords-only list
 
 unq_keys = [] # list of unique keys (no duplicate keywords)
 
+ignore_words_list ={
+        "ignor1": "1",
+        "ignor2": "ignor2"
+}
+
 @keywords.route("/")
 def view_keywords():
     # Display keywords page
@@ -39,6 +44,8 @@ def view_keywords():
                     key_list.append(key[0])
     unq_keys = list(dict.fromkeys(key_list)) # remove duplicate keyswords
     print(len(key_list))
+
+    # mongo.db.ignor_words.insert_one(ignore_words_list) ### creates/adds to ignore words collection
     # counts = dict(Counter(key_list))
     # duplicates = {key:value for key, value in counts.items() if value > 1} # find the repetition of each keyword
     
