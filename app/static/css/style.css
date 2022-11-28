@@ -240,3 +240,9 @@ a.link-text:hover {
 }
 
 /* --------------------end home page styling ---------------------------*/
+#keywords-form .badge {
+    background-color: var(--s-teal);
+}
+#keywords-form .btn-check:checked + label {
+    background-color: var(--p-red);
+} 

@@ -25,7 +25,7 @@ ignore_words_list ={
         "ignor2": "ignor2"
 }
 
-@keywords.route("/")
+@keywords.route("/", methods=["GET", "POST"])
 def view_keywords():
     # Display keywords page
     # website_text --- keywords
@@ -44,6 +44,9 @@ def view_keywords():
                     key_list.append(key[0])
     unq_keys = list(dict.fromkeys(key_list)) # remove duplicate keyswords
     print(len(key_list))
+
+    if request.method == "POST":
+        print(request.form.getlist("keyword-option"))
 
     # mongo.db.ignor_words.insert_one(ignore_words_list) ### creates/adds to ignore words collection
     # counts = dict(Counter(key_list))
