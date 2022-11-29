@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block extra_title %} Keywords list{% endblock %}
+{% block extra_keywords %}, organisation, organisations, keywords, keyword, list, tags, tag{% endblock %}
+
+{% block metas %}
+<link rel="canonical" href="/keywords">
+<meta name="description" content="Collective list of all the keywords from listed businesses and organizations.">
+<meta property="og:description"
+    content="Collective list of all the keywords from listed businesses and organizations." />
+<meta name="image" property="og:image" content="LINK TO IMAGE" />
+<meta property="og:image:alt" content="A list of keywords and tags from registered businesses" />
+<meta property="og:url" content="/keywords" />
+<meta name="twitter:description"
+    content="Collective list of all the keywords from listed businesses and organizations.">
+<meta name="twitter:image" content="LINK TO IMAGE">
+<meta name="twitter:image:alt" content="A list of keywords and tags from registered businesses">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <h1>All keywords</h1>
+    <p>Total number of keywords: {{ key_list|length }}</p>
+    <p>Total number of <strong>Unique</strong> keywords: {{ unq_keys|length }}</p>
+    <form id="keywords-form" method="POST" action="{{ url_for('keywords.view_keywords') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        {% for key in unq_keys %}
+        <input type="checkbox" class="btn-check" id="{{ key }}" value="{{ key }}" name="keyword-option"
+            autocomplete="off">
+        <label class="btn badge rounded-pill text-dark my-1" for="{{ key }}">{{ key }}</label>
+        {% endfor %}
+        <br>
+        <button type="submit" class="btn btn-primary mt-2">Add selected words to ignored words list</button>
+    </form>
+    <h4 class="mt-3">Ignored words:</h4>
+    <div>
+        {% for word in ignore_words %}
+         <p class="btn badge rounded-pill bg-secondary disabled my-1">{{ word }}</p>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<!-- block script for favourites scripts -->
+<script src="{{ url_for('static', filename='js/favourites.js')}}"></script>
+{% endblock %}

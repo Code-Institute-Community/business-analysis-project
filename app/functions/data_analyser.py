@@ -142,7 +142,7 @@ class DataAnalyser:
                 continue
 
             print("Analysing text for %", org['web_address'])
-            tr4w = TextRank4Keyword()
+            tr4w = TextRank4Keyword() # loop to remove unwanted words from text/ replace with empty string
             tr4w.analyze(org['website_text'].lower(), candidate_pos = ['NOUN', 'PROPN'], window_size=4, lower=False)
             keywords_list = tr4w.get_keywords(10)
             print(keywords_list)
