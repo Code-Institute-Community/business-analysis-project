@@ -31,10 +31,10 @@
         <label class="btn badge rounded-pill text-dark my-1" for="{{ key }}">{{ key }}</label>
         {% endfor %}
         <br>
-        <button type="submit" class="btn btn-primary mt-2">Save</button>
+        <button type="submit" class="btn btn-primary mt-2">Add selected words to ignored words list</button>
     </form>
-    <p class="mt-3">Ignored words:</p>
-    <div class="border border-secondary mb-3">
+    <h4 class="mt-3">Ignored words:</h4>
+    <div>
         {% for word in ignore_words %}
          <p class="btn badge rounded-pill bg-secondary disabled my-1">{{ word }}</p>
         {% endfor %}
