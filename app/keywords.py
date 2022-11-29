@@ -14,15 +14,17 @@ keywords = Blueprint("keywords", __name__, template_folder='templates')
 
 data = json.load(open('data/full_data_with_keywords.json'))
 
-all_keywords = [] # all the keywords with their ranking
+all_keywords, key_list, unq_keys, ignore_words, ignored = ([] for i in range(5))
 
-key_list = [] # clean keywords-only list
+# all_keywords = [] # all the keywords with their ranking
 
-unq_keys = [] # list of unique keys (no duplicate keywords)
+# key_list = [] # clean keywords-only list
 
-ignore_words = []
+# unq_keys = [] # list of unique keys (no duplicate keywords)
 
-ignored = []
+# ignore_words = []
+
+# ignored = []
 
 @keywords.route("/", methods=["GET", "POST"])
 def view_keywords():
