@@ -24,14 +24,20 @@
     <p>Total number of keywords: {{ key_list|length }}</p>
     <p>Total number of <strong>Unique</strong> keywords: {{ unq_keys|length }}</p>
     <form id="keywords-form" method="POST" action="{{ url_for('keywords.view_keywords') }}">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         {% for key in unq_keys %}
-        <input type="checkbox" class="btn-check" id="{{ key }}" value="{{ key }}" name="keyword-option" autocomplete="off">
+        <input type="checkbox" class="btn-check" id="{{ key }}" value="{{ key }}" name="keyword-option"
+            autocomplete="off">
         <label class="btn badge rounded-pill text-dark my-1" for="{{ key }}">{{ key }}</label>
         {% endfor %}
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
-
+    <p>Ignored words:</p>
+    <div class="card border-secondary mb-3">
+        {% for word in ignore_words %}
+         {{ word }} <br>
+        {% endfor %}
+    </div>
 </div>
 
 

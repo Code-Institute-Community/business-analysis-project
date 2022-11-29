@@ -20,13 +20,19 @@ key_list = [] # clean keywords-only list
 
 unq_keys = [] # list of unique keys (no duplicate keywords)
 
-ignore_words_list ={}
+ignore_words = []
+
+ignored = []
 
 @keywords.route("/", methods=["GET", "POST"])
 def view_keywords():
     """ Aggregate and display all keywords from analyser, enable user to remove words from the list """
     # website_text --- keywords
-    # all_keywords = list(mongo.db.organisations.find())
+    existing_ignore_words = list(mongo.db.ignor_words.find())
+    for keylist in existing_ignore_words:
+        for key_ig in keylist['ignore_words']:
+            ignored.append(key_ig)
+            print(key_ig)
     if len(all_keywords) == 0:
         for item in data:
             if 'keywords' in item: # check if obj has keywords key
@@ -39,6 +45,7 @@ def view_keywords():
                 for value in item:
                     key = list(value.keys())
                     key_list.append(key[0])
+    ignore_words = list(dict.fromkeys(ignored)) # remove duplicate ignore_words
     unq_keys = list(dict.fromkeys(key_list)) # remove duplicate keyswords
     print(len(key_list))
 
@@ -46,4 +53,4 @@ def view_keywords():
         ignore_words_list = request.form.getlist("keyword-option")
         mongo.db.ignor_words.insert_one({"ignore_words": ignore_words_list}) # inserts new list to ignore words collection
     
-    return render_template('keywords/keywords.html', key_list=key_list, unq_keys=unq_keys)
+    return render_template('keywords/keywords.html', key_list=key_list, unq_keys=unq_keys, ignore_words=ignore_words)
