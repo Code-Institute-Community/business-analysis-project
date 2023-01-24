@@ -165,7 +165,7 @@ function load_nace_codes() {
     const nace2Ref = document.querySelector("#nace-2-list");
     const nace3Ref = document.querySelector("#nace-3-list");
 
-    let html = ``;
+/*     let html = ``;
     nace1List.forEach( org => { html += `<option value="${org}">${org}</option>`; } );
     nace1Ref.innerHTML = html;
 
@@ -175,7 +175,7 @@ function load_nace_codes() {
 
     html = ``;
     nace3List.forEach(org => {html += `<option value="${org}">${org}</option>`; } );
-    nace3Ref.innerHTML = html;
+    nace3Ref.innerHTML = html; */
 }
 
 /**
