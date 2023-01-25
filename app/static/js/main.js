@@ -6973,6 +6973,7 @@ const data = [
   }]
 
 const naceLvl1 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "U"]
+var sectionLetter = "";
 /* create a list of top level nace option for nace-1 filter */
 const nace1List = data.filter(dictionary => naceLvl1.includes(dictionary.Section) && dictionary.Division == null);
 
@@ -6981,11 +6982,13 @@ var nace1ValueSelected = "";
 const nace1Value = document.getElementById('nace-1-list');
 nace1Value.addEventListener('change', () => {
   nace1ValueSelected = nace1Value.value;
+  const selectedNaceIndex = nace1List.findIndex(dictionary => dictionary.Activity === nace1ValueSelected);
   console.log(nace1ValueSelected);
+  console.log(selectedNaceIndex);
   /* create a list of top level nace option for nace-2 filter based on the value in nace-1 filter */
   /* I need to get the section letter first, exclude the dictionaries that was filtered in level 1, and filter by section letter where division is not null but the rest are null */
-  var sectionLetter = nace1List[nace1ValueSelected];
-  const nace2List = nace1List.filter(dictionary => nace1ValueSelected.includes(dictionary.Section) && dictionary.Division != null && dictionary.Group == null && dictionary.Class == null);
+  var sectionLetter = nace1List[selectedNaceIndex].Section;
+  const nace2List = data.filter(dictionary => dictionary.Section == sectionLetter && dictionary.Division !== null && dictionary.Group == null && dictionary.Class == null);
   console.log(sectionLetter);
   console.log(nace2List);
 });
