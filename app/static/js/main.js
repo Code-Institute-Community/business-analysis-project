@@ -6973,28 +6973,57 @@ const data = [
   }]
 
 const naceLvl1 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "U"]
-var sectionLetter = "";
+var sectionLetter = "A";
 /* create a list of top level nace option for nace-1 filter */
 const nace1List = data.filter(dictionary => naceLvl1.includes(dictionary.Section) && dictionary.Division == null);
+
+let nace2Select = document.getElementById('nace-2-list');
+// Create new option element to set default
+let defaultOption = document.createElement("option");
+defaultOption.text = "Select second filter";
+defaultOption.disabled = true;
+// Add the option to the select element
+
+
+let nace2List;
+let nace2Options;
+
 
 var nace1ValueSelected = "";
 /* get the value of the nace-1 filter */
 const nace1Value = document.getElementById('nace-1-list');
 nace1Value.addEventListener('change', () => {
   nace1ValueSelected = nace1Value.value;
+  /* get the index of selected dictionary */
   const selectedNaceIndex = nace1List.findIndex(dictionary => dictionary.Activity === nace1ValueSelected);
-  console.log(nace1ValueSelected);
-  console.log(selectedNaceIndex);
-  /* create a list of top level nace option for nace-2 filter based on the value in nace-1 filter */
-  /* I need to get the section letter first, exclude the dictionaries that was filtered in level 1, and filter by section letter where division is not null but the rest are null */
-  var sectionLetter = nace1List[selectedNaceIndex].Section;
-  const nace2List = data.filter(dictionary => dictionary.Section == sectionLetter && dictionary.Division !== null && dictionary.Group == null && dictionary.Class == null);
-  console.log(sectionLetter);
-  console.log(nace2List);
+  sectionLetter = nace1List[selectedNaceIndex].Section;
+  /* filter data based on section and where Division is not null */
+  nace2List = data.filter(dictionary => dictionary.Section == sectionLetter && dictionary.Division !== null && dictionary.Group == null && dictionary.Class == null);
+  /* generate options for select element nace-2-list */
+  nace2Options = [...new Set(nace2List.map(dictionary => dictionary.Activity))];
+  /* check if options are empty- for initial state (before user select an option) */
+  if (nace2List === undefined || nace2List === null) {
+    nace2Select.add(defaultOption);
+    console.log("Select fileter in first NACE");
+  } else {
+    nace2Options = [...new Set(nace2List.map(dictionary => dictionary.Activity))];
+    document.getElementById('nace-2-list').innerHTML = "";
+    nace2Select.add(defaultOption);
+    nace2Select.selectedIndex = 0;
+    nace2Options.sort();
+    nace2Options.forEach(value => {
+      const optionElement = document.createElement('option');
+      optionElement.value = value;
+      optionElement.textContent = value;
+      document.getElementById('nace-2-list').appendChild(optionElement);
+      console.log("options generated");
+    })
+  };
 });
 
 
 const nace1Options = [...new Set(nace1List.map(dictionary => dictionary.Activity))];
+nace1Options.sort()
 nace1Options.forEach(value => {
   const optionElement = document.createElement('option');
   optionElement.value = value;
@@ -7002,23 +7031,5 @@ nace1Options.forEach(value => {
   document.getElementById('nace-1-list').appendChild(optionElement);
 });
 
-/* const nace2Options = [...new Set(nace2List.map(dictionary => dictionary.Activity))]; */
-/* nace2Options.forEach(value => {
-  const optionElement = document.createElement('option');
-  optionElement.value = value;
-  optionElement.textContent = value;
-  document.getElementById('nace-2-list').appendChild(optionElement);
-});
- */
-// Function to change the values in the second select input
-// based on the value selected in the first select input
-function updateSecondSelect(value) {
-  // Check if the value exists in the secondSelectValues object
-  if (value in secondSelectValues) {
-    // If the value exists, get the array of possible values for the second select input
-    var values = secondSelectValues[value];
-    // Set the options for the second select input using the values from the array
-    var options = values.map(function (v) { return '<option value="' + v + '">' + v + '</option>'; }).join('');
-    document.getElementById('secondSelect').innerHTML = options;
-  }
-}
+
+/* @TODO:copy the [nace1Value Event Listener on change] and repeat for nace2 select to generate options for nace3*/
