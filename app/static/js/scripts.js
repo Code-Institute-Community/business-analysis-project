@@ -78,7 +78,7 @@ function addMarkers(organisations_list) {
 }
 
 /**
- *  Filters the list of organisations by Nace Code and by Category.
+ *  Filters the list of organisations by Nace Code and by Category. =======================================================================================================================
  */
 function filterList() {
     let filteredList = organisations;
@@ -97,15 +97,25 @@ function filterList() {
     const nace2 = document.querySelector('#nace-2-list');
     const nace3 = document.querySelector('#nace-3-list');
     let filteredList = organisations;
-    if (nace1.value) {
-        filteredList = organisations.filter(org => org.nace_1_label == nace1.value);
-    }
-    if (nace2.value) {
-        filteredList = filteredList.filter(org => org.nace_2_label == nace2.value);
-    }
-    if (nace3.value) {
-        filteredList = filteredList.filter(org => org.nace_3_label == nace3.value);
-    }
+    /* nace1.value && nace1.value != undefined && nace1.value != null */
+    if (nace1f) {
+        filteredList = organisations.filter(org => org.nace_1 == nace1f);
+        console.log("select 1 value: " + nace1.value);
+        console.log("Nace 1 ref: " + nace1f);
+        console.log("filtered orgs 1: " + filteredList);
+    };
+    if (nace2f) {
+        filteredList = filteredList.filter(org => org.nace_1 == nace2f);
+        console.log("select 2 value: " + nace2.value);
+        console.log("Nace 2 ref: " + nace2f);
+        console.log("filtered orgs 2: " + filteredList);
+    };
+    if (nace3f) {
+        filteredList = filteredList.filter(org => org.nace_1 == nace3f);
+        console.log("select 3 value: " + nace3.value);
+        console.log("Nace 3 ref: " + nace3f);
+        console.log("filtered orgs 3: " + filteredList);
+    };
     return filteredList;
 }
 
@@ -141,7 +151,8 @@ function resetFilter() {
     document.getElementById("nace-3-list").value = '';
     const category_list = document.querySelector('#category-list');
     const categories = [...category_list.options].forEach(category => category.selected = false);
-}
+    addMarkers(organisations);
+};
 
 /**
  * Reads through the global organisations list and builds a list of codes for nace code 1, 2 and 3.

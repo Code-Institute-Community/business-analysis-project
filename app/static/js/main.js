@@ -7000,8 +7000,12 @@ let nace2List;
 let nace2Options;
 let nace3List;
 let nace3Options;
+let nace1f;
+let nace2f;
+let nace3f;
 
 
+/* first level NACE filter */
 var nace1ValueSelected = "";
 /* get the value of the nace-1 filter */
 const nace1Value = document.getElementById('nace-1-list');
@@ -7010,6 +7014,7 @@ nace1Value.addEventListener('change', () => {
   /* get the index of selected dictionary */
   const selectedNaceIndex = nace1List.findIndex(dictionary => dictionary.Activity === nace1ValueSelected);
   sectionLetter = nace1List[selectedNaceIndex].Section;
+  nace1f = sectionLetter;
   /* filter data based on section and where Division is not null */
   nace2List = data.filter(dictionary => dictionary.Section == sectionLetter && dictionary.Division !== null && dictionary.Group == null && dictionary.Class == null);
   /* generate options for select element nace-2-list */
@@ -7034,6 +7039,7 @@ nace1Value.addEventListener('change', () => {
 
 
 
+/* second level NACE filter */
 var nace2ValueSelected = "";
 /* get the value of the nace-2 filter */
 const nace2Value = document.getElementById('nace-2-list');
@@ -7043,6 +7049,7 @@ nace2Value.addEventListener('change', () => {
   const selectedNaceIndex = nace2List.findIndex(dictionary => dictionary.Activity === nace2ValueSelected);
   sectionLetter = nace2List[selectedNaceIndex].Section;
   divisionNumber = nace2List[selectedNaceIndex].Division;
+  nace2f = sectionLetter + "." + divisionNumber;
   /* filter data based on section and where Group is not null */
   nace3List = data.filter(dictionary => dictionary.Section == sectionLetter && dictionary.Division == divisionNumber && dictionary.Group != null && dictionary.Class == null);
   /* generate options for select element nace-3-list */
@@ -7063,4 +7070,21 @@ nace2Value.addEventListener('change', () => {
       document.getElementById('nace-3-list').appendChild(optionElement);
     })
   };
+});
+
+
+
+
+/* third level NACE filter */
+var nace3ValueSelected = "";
+/* get the value of the nace-2 filter */
+const nace3Value = document.getElementById('nace-3-list');
+nace3Value.addEventListener('change', () => {
+  nace3ValueSelected = nace3Value.value;
+  /* get the index of selected dictionary */
+  const selectedNaceIndex = nace3List.findIndex(dictionary => dictionary.Activity === nace3ValueSelected);
+  sectionLetter = nace3List[selectedNaceIndex].Section;
+  divisionNumber = nace3List[selectedNaceIndex].Division;
+  groupNumber = nace3List[selectedNaceIndex].Group;
+  nace3f = sectionLetter + "." + divisionNumber + "." + groupNumber;
 });
