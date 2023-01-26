@@ -6974,10 +6974,21 @@ const data = [
 
 const naceLvl1 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "U"]
 var sectionLetter = "A";
+var divisionNumber = "01";
 /* create a list of top level nace option for nace-1 filter */
 const nace1List = data.filter(dictionary => naceLvl1.includes(dictionary.Section) && dictionary.Division == null);
 
+const nace1Options = [...new Set(nace1List.map(dictionary => dictionary.Activity))];
+nace1Options.sort()
+nace1Options.forEach(value => {
+  const optionElement = document.createElement('option');
+  optionElement.value = value;
+  optionElement.textContent = value;
+  document.getElementById('nace-1-list').appendChild(optionElement);
+});
+
 let nace2Select = document.getElementById('nace-2-list');
+let nace3Select = document.getElementById('nace-3-list');
 // Create new option element to set default
 let defaultOption = document.createElement("option");
 defaultOption.text = "Select second filter";
@@ -6987,6 +6998,8 @@ defaultOption.disabled = true;
 
 let nace2List;
 let nace2Options;
+let nace3List;
+let nace3Options;
 
 
 var nace1ValueSelected = "";
@@ -7004,7 +7017,6 @@ nace1Value.addEventListener('change', () => {
   /* check if options are empty- for initial state (before user select an option) */
   if (nace2List === undefined || nace2List === null) {
     nace2Select.add(defaultOption);
-    console.log("Select fileter in first NACE");
   } else {
     nace2Options = [...new Set(nace2List.map(dictionary => dictionary.Activity))];
     document.getElementById('nace-2-list').innerHTML = "";
@@ -7016,20 +7028,39 @@ nace1Value.addEventListener('change', () => {
       optionElement.value = value;
       optionElement.textContent = value;
       document.getElementById('nace-2-list').appendChild(optionElement);
-      console.log("options generated");
     })
   };
 });
 
 
-const nace1Options = [...new Set(nace1List.map(dictionary => dictionary.Activity))];
-nace1Options.sort()
-nace1Options.forEach(value => {
-  const optionElement = document.createElement('option');
-  optionElement.value = value;
-  optionElement.textContent = value;
-  document.getElementById('nace-1-list').appendChild(optionElement);
+
+var nace2ValueSelected = "";
+/* get the value of the nace-2 filter */
+const nace2Value = document.getElementById('nace-2-list');
+nace2Value.addEventListener('change', () => {
+  nace2ValueSelected = nace2Value.value;
+  /* get the index of selected dictionary */
+  const selectedNaceIndex = nace2List.findIndex(dictionary => dictionary.Activity === nace2ValueSelected);
+  sectionLetter = nace2List[selectedNaceIndex].Section;
+  divisionNumber = nace2List[selectedNaceIndex].Division;
+  /* filter data based on section and where Group is not null */
+  nace3List = data.filter(dictionary => dictionary.Section == sectionLetter && dictionary.Division == divisionNumber && dictionary.Group != null && dictionary.Class == null);
+  /* generate options for select element nace-3-list */
+  nace3Options = [...new Set(nace3List.map(dictionary => dictionary.Activity))];
+  /* check if options are empty- for initial state (before user select an option) */
+  if (nace3List === undefined || nace3List === null) {
+    nace3Select.add(defaultOption);
+  } else {
+    nace3Options = [...new Set(nace3List.map(dictionary => dictionary.Activity))];
+    document.getElementById('nace-3-list').innerHTML = "";
+    nace3Select.add(defaultOption);
+    nace3Select.selectedIndex = 0;
+    nace3Options.sort();
+    nace3Options.forEach(value => {
+      const optionElement = document.createElement('option');
+      optionElement.value = value;
+      optionElement.textContent = value;
+      document.getElementById('nace-3-list').appendChild(optionElement);
+    })
+  };
 });
-
-
-/* @TODO:copy the [nace1Value Event Listener on change] and repeat for nace2 select to generate options for nace3*/
