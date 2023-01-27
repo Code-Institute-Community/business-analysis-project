@@ -108,7 +108,11 @@ function filterList() {
     if (nace3f) {
         filteredList = filteredList.filter(org => org.nace_3 == nace3f);
     };
-    filterCounter.innerHTML = "Found " + filteredList.length + " results"
+    if (nace1f) {
+        filterCounter.innerHTML = "Found " + filteredList.length + " results";
+    }else{
+        filterCounter.innerHTML = "No filter selected, please select at least one filter"
+    };
     return filteredList;
 }
 
@@ -144,6 +148,10 @@ function resetFilter() {
     document.getElementById("nace-2-list").disabled = true;
     document.getElementById("nace-3-list").value = '';
     document.getElementById("nace-3-list").disabled = true;
+    nace1f = ''
+    nace2f = ''
+    nace3f = ''
+    filterCounter.innerHTML = "";
     const category_list = document.querySelector('#category-list');
     const categories = [...category_list.options].forEach(category => category.selected = false);
     addMarkers(organisations);

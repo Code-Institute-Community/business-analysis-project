@@ -6981,12 +6981,17 @@ const nace1List = data.filter(dictionary => naceLvl1.includes(dictionary.Section
 document.getElementById('nace-1-list').innerHTML = "";
 const nace1Options = [...new Set(nace1List.map(dictionary => dictionary.Activity))];
 nace1Options.sort()
+nace1Options.unshift("Select first filter")
 nace1Options.forEach(value => {
   const optionElement = document.createElement('option');
   optionElement.value = value;
   optionElement.textContent = value;
   document.getElementById('nace-1-list').appendChild(optionElement);
 });
+
+const nace1FirstOption = document.getElementById('nace-1-list').getElementsByTagName('option')[0];
+nace1FirstOption.disabled = true;
+nace1FirstOption.value = "";
 
 let nace2Select = document.getElementById('nace-2-list');
 let nace3Select = document.getElementById('nace-3-list');
@@ -7032,6 +7037,7 @@ nace1Value.addEventListener('change', () => {
     document.getElementById('nace-2-list').innerHTML = "";
     document.getElementById('nace-2-list').disabled = false;
     nace2Select.add(defaultOption1);
+    nace2Select.selectedIndex = 0;
     document.getElementById('nace-3-list').innerHTML = "";
     document.getElementById('nace-3-list').disabled = true;
     nace2Options.sort();
