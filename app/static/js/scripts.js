@@ -96,26 +96,19 @@ function filterList() {
     const nace1 = document.querySelector('#nace-1-list');
     const nace2 = document.querySelector('#nace-2-list');
     const nace3 = document.querySelector('#nace-3-list');
+    let filterCounter = document.querySelector('#filterCounter');
     let filteredList = organisations;
     /* nace1.value && nace1.value != undefined && nace1.value != null */
     if (nace1f) {
         filteredList = organisations.filter(org => org.nace_1 == nace1f);
-        console.log("select 1 value: " + nace1.value);
-        console.log("Nace 1 ref: " + nace1f);
-        console.log("filtered orgs 1: " + filteredList);
     };
     if (nace2f) {
-        filteredList = filteredList.filter(org => org.nace_1 == nace2f);
-        console.log("select 2 value: " + nace2.value);
-        console.log("Nace 2 ref: " + nace2f);
-        console.log("filtered orgs 2: " + filteredList);
+        filteredList = filteredList.filter(org => org.nace_2 == nace2f);
     };
     if (nace3f) {
-        filteredList = filteredList.filter(org => org.nace_1 == nace3f);
-        console.log("select 3 value: " + nace3.value);
-        console.log("Nace 3 ref: " + nace3f);
-        console.log("filtered orgs 3: " + filteredList);
+        filteredList = filteredList.filter(org => org.nace_3 == nace3f);
     };
+    filterCounter.innerHTML = "Found " + filteredList.length + " results"
     return filteredList;
 }
 
@@ -148,7 +141,9 @@ function filterList() {
 function resetFilter() {
     document.getElementById("nace-1-list").value = '';
     document.getElementById("nace-2-list").value = '';
+    document.getElementById("nace-2-list").disabled = true;
     document.getElementById("nace-3-list").value = '';
+    document.getElementById("nace-3-list").disabled = true;
     const category_list = document.querySelector('#category-list');
     const categories = [...category_list.options].forEach(category => category.selected = false);
     addMarkers(organisations);
