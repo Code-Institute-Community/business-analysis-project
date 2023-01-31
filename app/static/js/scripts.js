@@ -48,7 +48,6 @@ function addOrganisations(response, map) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             organisations = JSON.parse(this.response);
-            load_nace_codes();
             load_category_codes();
             markers = L.markerClusterGroup();
             addMarkers(organisations);
@@ -96,16 +95,24 @@ function filterList() {
     const nace1 = document.querySelector('#nace-1-list');
     const nace2 = document.querySelector('#nace-2-list');
     const nace3 = document.querySelector('#nace-3-list');
+    let filterCounter = document.querySelector('#filterCounter');
     let filteredList = organisations;
-    if (nace1.value) {
-        filteredList = organisations.filter(org => org.nace_1_label == nace1.value);
-    }
-    if (nace2.value) {
-        filteredList = filteredList.filter(org => org.nace_2_label == nace2.value);
-    }
-    if (nace3.value) {
-        filteredList = filteredList.filter(org => org.nace_3_label == nace3.value);
-    }
+    /* nace1.value && nace1.value != undefined && nace1.value != null */
+    if (nace1f) {
+        filteredList = organisations.filter(org => org.nace_1 == nace1f);
+    };
+    if (nace2f) {
+        filteredList = filteredList.filter(org => org.nace_2 == nace2f);
+        console.log(nace2f)
+    };
+    if (nace3f) {
+        filteredList = filteredList.filter(org => org.nace_3 == nace3f);
+    };
+    if (nace1f) {
+        filterCounter.innerHTML = "Found " + filteredList.length + " results";
+    }else{
+        filterCounter.innerHTML = "No filter selected, please select at least one filter"
+    };
     return filteredList;
 }
 
@@ -138,45 +145,17 @@ function filterList() {
 function resetFilter() {
     document.getElementById("nace-1-list").value = '';
     document.getElementById("nace-2-list").value = '';
+    document.getElementById("nace-2-list").disabled = true;
     document.getElementById("nace-3-list").value = '';
+    document.getElementById("nace-3-list").disabled = true;
+    nace1f = ''
+    nace2f = ''
+    nace3f = ''
+    filterCounter.innerHTML = "";
     const category_list = document.querySelector('#category-list');
     const categories = [...category_list.options].forEach(category => category.selected = false);
-}
-
-/**
- * Reads through the global organisations list and builds a list of codes for nace code 1, 2 and 3.
- * Sets these lists as the options in the dropdowns in the filter panel 
- */
-function load_nace_codes() {
-    const nace1List = new Set();
-    const nace2List = new Set();
-    const nace3List = new Set();
-
-    nace1List.add("");
-    nace2List.add("");
-    nace3List.add("");
-
-    for (let org of organisations) {
-        nace1List.add(org.nace_1_label);
-        nace2List.add(org.nace_2_label);
-        nace3List.add(org.nace_3_label);
-    }
-    const nace1Ref = document.querySelector("#nace-1-list");
-    const nace2Ref = document.querySelector("#nace-2-list");
-    const nace3Ref = document.querySelector("#nace-3-list");
-
-    let html = ``;
-    nace1List.forEach( org => { html += `<option value="${org}">${org}</option>`; } );
-    nace1Ref.innerHTML = html;
-
-    html = ``;
-    nace2List.forEach(org => { html += `<option value="${org}">${org}</option>`; } );
-    nace2Ref.innerHTML = html;
-
-    html = ``;
-    nace3List.forEach(org => {html += `<option value="${org}">${org}</option>`; } );
-    nace3Ref.innerHTML = html;
-}
+    addMarkers(organisations);
+};
 
 /**
  * Reads through the global organisations list and builds a list of category codes .

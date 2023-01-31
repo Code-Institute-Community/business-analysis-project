@@ -222,6 +222,7 @@ a.link-text:hover {
 #filterPanel {
     margin-top:1rem;
     margin-bottom: 1rem;
+    background-color: var(--p-blue);
 }
 
 .filterLabel {
@@ -237,7 +238,22 @@ a.link-text:hover {
 
 #filter {
     margin-right: 2rem;
+    background-color: var(--p-blue);
 }
+
+#reset {
+    border-color: var(--p-red);
+    background-color: var(--p-red);
+}
+
+#filterCounter {
+    color: var(--s-teal);
+}
+
+#filter:focus, #filter:active, #reset:focus, #reset:active, #filterPanel:focus, #filterPanel:active {
+    outline: none;
+    box-shadow: none;
+ }
 
 /* --------------------end home page styling ---------------------------*/
 #keywords-form .badge {

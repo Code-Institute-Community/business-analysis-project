@@ -116,6 +116,7 @@ class DataAnalyser:
             self.num_retrieved += updated.modified_count
 
     def count_keywords(self, text, categories):
+        # retrieve exclusion words and replace each with empty string in "text" ==================================================================
         counted_categories = []
         text_count = Counter([word.replace('\n', '').lower() for word in text.split(' ')])
         for keyword in categories.keys():
@@ -143,8 +144,9 @@ class DataAnalyser:
 
             print("Analysing text for %", org['web_address'])
             tr4w = TextRank4Keyword() # loop to remove unwanted words from text/ replace with empty string
+            # retrieve exclusion words and replace each with empty string in org['website_text'] ===========================================================
             tr4w.analyze(org['website_text'].lower(), candidate_pos = ['NOUN', 'PROPN'], window_size=4, lower=False)
-            keywords_list = tr4w.get_keywords(10)
+            keywords_list = tr4w.get_keywords(10) # chage to view only words
             print(keywords_list)
 
             self._save_keywords(org['web_address'], keywords_list)
