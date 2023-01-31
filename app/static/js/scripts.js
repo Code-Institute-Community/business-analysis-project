@@ -48,7 +48,6 @@ function addOrganisations(response, map) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             organisations = JSON.parse(this.response);
-            load_nace_codes();
             load_category_codes();
             markers = L.markerClusterGroup();
             addMarkers(organisations);
@@ -78,7 +77,7 @@ function addMarkers(organisations_list) {
 }
 
 /**
- *  Filters the list of organisations by Nace Code and by Category. =======================================================================================================================
+ *  Filters the list of organisations by Nace Code and by Category.
  */
 function filterList() {
     let filteredList = organisations;
@@ -104,6 +103,7 @@ function filterList() {
     };
     if (nace2f) {
         filteredList = filteredList.filter(org => org.nace_2 == nace2f);
+        console.log(nace2f)
     };
     if (nace3f) {
         filteredList = filteredList.filter(org => org.nace_3 == nace3f);
@@ -156,41 +156,6 @@ function resetFilter() {
     const categories = [...category_list.options].forEach(category => category.selected = false);
     addMarkers(organisations);
 };
-
-/**
- * Reads through the global organisations list and builds a list of codes for nace code 1, 2 and 3.
- * Sets these lists as the options in the dropdowns in the filter panel 
- */
-function load_nace_codes() {
-    const nace1List = new Set();
-    const nace2List = new Set();
-    const nace3List = new Set();
-
-    nace1List.add("");
-    nace2List.add("");
-    nace3List.add("");
-
-    for (let org of organisations) {
-        nace1List.add(org.nace_1_label);
-        nace2List.add(org.nace_2_label);
-        nace3List.add(org.nace_3_label);
-    }
-    const nace1Ref = document.querySelector("#nace-1-list");
-    const nace2Ref = document.querySelector("#nace-2-list");
-    const nace3Ref = document.querySelector("#nace-3-list");
-
-/*     let html = ``;
-    nace1List.forEach( org => { html += `<option value="${org}">${org}</option>`; } );
-    nace1Ref.innerHTML = html;
-
-    html = ``;
-    nace2List.forEach(org => { html += `<option value="${org}">${org}</option>`; } );
-    nace2Ref.innerHTML = html;
-
-    html = ``;
-    nace3List.forEach(org => {html += `<option value="${org}">${org}</option>`; } );
-    nace3Ref.innerHTML = html; */
-}
 
 /**
  * Reads through the global organisations list and builds a list of category codes .
